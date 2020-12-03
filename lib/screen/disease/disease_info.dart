@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
@@ -7,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:doctorpurin/modal/disinfo_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class DisInformation extends StatefulWidget {
   DisInformation() : super();
 
@@ -15,14 +15,36 @@ class DisInformation extends StatefulWidget {
   @override
   _DisInformationState createState() => _DisInformationState();
 }
+class Debouncer {
+  final int milliseconds;
+  VoidCallback action;
+  Timer _timer;
+
+  Debouncer({this.milliseconds});
+
+  run(VoidCallback action) {
+    if (null != _timer) {
+      _timer
+          .cancel(); // when the user is continuosly typing, this cancels the timer
+    }
+    // then we will start a new timer looking for the user to stop
+    _timer = Timer(Duration(milliseconds: milliseconds), action);
+  }
+}
 
 class _DisInformationState extends State<DisInformation> {
-  List<DisInfo> _disease;
+  List<DisInfo> _disease ;
+  List<DisInfo> _filterdisease ;
+  DisInfo _selectedDisInfo;
   String id;
+  final _debouncer = Debouncer(milliseconds: 2000);
+
+
   @override
   void initState() {
     super.initState();
     _disease = [];
+    _filterdisease = [];
     _getDisease();
   }
 
@@ -35,7 +57,6 @@ class _DisInformationState extends State<DisInformation> {
       print("Length: ${disease.length}");
     });
   }
-
   SingleChildScrollView _dataBody() {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
@@ -53,8 +74,9 @@ class _DisInformationState extends State<DisInformation> {
                 (disease) => DataRow(
                   cells: [
                     DataCell(
-                      Text(disease.diseasename,
-                      style: TextStyle(fontFamily: 'Prompt'),
+                      Text(
+                        disease.diseasename,
+                        style: TextStyle(fontFamily: 'Prompt'),
                       ),
                       onTap: () {
                         print("name " + disease.diseasename);
@@ -72,15 +94,39 @@ class _DisInformationState extends State<DisInformation> {
     );
   }
 
+  searchField() {
+    return Padding(
+      padding: EdgeInsets.all(20.0),
+      child: TextField(
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.all(5.0),
+          hintText: 'Filter by First name or Last name',
+        ),
+        onChanged: (string) {
+          // We will start filtering when the user types in the textfield.
+          // Run the debouncer and start searching
+          _debouncer.run(() {
+            // Filter the original List and update the Filter list
+            setState(() {
+              _filterdisease = _disease
+                  .where((u) => (u.diseasename
+                          .toLowerCase()
+                          .contains(string.toLowerCase()) ||
+                      u.diseaseid.toLowerCase().contains(string.toLowerCase())))
+                  .toList();
+            });
+          });
+        },
+      ),
+    );
+  }
 
-
-
-Future<Null> showGetDis() async {
+  Future<Null> showGetDis() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String diseaseid = preferences.getString('disease_id');
 
     String url =
-        'http://192.168.1.108/apidoctor/getDisWhereId.php?isAdd=true&disease_id=$diseaseid';
+        'http://192.168.1.36/apidoctor/getDisWhereId.php?isAdd=true&disease_id=$diseaseid';
     await Dio().get(url).then((value) => {print('value = $value')});
     try {
       Response response = await Dio().get(url);
@@ -108,13 +154,12 @@ Future<Null> showGetDis() async {
     preferences.setString('disease_treatment', disInfo.diseasetreatment);
     preferences.setString('disease_defence', disInfo.diseasedefence);
     preferences.setString('disease_about', disInfo.diseaseabout);
-    preferences.setString('expertise_id', disInfo.expertiseid); 
-    preferences.setString('expertise_name', disInfo.expertisename);   
-                        MaterialPageRoute route =
-                            MaterialPageRoute(builder: (context) => myWidgett);
-                        Navigator.push(context, route);
+    preferences.setString('expertise_id', disInfo.expertiseid);
+    preferences.setString('expertise_name', disInfo.expertisename);
+    MaterialPageRoute route =
+        MaterialPageRoute(builder: (context) => myWidgett);
+    Navigator.push(context, route);
   }
- 
 
   @override
   Widget build(BuildContext context) {
@@ -122,14 +167,26 @@ Future<Null> showGetDis() async {
         appBar: AppBar(
           title: Text('ค้นหาโรคทั้งหมด'),
         ),
-        body: Container(
-           child: SingleChildScrollView(
-              child: Padding(
-            padding: const EdgeInsets.all(20.0),
-             child: _dataBody(),
-        ))));
+       body: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(20.0),
+              child:  searchField(),
+            ),
+            Expanded(
+              child: _dataBody(),
+            ),
+          ],
+        ),
+      ),
+        
+        );
   }
 }
+
+
 
 // Future<Null> readDis() async {
 //   SharedPreferences preferences = await SharedPreferences.getInstance();
