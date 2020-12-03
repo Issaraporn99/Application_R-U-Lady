@@ -35,9 +35,9 @@ class Debouncer {
 class _DisInformationState extends State<DisInformation> {
   List<DisInfo> _disease ;
   List<DisInfo> _filterdisease ;
-  DisInfo _selectedDisInfo;
+  // DisInfo _selectedDisInfo;
   String id;
-  final _debouncer = Debouncer(milliseconds: 2000);
+  final _debouncer = Debouncer(milliseconds: 500);
 
 
   @override
@@ -52,6 +52,7 @@ class _DisInformationState extends State<DisInformation> {
     Services.getDisease().then((disease) {
       setState(() {
         _disease = disease;
+        _filterdisease= disease;
       });
 
       print("Length: ${disease.length}");
@@ -65,11 +66,14 @@ class _DisInformationState extends State<DisInformation> {
         child: DataTable(
           columns: [
             DataColumn(
-                label: Text("ค้นหาโรค"),
-                numeric: false,
-                tooltip: "This is the employee id"),
+                label: Text(
+                  "ชื่อโรค",
+                  style: TextStyle(fontFamily: 'Prompt'),
+                  ),
+                
+                ),
           ],
-          rows: _disease
+          rows: _filterdisease
               .map(
                 (disease) => DataRow(
                   cells: [
@@ -96,11 +100,11 @@ class _DisInformationState extends State<DisInformation> {
 
   searchField() {
     return Padding(
-      padding: EdgeInsets.all(20.0),
+      padding: EdgeInsets.only(left: 10.0,right: 10.0),
       child: TextField(
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(5.0),
-          hintText: 'Filter by First name or Last name',
+          contentPadding: EdgeInsets.all(1.0),
+          hintText: 'ค้นหาโรค',
         ),
         onChanged: (string) {
           // We will start filtering when the user types in the textfield.
@@ -126,7 +130,7 @@ class _DisInformationState extends State<DisInformation> {
     String diseaseid = preferences.getString('disease_id');
 
     String url =
-        'http://192.168.1.36/apidoctor/getDisWhereId.php?isAdd=true&disease_id=$diseaseid';
+        'http://192.168.1.108/apidoctor/getDisWhereId.php?isAdd=true&disease_id=$diseaseid';
     await Dio().get(url).then((value) => {print('value = $value')});
     try {
       Response response = await Dio().get(url);
@@ -172,7 +176,7 @@ class _DisInformationState extends State<DisInformation> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.all(20.0),
+              padding: EdgeInsets.all(10.0),
               child:  searchField(),
             ),
             Expanded(

@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:doctorpurin/modal/disinfo_model.dart';
 
 class Services {
-  static const ROOT = 'http://192.168.1.36/apidoctor/disInfo.php?isAdd=true';
+  static const ROOT = 'http://192.168.1.108/apidoctor/disInfo.php?isAdd=true';
   static const String _GET_ACTION = 'true';
 
   static Future<List<DisInfo>> getDisease() async {
@@ -31,7 +31,7 @@ class Services {
 }
 
 class ServicesGroupBody {
-  static const ROOT = 'http://192.168.1.36/apidoctor/groupBody.php?isAdd=true&idOrgan=1';
+  static const ROOT = 'http://192.168.1.108/apidoctor/groupBody.php?isAdd=true&idOrgan=1';
   static const String _GET_ACTION = 'true';
 
   static Future<List<GroupBody>> getGroupBody() async {
