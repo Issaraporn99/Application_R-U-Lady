@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:doctorpurin/modal/groupBody.dart';
+import 'package:doctorpurin/modal/article_modal.dart';
 import 'package:http/http.dart' as http;
 import 'package:doctorpurin/modal/disinfo_model.dart';
 
@@ -30,30 +30,30 @@ class Services {
   }
 }
 
-class ServicesGroupBody {
-  static const ROOT = 'http://192.168.100.5/apidoctor/groupBody.php?isAdd=true&idOrgan=1';
+class ServicesArticle {
+  static const ROOT = 'http://192.168.100.5/apidoctor/getArticle.php?isAdd=true';
   static const String _GET_ACTION = 'true';
 
-  static Future<List<GroupBody>> getGroupBody() async {
+  static Future<List<ArticleInfo>> getArticle() async {
     try {
       var map = new Map<String, dynamic>();
       map["isAdd"] = _GET_ACTION;
       final response = await http.post(ROOT, body: map);
-      print("getGroupBody >> Response:: ${response.body}");
+      print("getArticle >> Response:: ${response.body}");
       if (response.statusCode == 200) {
-        List<GroupBody> list = parsePhotos(response.body);
+        List<ArticleInfo> list = parsePhotos(response.body);
         return list;
       } else {
-        throw List<GroupBody>();
+        throw List<ArticleInfo>();
       }
     } catch (e) {
-      return List<GroupBody>();
+      return List<ArticleInfo>();
     }
   }
 
-  static List<GroupBody> parsePhotos(String responseBody) {
+  static List<ArticleInfo> parsePhotos(String responseBody) {
     final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
-    return parsed.map<GroupBody>((json) => GroupBody.fromJson(json)).toList();
+    return parsed.map<ArticleInfo>((json) => ArticleInfo.fromJson(json)).toList();
   }
 }
 
@@ -66,7 +66,7 @@ class ServicesGroupBody {
 //   String idDisease = preferences.getString('idDisease');
 
 //   String url =
-//       'http://192.168.43.187/issaafood/disInfo.php?isAdd=true&idDisease=$idDisease';
+//       'http://192.168.43.187/issaafood/ArticleInfo.php?isAdd=true&idDisease=$idDisease';
 //   // await Dio().get(url).then((value) => {print('value = $value')});
 //   Response response = await Dio().get(url);
 //   print('dis = $response');
