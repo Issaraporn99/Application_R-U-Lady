@@ -11,7 +11,7 @@ class MyStyle {
         title,
         style: TextStyle(
           fontSize: 22.0,
-          color: Colors.blue.shade800,
+          color: Color(0xFF45046a),
           fontWeight: FontWeight.bold,
         ),
       );
@@ -20,7 +20,7 @@ class MyStyle {
         title,
         style: TextStyle(
           fontSize: 18.0,
-          color: Colors.blue.shade500,
+          color: Color(0xFF45046a),
           fontWeight: FontWeight.bold,
         ),
       );

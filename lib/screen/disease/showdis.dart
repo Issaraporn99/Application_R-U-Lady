@@ -1,12 +1,14 @@
+import 'package:doctorpurin/screen/women_home.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:carousel_slider/carousel_slider.dart';
 class ShowDis extends StatefulWidget {
   @override
   _ShowDisState createState() => _ShowDisState();
 }
 
-class _ShowDisState extends State<ShowDis> {  
+class _ShowDisState extends State<ShowDis> {
+  final CarouselController _controller = CarouselController();
   String diseaseid;
   String diseasename;
   String diseasedetail;
@@ -45,29 +47,79 @@ class _ShowDisState extends State<ShowDis> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('ข้อมูลโรค'),
+          title: Text('ข้อมูลโรค '),
         ),
-        body: Container(
-          child: SingleChildScrollView(
-              child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                nameDis(),
-                showDetail(),
-                showCause(),
-                showTreatment(),
-                showDefence(),
-                showData(),
-                showAbout(),
-                // showList(),
-                // showList2(),
-                // showList3(),
-                // showList4(),
-              ],
-            ),
-          )),
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 20, right: 20, top: 20, bottom: 5),
+                child: Text(
+                  'โรค $diseasename',
+                  style: TextStyle(
+                    color: Colors.purple[300],
+                    fontSize: 18.0,
+                  ),
+                ),
+              ),
+              CarouselSlider(
+                items: [
+                  showDetail(),
+                  showCause(),
+                  showTreatment(),
+                  showDefence(),
+                  showData(),
+                  showAbout()
+                ],
+                options: CarouselOptions(enlargeCenterPage: true, height: 400),
+                carouselController: _controller,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(bottom: 20),
+                    child: FlatButton(
+                      onPressed: () => _controller.previousPage(),
+                      child: Image.asset(
+                        'images/pre.png',
+                        width: 30,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only( bottom: 20),
+                    child: FlatButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => WomenHome()));
+                      },
+                      child: Image.asset(
+                        'images/btnh.png',
+                        width: 60,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(bottom: 20),
+                    child: FlatButton(
+                      onPressed: () => _controller.nextPage(),
+                      child: Image.asset(
+                        'images/next.png',
+                        width: 30,
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
         ));
   }
 
@@ -77,7 +129,7 @@ class _ShowDisState extends State<ShowDis> {
           child: Text(
             'โรค $diseasename',
             style: TextStyle(
-              color: Colors.blue[900],
+              color: Color(0xFF45046a),
               fontSize: 18.0,
             ),
           ),
@@ -88,22 +140,19 @@ class _ShowDisState extends State<ShowDis> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              if ('$diseasetreatment' != '')
-                  ListTile(
-                    title: Text(
-                      'การรักษา',
-                      style: TextStyle(
-                        color: Colors.blue[700],
-                        fontSize: 16.0,
-                      ),
-                    ),
+              ListTile(
+                title: Text(
+                  'การรักษา',
+                  style: TextStyle(
+                    color: Colors.blue[700],
+                    fontSize: 16.0,
                   ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                    child: Text('       $diseasetreatment'),
-                  ),
-               
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: Text('$diseasetreatment'),
+              ),
             ],
           ),
         ),
@@ -113,7 +162,6 @@ class _ShowDisState extends State<ShowDis> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              if ('$diseasedefence' != '')
               ListTile(
                 title: Text(
                   'การป้องกัน',
@@ -124,7 +172,7 @@ class _ShowDisState extends State<ShowDis> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                padding: const EdgeInsets.only(left: 20, right: 20),
                 child: Text('       $diseasedefence'),
               ),
             ],
@@ -136,7 +184,6 @@ class _ShowDisState extends State<ShowDis> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-            if ('$diseasecause' != '')
               ListTile(
                 title: Text(
                   'สาเหตุ',
@@ -183,7 +230,6 @@ class _ShowDisState extends State<ShowDis> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-            if ('$diseaseabout' != '')
               ListTile(
                 title: Text(
                   'หมายเหตุ',
@@ -217,45 +263,45 @@ class _ShowDisState extends State<ShowDis> {
                 ),
               ),
               if ('$diseaserisk' != '')
-              Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: Text(
-                    'กลุ่มเสี่ยง',
-                    style: TextStyle(
-                      color: Colors.red[700],
-                      fontSize: 15.0,
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20,right: 20),
+                    child: Text(
+                      'กลุ่มเสี่ยง',
+                      style: TextStyle(
+                        color: Colors.red[700],
+                        fontSize: 15.0,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            
+
               Align(
                 alignment: Alignment.topLeft,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 40),
+                  padding: const EdgeInsets.only(left: 40,right: 20),
                   child: Text('$diseaserisk'),
                 ),
               ),
               if ('$diseasechance' != '')
-              Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: Text(
-                    'โอกาสเกิด',
-                    style: TextStyle(
-                      color: Colors.red[700],
-                      fontSize: 15.0,
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20,right: 20),
+                    child: Text(
+                      'โอกาสเกิด',
+                      style: TextStyle(
+                        color: Colors.red[700],
+                        fontSize: 15.0,
+                      ),
                     ),
                   ),
                 ),
-              ),
               Align(
                 alignment: Alignment.topLeft,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 40),
+                  padding: const EdgeInsets.only(left: 40,right: 20),
                   child: Text('$diseasechance'),
                 ),
               ),
@@ -263,7 +309,7 @@ class _ShowDisState extends State<ShowDis> {
               Align(
                 alignment: Alignment.topLeft,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 20),
+                  padding: const EdgeInsets.only(left: 20,right: 20),
                   child: Text(
                     'ควรพบแพทย์สาขา',
                     style: TextStyle(
