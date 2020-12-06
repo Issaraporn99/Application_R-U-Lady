@@ -2,7 +2,7 @@ class ArticleInfo {
   String articlesid;
   String topic;
   String detail;
-  String issuedate;
+  DateTime issuedate;
   String id;
 
   ArticleInfo(
@@ -17,7 +17,7 @@ class ArticleInfo {
       articlesid: json['articles_id'] as String,
       topic: json['topic'] as String,
       detail: json['detail'] as String,
-      issuedate: json['issuedate'] as String,
+      issuedate: json['issuedate'] as DateTime,
       id: json['id'] as String,
     );
   }

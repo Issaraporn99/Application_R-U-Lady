@@ -1,7 +1,9 @@
 import 'package:doctorpurin/screen/women_home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+
 class ShowDis extends StatefulWidget {
   @override
   _ShowDisState createState() => _ShowDisState();
@@ -70,7 +72,7 @@ class _ShowDisState extends State<ShowDis> {
                   showTreatment(),
                   showDefence(),
                   showData(),
-                  showAbout()
+                 
                 ],
                 options: CarouselOptions(enlargeCenterPage: true, height: 400),
                 carouselController: _controller,
@@ -79,8 +81,7 @@ class _ShowDisState extends State<ShowDis> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Padding(
-                    padding:
-                        const EdgeInsets.only(bottom: 20),
+                    padding: const EdgeInsets.only(bottom: 20),
                     child: FlatButton(
                       onPressed: () => _controller.previousPage(),
                       child: Image.asset(
@@ -90,8 +91,7 @@ class _ShowDisState extends State<ShowDis> {
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsets.only( bottom: 20),
+                    padding: const EdgeInsets.only(bottom: 20),
                     child: FlatButton(
                       onPressed: () {
                         Navigator.push(
@@ -106,8 +106,7 @@ class _ShowDisState extends State<ShowDis> {
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsets.only(bottom: 20),
+                    padding: const EdgeInsets.only(bottom: 20),
                     child: FlatButton(
                       onPressed: () => _controller.nextPage(),
                       child: Image.asset(
@@ -150,9 +149,10 @@ class _ShowDisState extends State<ShowDis> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: Text('$diseasetreatment'),
-              ),
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: Html(
+                    data: ('$diseasetreatment'),
+                  )),
             ],
           ),
         ),
@@ -172,9 +172,10 @@ class _ShowDisState extends State<ShowDis> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: Text('       $diseasedefence'),
-              ),
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: Html(
+                    data: ('$diseasedefence'),
+                  )),
             ],
           ),
         ),
@@ -194,9 +195,11 @@ class _ShowDisState extends State<ShowDis> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                child: Text('       $diseasecause'),
-              ),
+                  padding:
+                      const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                  child: Html(
+                    data: ('$diseasecause'),
+                  )),
             ],
           ),
         ),
@@ -218,7 +221,9 @@ class _ShowDisState extends State<ShowDis> {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                child: Text('       $diseasedetail'),
+                child: Html(
+                  data: ('$diseasedetail'),
+                ),
               ),
             ],
           ),
@@ -241,7 +246,9 @@ class _ShowDisState extends State<ShowDis> {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                child: Text('       $diseaseabout'),
+                child: Html(
+                  data: ('$diseaseabout'),
+                ),
               ),
             ],
           ),
@@ -266,7 +273,7 @@ class _ShowDisState extends State<ShowDis> {
                 Align(
                   alignment: Alignment.topLeft,
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 20,right: 20),
+                    padding: const EdgeInsets.only(left: 20, right: 20),
                     child: Text(
                       'กลุ่มเสี่ยง',
                       style: TextStyle(
@@ -280,15 +287,15 @@ class _ShowDisState extends State<ShowDis> {
               Align(
                 alignment: Alignment.topLeft,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 40,right: 20),
-                  child: Text('$diseaserisk'),
+                  padding: const EdgeInsets.only(left: 40, right: 20),
+                  child: Html(data: ('$diseaserisk')),
                 ),
               ),
               if ('$diseasechance' != '')
                 Align(
                   alignment: Alignment.topLeft,
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 20,right: 20),
+                    padding: const EdgeInsets.only(left: 20, right: 20),
                     child: Text(
                       'โอกาสเกิด',
                       style: TextStyle(
@@ -301,15 +308,15 @@ class _ShowDisState extends State<ShowDis> {
               Align(
                 alignment: Alignment.topLeft,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 40,right: 20),
-                  child: Text('$diseasechance'),
+                  padding: const EdgeInsets.only(left: 40, right: 20),
+                  child: Html(data: ('$diseasechance')),
                 ),
               ),
               // if ('$expertiseid' != '')
               Align(
                 alignment: Alignment.topLeft,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 20,right: 20),
+                  padding: const EdgeInsets.only(left: 20, right: 20),
                   child: Text(
                     'ควรพบแพทย์สาขา',
                     style: TextStyle(
@@ -322,8 +329,24 @@ class _ShowDisState extends State<ShowDis> {
               Align(
                 alignment: Alignment.topLeft,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 40, bottom: 20),
-                  child: Text('$expertisename'),
+                  padding: const EdgeInsets.only(left: 40, bottom: 1),
+                  child: Html(data: ('$expertisename')),
+                ),
+              ),
+                if ('$diseaseabout' != '')
+               ListTile(
+                title: Text(
+                  'หมายเหตุ',
+                  style: TextStyle(
+                    color: Colors.blue[700],
+                    fontSize: 16.0,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                child: Html(
+                  data: ('$diseaseabout'),
                 ),
               ),
             ],

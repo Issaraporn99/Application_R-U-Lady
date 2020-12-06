@@ -3,8 +3,8 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:doctorpurin/modal/article_modal.dart';
-import 'package:doctorpurin/screen/article/showArticle.dart';
 import 'package:doctorpurin/screen/disease/service.dart';
+import 'package:doctorpurin/screen/includes/showArticle.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -125,7 +125,7 @@ class _ArticleState extends State<Article> {
     String articlesid = preferences.getString('articles_id');
 
     String url =
-        'http://192.168.100.5/apidoctor/getArticleWhereId.php?isAdd=true&articles_id=$articlesid';
+        'http://192.168.137.219/apidoctor/getArticleWhereId.php?isAdd=true&articles_id=$articlesid';
     await Dio().get(url).then((value) => {print('value = $value')});
     try {
       Response response = await Dio().get(url);
@@ -146,7 +146,7 @@ class _ArticleState extends State<Article> {
     preferences.setString('articles_id', articleInfo.articlesid);
     preferences.setString('topic', articleInfo.topic);
     preferences.setString('detail', articleInfo.detail);
-    preferences.setString('issuedate', articleInfo.issuedate);
+    preferences.getString('issuedate');
     preferences.setString('id', articleInfo.id);
     MaterialPageRoute route =
         MaterialPageRoute(builder: (context) => myWidgett);

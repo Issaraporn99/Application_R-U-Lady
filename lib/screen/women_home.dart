@@ -1,4 +1,3 @@
-import 'package:doctorpurin/screen/article/article.dart';
 import 'package:doctorpurin/screen/check/check_disease.dart';
 import 'package:doctorpurin/screen/disease_menu.dart';
 import 'package:doctorpurin/screen/qa/qa.dart';
@@ -6,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:doctorpurin/utility/my_style.dart';
 
 import 'check/check_disease.dart';
+import 'includes/article.dart';
 
 
 class WomenHome extends StatefulWidget {
