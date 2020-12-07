@@ -1,6 +1,7 @@
 import 'package:doctorpurin/screen/women_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html/style.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -52,73 +53,86 @@ class _ShowDisState extends State<ShowDis> {
           title: Text('ข้อมูลโรค '),
         ),
         body: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 20, right: 20, top: 20, bottom: 5),
-                child: Text(
-                  'โรค $diseasename',
-                  style: TextStyle(
-                    color: Colors.purple[300],
-                    fontSize: 18.0,
-                  ),
+          child: Column(children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Text(
+                'โรค $diseasename',
+                style: TextStyle(
+                  color: Colors.purple[300],
+                  fontSize: 18.0,
                 ),
               ),
-              CarouselSlider(
-                items: [
-                  showDetail(),
-                  showCause(),
-                  showTreatment(),
-                  showDefence(),
-                  showData(),
-                 
-                ],
-                options: CarouselOptions(enlargeCenterPage: true, height: 400),
-                carouselController: _controller,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+            CarouselSlider(
+              items: [
+                showDetail(),
+                showCause(),
+                showTreatment(),
+                showDefence(),
+                showData(),
+              ],
+              options: CarouselOptions(enlargeCenterPage: true, height: 430),
+              carouselController: _controller,
+            ),
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 20),
-                    child: FlatButton(
-                      onPressed: () => _controller.previousPage(),
-                      child: Image.asset(
-                        'images/pre.png',
-                        width: 30,
+                  Center(
+                    child: Container(
+                      height: 50,
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: FlatButton(
+                          onPressed: () => _controller.previousPage(),
+                          child: Image.asset(
+                            'images/pre.png',
+                            width: 30,
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 20),
-                    child: FlatButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => WomenHome()));
-                      },
-                      child: Image.asset(
-                        'images/btnh.png',
-                        width: 60,
+                  Center(
+                    child: Container(
+                      height: 90,
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: FlatButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => WomenHome()));
+                          },
+                          child: Image.asset(
+                            'images/btnh.png',
+                            width: 80,
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 20),
-                    child: FlatButton(
-                      onPressed: () => _controller.nextPage(),
-                      child: Image.asset(
-                        'images/next.png',
-                        width: 30,
+                  Center(
+                    child: Container(
+                      height: 50,
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: FlatButton(
+                          onPressed: () => _controller.nextPage(),
+                          child: Image.asset(
+                            'images/next.png',
+                            width: 30,
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 ],
-              )
-            ],
-          ),
+              ),
+            )
+          ]),
         ));
   }
 
@@ -134,31 +148,34 @@ class _ShowDisState extends State<ShowDis> {
           ),
         ),
       );
-  Widget showTreatment() => Container(
+  Widget showTreatment() => SingleChildScrollView(
         child: Card(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ListTile(
-                title: Text(
-                  'การรักษา',
-                  style: TextStyle(
-                    color: Colors.blue[700],
-                    fontSize: 16.0,
+          child: Container(         
+            child: Column(
+              children: <Widget>[
+                ListTile(
+                  title: Text(
+                    'การรักษา',
+                    style: TextStyle(
+                      color: Colors.blue[700],
+                      fontSize: 16.0,
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: Html(
-                    data: ('$diseasetreatment'),
-                  )),
-            ],
+                Padding(
+                    padding: const EdgeInsets.only(left: 20, right: 35),
+                    child: Html(
+                      data: ('$diseasetreatment'),
+                    )),
+              ],
+            ),
           ),
         ),
       );
-  Widget showDefence() => Container(
+  Widget showDefence() => SingleChildScrollView(
         child: Card(
+            child: Container(
+          // height: 400,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -172,16 +189,17 @@ class _ShowDisState extends State<ShowDis> {
                 ),
               ),
               Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  padding: const EdgeInsets.only(left: 20, right: 35),
                   child: Html(
                     data: ('$diseasedefence'),
                   )),
             ],
           ),
-        ),
+        )),
       );
-  Widget showCause() => Container(
+  Widget showCause() => SingleChildScrollView(
         child: Card(
+            child: Container(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -196,145 +214,50 @@ class _ShowDisState extends State<ShowDis> {
               ),
               Padding(
                   padding:
-                      const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                      const EdgeInsets.only(left: 20, right: 40, bottom: 20),
                   child: Html(
                     data: ('$diseasecause'),
                   )),
             ],
           ),
-        ),
+        ),),
       );
 
-  Widget showDetail() => Container(
+  Widget showDetail() => SingleChildScrollView(
         child: Card(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ListTile(
-                title: Text(
-                  'อาการ',
-                  style: TextStyle(
-                    color: Colors.blue[700],
-                    fontSize: 16.0,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                child: Html(
-                  data: ('$diseasedetail'),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-
-  Widget showAbout() => Container(
-        child: Card(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ListTile(
-                title: Text(
-                  'หมายเหตุ',
-                  style: TextStyle(
-                    color: Colors.blue[700],
-                    fontSize: 16.0,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                child: Html(
-                  data: ('$diseaseabout'),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-
-  Widget showData() => Container(
-        child: Card(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ListTile(
-                title: Text(
-                  'ข้อมูลทั่วไป',
-                  style: TextStyle(
-                    color: Colors.blue[700],
-                    fontSize: 16.0,
-                  ),
-                ),
-              ),
-              if ('$diseaserisk' != '')
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 20),
-                    child: Text(
-                      'กลุ่มเสี่ยง',
-                      style: TextStyle(
-                        color: Colors.red[700],
-                        fontSize: 15.0,
-                      ),
-                    ),
-                  ),
-                ),
-
-              Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 40, right: 20),
-                  child: Html(data: ('$diseaserisk')),
-                ),
-              ),
-              if ('$diseasechance' != '')
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 20),
-                    child: Text(
-                      'โอกาสเกิด',
-                      style: TextStyle(
-                        color: Colors.red[700],
-                        fontSize: 15.0,
-                      ),
-                    ),
-                  ),
-                ),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 40, right: 20),
-                  child: Html(data: ('$diseasechance')),
-                ),
-              ),
-              // if ('$expertiseid' != '')
-              Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: Text(
-                    'ควรพบแพทย์สาขา',
+          child: Container(
+            // height: 420,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                ListTile(
+                  title: Text(
+                    'อาการ',
                     style: TextStyle(
-                      color: Colors.red[700],
-                      fontSize: 15.0,
+                      color: Colors.blue[700],
+                      fontSize: 16.0,
                     ),
                   ),
                 ),
-              ),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 40, bottom: 1),
-                  child: Html(data: ('$expertisename')),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 20, right: 37, bottom: 20),
+                  child: Html(
+                    data: ('$diseasedetail'),
+                  ),
                 ),
-              ),
-                if ('$diseaseabout' != '')
-               ListTile(
+              ],
+            ),
+          ),
+        ),
+      );
+
+  Widget showAbout() => SingleChildScrollView(
+        child: Card(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
                 title: Text(
                   'หมายเหตุ',
                   style: TextStyle(
@@ -344,12 +267,115 @@ class _ShowDisState extends State<ShowDis> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                padding: const EdgeInsets.only(left: 20, right: 40, bottom: 20),
                 child: Html(
                   data: ('$diseaseabout'),
                 ),
               ),
             ],
+          ),
+        ),
+      );
+
+  Widget showData() => SingleChildScrollView(
+        child: Card(
+          child: Container(
+            height: 400,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                ListTile(
+                  title: Text(
+                    'ข้อมูลทั่วไป',
+                    style: TextStyle(
+                      color: Colors.blue[700],
+                      fontSize: 16.0,
+                    ),
+                  ),
+                ),
+                if ('$diseaserisk' != '')
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 40),
+                      child: Text(
+                        'กลุ่มเสี่ยง',
+                        style: TextStyle(
+                          color: Colors.red[700],
+                          fontSize: 15.0,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20, right: 40),
+                    child: Html(data: ('$diseaserisk')),
+                  ),
+                ),
+                if ('$diseasechance' != '')
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 40),
+                      child: Text(
+                        'โอกาสเกิด',
+                        style: TextStyle(
+                          color: Colors.red[700],
+                          fontSize: 15.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20, right: 40),
+                    child: Html(data: ('$diseasechance')),
+                  ),
+                ),
+                // if ('$expertiseid' != '')
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20, right: 40),
+                    child: Text(
+                      'ควรพบแพทย์สาขา',
+                      style: TextStyle(
+                        color: Colors.red[700],
+                        fontSize: 15.0,
+                      ),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20,),
+                    child: Html(data: ('$expertisename')),
+                  ),
+                ),
+                if ('$diseaseabout' != '')
+                  ListTile(
+                    title: Text(
+                      'หมายเหตุ',
+                      style: TextStyle(
+                        color: Colors.blue[700],
+                        fontSize: 16.0,
+                      ),
+                    ),
+                  ),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                  child: Html(
+                    data: ('$diseaseabout'),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       );

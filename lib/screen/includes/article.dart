@@ -125,7 +125,7 @@ class _ArticleState extends State<Article> {
     String articlesid = preferences.getString('articles_id');
 
     String url =
-        'http://192.168.137.219/apidoctor/getArticleWhereId.php?isAdd=true&articles_id=$articlesid';
+        'http://192.168.1.108/apidoctor/getArticleWhereId.php?isAdd=true&articles_id=$articlesid';
     await Dio().get(url).then((value) => {print('value = $value')});
     try {
       Response response = await Dio().get(url);
