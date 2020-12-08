@@ -1,19 +1,18 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
-import 'package:doctorpurin/modal/article_modal.dart';
+import 'package:doctorpurin/modal/ad.dart';
 import 'package:doctorpurin/screen/disease/service.dart';
 import 'package:doctorpurin/screen/includes/showArticle.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Article extends StatefulWidget {
-  Article() : super();
+class ArticleDis extends StatefulWidget {
+  ArticleDis() : super();
 
   final String title = "ค้นหาข้อมูลบทความ";
   @override
-  _ArticleState createState() => _ArticleState();
+  _ArticleDisState createState() => _ArticleDisState();
 }
 class Debouncer {
   final int milliseconds;
@@ -31,9 +30,9 @@ class Debouncer {
     _timer = Timer(Duration(milliseconds: milliseconds), action);
   }
 }
-class _ArticleState extends State<Article> {
-  List<ArticleInfo> _article;
-  List<ArticleInfo> _filterarticle;
+class _ArticleDisState extends State<ArticleDis> {
+  List<ArticleDisInfo> _article2;
+  List<ArticleDisInfo> _filterarticle2;
 
   String ida;
   final _debouncer = Debouncer(milliseconds: 500);
@@ -41,18 +40,18 @@ class _ArticleState extends State<Article> {
   @override
   void initState() {
     super.initState();
-     _article = [];
-    _filterarticle = [];
-    _getArticle();
+     _article2 = [];
+    _filterarticle2 = [];
+    _getArticle2();
   }
-  _getArticle() {
-    ServicesArticle.getArticle().then((article) {
+  _getArticle2() {
+    ServicesArticle2.getArticle2().then((articles) {
       setState(() {
-      _article = article;
-      _filterarticle = article;
+      _article2 = articles;
+      _filterarticle2 = articles;
       });
 
-      print("Length: ${article.length}");
+      print("Length: ${articles.length}");
     });
   }
   searchField() {
@@ -69,11 +68,11 @@ class _ArticleState extends State<Article> {
           _debouncer.run(() {
             // Filter the original List and update the Filter list
             setState(() {
-              _filterarticle = _article
+              _filterarticle2 = _article2
                   .where((u) => (u.topic
                           .toLowerCase()
                           .contains(string.toLowerCase()) ||
-                      u.articlesid.toLowerCase().contains(string.toLowerCase())))
+                      u.articlesId.toLowerCase().contains(string.toLowerCase())))
                   .toList();
             });
           });
@@ -96,20 +95,20 @@ class _ArticleState extends State<Article> {
               ),
             ),
           ],
-          rows: _filterarticle
+          rows: _filterarticle2
               .map(
-                (article) => DataRow(
+                (articles) => DataRow(
                   cells: [
                     DataCell(
                       Text(
-                        article.topic,
+                        articles.topic,
                         style: TextStyle(fontFamily: 'Prompt'),
                       ),
                       onTap: () {
-                        print("name " + article.topic);
-                        ida = article.articlesid;
+                        print("name " + articles.diseaseId);
+                        ida = articles.diseaseId;
                         print(ida);
-                        routeTS(ShowArticle(), article);
+                        routeTS(ShowArticle(), articles);
                       },
                     ),
                   ],
@@ -122,10 +121,10 @@ class _ArticleState extends State<Article> {
   }
     Future<Null> showGetArticle() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    String articlesid = preferences.getString('articles_id');
+    String diseaseId = preferences.getString('disease_id');
 
     String url =
-        'http://10.4.14.43/apidoctor/getArticleWhereId.php?isAdd=true&articles_id=$articlesid';
+        'http://10.4.14.43/apidoctor/getArticleDis.php?isAdd=true&disease_id=11';
     await Dio().get(url).then((value) => {print('value = $value')});
     try {
       Response response = await Dio().get(url);
@@ -134,20 +133,21 @@ class _ArticleState extends State<Article> {
       var result = json.decode(response.data);
       print('res = $result');
       for (var map in result) {
-        ArticleInfo articleInfo = ArticleInfo.fromJson(map);
-        if (articlesid == articleInfo.articlesid) {
-          routeTS(ShowArticle(), articleInfo);
+        ArticleDisInfo articleDisInfo = ArticleDisInfo.fromJson(map);
+        if (diseaseId == articleDisInfo.articlesId) {
+          routeTS(ShowArticle(), articleDisInfo);
         }
       }
     } catch (e) {}
   }
-    Future<Null> routeTS(Widget myWidgett, ArticleInfo articleInfo) async {
+    Future<Null> routeTS(Widget myWidgett, ArticleDisInfo articleDisInfo) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setString('articles_id', articleInfo.articlesid);
-    preferences.setString('topic', articleInfo.topic);
-    preferences.setString('detail', articleInfo.detail);
-    preferences.setString('issue_date', articleInfo.issuedate);
-    preferences.setString('id', articleInfo.id);
+    preferences.setString('articles_id', articleDisInfo.articlesId);
+    preferences.setString('topic', articleDisInfo.topic);
+    preferences.setString('detail', articleDisInfo.detail);
+    preferences.setString('issuedate', articleDisInfo.issueDate);
+    preferences.setString('id', articleDisInfo.id);
+    preferences.setString('disease_id', articleDisInfo.diseaseId);
     MaterialPageRoute route =
         MaterialPageRoute(builder: (context) => myWidgett);
     Navigator.push(context, route);

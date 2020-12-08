@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+
 class ArticleInfo {
   String articlesid;
   String topic;
@@ -7,23 +8,17 @@ class ArticleInfo {
   String id;
 
   ArticleInfo(
-      {this.articlesid,
-      this.topic,
-      this.detail,
-      this.issuedate,
-      this.id});
+      {this.articlesid, this.topic, this.detail, this.issuedate, this.id});
 
-  factory ArticleInfo.fromJson(Map<String, dynamic> json) {
-    return ArticleInfo(
-      articlesid: json['articles_id'] as String,
-      topic: json['topic'] as String,
-      detail: json['detail'] as String,
-          issuedate : json['issue_date']!= null
+  ArticleInfo.fromJson(Map<String, dynamic> json) {
+    articlesid = json['articles_id'];
+    topic = json['topic'];
+    detail = json['detail'];
+    issuedate = json['issue_date']== null
         ? null
         : DateFormat('วันที่ d MMMM y')
-            .format(DateTime.parse(json['date_time'])),
-      id: json['id'] as String,
-    );
+            .format(DateTime.parse(json['date_time']));
+    id = json['id'];
   }
 
   Map<String, dynamic> toJson() {

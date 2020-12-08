@@ -1,7 +1,8 @@
+import 'package:doctorpurin/screen/includes/article.dart';
+import 'package:doctorpurin/screen/includes/articledis.dart';
 import 'package:doctorpurin/screen/women_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_html/style.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -55,7 +56,7 @@ class _ShowDisState extends State<ShowDis> {
         body: SingleChildScrollView(
           child: Column(children: <Widget>[
             Padding(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(15),
               child: Text(
                 'โรค $diseasename',
                 style: TextStyle(
@@ -72,16 +73,17 @@ class _ShowDisState extends State<ShowDis> {
                 showDefence(),
                 showData(),
               ],
-              options: CarouselOptions(enlargeCenterPage: true, height: 430),
+              options: CarouselOptions(enlargeCenterPage: true, height: 400),
               carouselController: _controller,
             ),
+            articleDis(),
             Container(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Center(
                     child: Container(
-                      height: 50,
+                     
                       child: Align(
                         alignment: Alignment.bottomCenter,
                         child: FlatButton(
@@ -96,7 +98,7 @@ class _ShowDisState extends State<ShowDis> {
                   ),
                   Center(
                     child: Container(
-                      height: 90,
+                     
                       child: Align(
                         alignment: Alignment.bottomCenter,
                         child: FlatButton(
@@ -116,7 +118,7 @@ class _ShowDisState extends State<ShowDis> {
                   ),
                   Center(
                     child: Container(
-                      height: 50,
+                     
                       child: Align(
                         alignment: Alignment.bottomCenter,
                         child: FlatButton(
@@ -136,21 +138,27 @@ class _ShowDisState extends State<ShowDis> {
         ));
   }
 
-  Widget nameDis() => Container(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            'โรค $diseasename',
-            style: TextStyle(
-              color: Color(0xFF45046a),
-              fontSize: 18.0,
+  Widget articleDis() => Container(
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: FlatButton(
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => ArticleDis()));
+            },
+            child: Text(
+              'บทความที่เกี่ยวข้อง',
+              style: TextStyle(
+                color: (Colors.lightBlue),
+                fontSize: 14.0,
+              ),
             ),
           ),
         ),
       );
   Widget showTreatment() => SingleChildScrollView(
         child: Card(
-          child: Container(         
+          child: Container(
             child: Column(
               children: <Widget>[
                 ListTile(
@@ -199,28 +207,29 @@ class _ShowDisState extends State<ShowDis> {
       );
   Widget showCause() => SingleChildScrollView(
         child: Card(
-            child: Container(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ListTile(
-                title: Text(
-                  'สาเหตุ',
-                  style: TextStyle(
-                    color: Colors.blue[700],
-                    fontSize: 16.0,
+          child: Container(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                ListTile(
+                  title: Text(
+                    'สาเหตุ',
+                    style: TextStyle(
+                      color: Colors.blue[700],
+                      fontSize: 16.0,
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                  padding:
-                      const EdgeInsets.only(left: 20, right: 40, bottom: 20),
-                  child: Html(
-                    data: ('$diseasecause'),
-                  )),
-            ],
+                Padding(
+                    padding:
+                        const EdgeInsets.only(left: 20, right: 40, bottom: 20),
+                    child: Html(
+                      data: ('$diseasecause'),
+                    )),
+              ],
+            ),
           ),
-        ),),
+        ),
       );
 
   Widget showDetail() => SingleChildScrollView(
@@ -353,7 +362,9 @@ class _ShowDisState extends State<ShowDis> {
                 Align(
                   alignment: Alignment.topLeft,
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 20,),
+                    padding: const EdgeInsets.only(
+                      left: 20,
+                    ),
                     child: Html(data: ('$expertisename')),
                   ),
                 ),

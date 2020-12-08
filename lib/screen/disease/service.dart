@@ -1,10 +1,11 @@
 import 'dart:convert';
+import 'package:doctorpurin/modal/ad.dart';
 import 'package:doctorpurin/modal/article_modal.dart';
 import 'package:http/http.dart' as http;
 import 'package:doctorpurin/modal/disinfo_model.dart';
 
 class Services {
-  static const ROOT = 'http://192.168.1.108/apidoctor/disInfo.php?isAdd=true';
+  static const ROOT = 'http://10.4.14.43/apidoctor/disInfo.php?isAdd=true';
   static const String _GET_ACTION = 'true';
 
   static Future<List<DisInfo>> getDisease() async {
@@ -31,7 +32,7 @@ class Services {
 }
 
 class ServicesArticle {
-  static const ROOT = 'http://192.168.1.108/apidoctor/getArticle.php?isAdd=true';
+  static const ROOT = 'http://10.4.14.43/apidoctor/getArticle.php?isAdd=true';
   static const String _GET_ACTION = 'true';
 
   static Future<List<ArticleInfo>> getArticle() async {
@@ -53,13 +54,41 @@ class ServicesArticle {
 
   static List<ArticleInfo> parsePhotos(String responseBody) {
     final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
-    return parsed.map<ArticleInfo>((json) => ArticleInfo.fromJson(json)).toList();
+    return parsed
+        .map<ArticleInfo>((json) => ArticleInfo.fromJson(json))
+        .toList();
   }
 }
 
+class ServicesArticle2 {
+  static const ROOT =
+      'http://10.4.14.43/apidoctor/getArticleDis.php?isAdd=true';
+  static const String _GET_ACTION = 'true';
 
+  static Future<List<ArticleDisInfo>> getArticle2() async {
+    try {
+      var map = new Map<String, dynamic>();
+      map["isAdd"] = _GET_ACTION;
+      final response = await http.post(ROOT, body: map);
+      print("getArticle2 >> Response:: ${response.body}");
+      if (response.statusCode == 200) {
+        List<ArticleDisInfo> list = parsePhotos(response.body);
+        return list;
+      } else {
+        throw List<ArticleDisInfo>();
+      }
+    } catch (e) {
+      return List<ArticleDisInfo>();
+    }
+  }
 
-
+  static List<ArticleDisInfo> parsePhotos(String responseBody) {
+    final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+    return parsed
+        .map<ArticleDisInfo>((json) => ArticleDisInfo.fromJson(json))
+        .toList();
+  }
+}
 
 // Future<Null> readDis() async {
 //   SharedPreferences preferences = await SharedPreferences.getInstance();

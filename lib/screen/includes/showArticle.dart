@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_html/flutter_html.dart';
-
+import 'package:intl/intl.dart';
 class ShowArticle extends StatefulWidget {
   @override
   _ShowArticleState createState() => _ShowArticleState();
@@ -16,6 +16,7 @@ class _ShowArticleState extends State<ShowArticle> {
   String detail;
   String issuedate;
   String id;
+  String diseaseId;
   @override
   void initState() {
     super.initState();
@@ -28,8 +29,9 @@ class _ShowArticleState extends State<ShowArticle> {
       articlesid = preferences.getString('articles_id');
       topic = preferences.getString('topic');
       detail = preferences.getString('detail');
-      issuedate = preferences.getString('issuedate');
+      issuedate = preferences.getString('issue_date');
       id = preferences.getString('id');
+      
     });
   }
 
@@ -61,7 +63,7 @@ class _ShowArticleState extends State<ShowArticle> {
                   child: Padding(
                       padding: const EdgeInsets.only(left: 10, right: 50),
                       child: Html(
-                        data: ('$detail''$id'),
+                        data: ('$detail''$issuedate'),
                       )),
                 ),
 
