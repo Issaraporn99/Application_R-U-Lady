@@ -18,10 +18,10 @@ class ArticleInfo {
       articlesid: json['articles_id'] as String,
       topic: json['topic'] as String,
       detail: json['detail'] as String,
-          issuedate : json['issue_date']!= null
+          issuedate : json['issue_date']== null
         ? null
         : DateFormat('วันที่ d MMMM y')
-            .format(DateTime.parse(json['date_time'])),
+            .format(DateTime.parse(json['issue_date'])),
       id: json['id'] as String,
     );
   }

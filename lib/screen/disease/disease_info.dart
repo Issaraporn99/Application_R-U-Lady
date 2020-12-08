@@ -130,7 +130,7 @@ class _DisInformationState extends State<DisInformation> {
     String diseaseid = preferences.getString('disease_id');
 
     String url =
-        'http://10.4.14.43/apidoctor/getDisWhereId.php?isAdd=true&disease_id=$diseaseid';
+        'http://192.168.137.219/apidoctor/getDisWhereId.php?isAdd=true&disease_id=$diseaseid';
     await Dio().get(url).then((value) => {print('value = $value')});
     try {
       Response response = await Dio().get(url);

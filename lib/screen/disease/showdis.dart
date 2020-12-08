@@ -1,4 +1,3 @@
-import 'package:doctorpurin/screen/includes/article.dart';
 import 'package:doctorpurin/screen/includes/articledis.dart';
 import 'package:doctorpurin/screen/women_home.dart';
 import 'package:flutter/material.dart';

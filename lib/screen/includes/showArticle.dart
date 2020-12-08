@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+
 class ShowArticle extends StatefulWidget {
   @override
   _ShowArticleState createState() => _ShowArticleState();
@@ -11,6 +13,7 @@ class ShowArticle extends StatefulWidget {
 
 class _ShowArticleState extends State<ShowArticle> {
   final CarouselController _controller = CarouselController();
+
   String articlesid;
   String topic;
   String detail;
@@ -21,6 +24,8 @@ class _ShowArticleState extends State<ShowArticle> {
   void initState() {
     super.initState();
     findId();
+    Intl.defaultLocale = "th";
+    initializeDateFormatting();
   }
 
   Future<Null> findId() async {
@@ -31,7 +36,6 @@ class _ShowArticleState extends State<ShowArticle> {
       detail = preferences.getString('detail');
       issuedate = preferences.getString('issue_date');
       id = preferences.getString('id');
-      
     });
   }
 
@@ -39,17 +43,16 @@ class _ShowArticleState extends State<ShowArticle> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('บทความ '),
+          title: Text('บทความ'),
         ),
         body: SingleChildScrollView(
           child: Container(
-  
             child: Column(
-                   mainAxisSize: MainAxisSize.min,
+              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.only(
-                      left: 20, right: 20, top: 20, bottom: 5),
+                      left: 20, right: 20, top: 15, bottom: 5),
                   child: Text(
                     '$topic',
                     style: TextStyle(
@@ -58,13 +61,44 @@ class _ShowArticleState extends State<ShowArticle> {
                     ),
                   ),
                 ),
+
                 Align(
                   alignment: Alignment.topLeft,
                   child: Padding(
                       padding: const EdgeInsets.only(left: 10, right: 50),
                       child: Html(
-                        data: ('$detail''$issuedate'),
+                        data: ('$detail'),
                       )),
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 20,
+                    ),
+                    child: Text(
+                      '$issuedate',
+                      style: TextStyle(
+                        color: Colors.black54,
+                        fontSize: 13.0,
+                      ),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 20,
+                    ),
+                    child: Text(
+                      'ผู้เขียน $id',
+                      style: TextStyle(
+                        color: Colors.black54,
+                        fontSize: 13.0,
+                      ),
+                    ),
+                  ),
                 ),
 
                 // CarouselSlider(

@@ -6,6 +6,8 @@ import 'package:doctorpurin/modal/article_modal.dart';
 import 'package:doctorpurin/screen/disease/service.dart';
 import 'package:doctorpurin/screen/includes/showArticle.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Article extends StatefulWidget {
@@ -44,6 +46,8 @@ class _ArticleState extends State<Article> {
      _article = [];
     _filterarticle = [];
     _getArticle();
+    Intl.defaultLocale = "th";
+    initializeDateFormatting();
   }
   _getArticle() {
     ServicesArticle.getArticle().then((article) {
@@ -125,7 +129,7 @@ class _ArticleState extends State<Article> {
     String articlesid = preferences.getString('articles_id');
 
     String url =
-        'http://10.4.14.43/apidoctor/getArticleWhereId.php?isAdd=true&articles_id=$articlesid';
+        'http://192.168.137.219/apidoctor/getArticleWhereId.php?isAdd=true&articles_id=$articlesid';
     await Dio().get(url).then((value) => {print('value = $value')});
     try {
       Response response = await Dio().get(url);
