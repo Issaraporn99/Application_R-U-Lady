@@ -1,3 +1,4 @@
+import 'package:doctorpurin/modal/ad.dart';
 import 'package:doctorpurin/screen/includes/articledis.dart';
 import 'package:doctorpurin/screen/women_home.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ class ShowDis extends StatefulWidget {
 }
 
 class _ShowDisState extends State<ShowDis> {
+  var _textController = new TextEditingController();
   final CarouselController _controller = CarouselController();
   String diseaseid;
   String diseasename;
@@ -23,6 +25,7 @@ class _ShowDisState extends State<ShowDis> {
   String diseaseabout;
   String expertiseid;
   String expertisename;
+  String ida;
   @override
   void initState() {
     super.initState();
@@ -72,69 +75,90 @@ class _ShowDisState extends State<ShowDis> {
                 showDefence(),
                 showData(),
               ],
-              options: CarouselOptions(enlargeCenterPage: true, height: 400),
+              options: CarouselOptions(
+                  enlargeCenterPage: true,
+                  enableInfiniteScroll: false,
+                  height: 400),
               carouselController: _controller,
             ),
-            articleDis(),
             Container(
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Center(
-                    child: Container(
-                     
-                      child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: FlatButton(
-                          onPressed: () => _controller.previousPage(),
-                          child: Image.asset(
-                            'images/pre.png',
-                            width: 30,
-                          ),
-                        ),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: FlatButton(
+                      onPressed: () => _controller.previousPage(),
+                      child: Image.asset(
+                        'images/pre.png',
+                        width: 30,
                       ),
                     ),
                   ),
-                  Center(
-                    child: Container(
-                     
-                      child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: FlatButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => WomenHome()));
-                          },
-                          child: Image.asset(
-                            'images/btnh.png',
-                            width: 80,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Container(
-                     
-                      child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: FlatButton(
-                          onPressed: () => _controller.nextPage(),
-                          child: Image.asset(
-                            'images/next.png',
-                            width: 30,
-                          ),
-                        ),
+                  articleDis(),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: FlatButton(
+                      onPressed: () => _controller.nextPage(),
+                      child: Image.asset(
+                        'images/next.png',
+                        width: 30,
                       ),
                     ),
                   ),
                 ],
               ),
-            )
+            ),
+            Align(
+              alignment: Alignment.topCenter,
+              child: FlatButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => WomenHome()));
+                },
+                child: Image.asset(
+                  'images/btnh.png',
+                  width: 80,
+                ),
+              ),
+            ),
           ]),
         ));
+  }
+
+  // Future<Null> showGetArticle() async {
+  //   SharedPreferences preferences = await SharedPreferences.getInstance();
+  //   String diseaseId = preferences.getString('disease_id');
+
+  //   String url =
+  //       'http://10.7.0.80/apidoctor/getArticleDis.php?isAdd=true&disease_id=$diseaseId';
+  //   await Dio().get(url).then((value) => {print('value = $value')});
+  //   try {
+  //     Response response = await Dio().get(url);
+  //     print('res = $response');
+
+  //     var result = json.decode(response.data);
+  //     print('res = $result');
+  //     for (var map in result) {
+  //       ArticleDisInfo articleInfo = ArticleDisInfo.fromJson(map);
+  //       if (diseaseId == articleInfo.diseaseId) {
+  //         routeTS(ArticleDis(diseaseId: diseaseId,), articleInfo);
+  //       }
+  //     }
+  //   } catch (e) {}
+  // }
+
+  Future<Null> routeTS(Widget myWidgett, ArticleDisInfo articleInfo) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString('articles_id', articleInfo.articlesId);
+    preferences.setString('topic', articleInfo.topic);
+    preferences.setString('detail', articleInfo.detail);
+    preferences.setString('issue_date', articleInfo.issueDate);
+    preferences.setString('id', articleInfo.id);
+    preferences.setString('disease_id', articleInfo.diseaseId);
+    MaterialPageRoute route =
+        MaterialPageRoute(builder: (context) => myWidgett);
+    Navigator.push(context, route);
   }
 
   Widget articleDis() => Container(
@@ -142,8 +166,10 @@ class _ShowDisState extends State<ShowDis> {
           alignment: Alignment.topLeft,
           child: FlatButton(
             onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => ArticleDis()));
+              var route = new MaterialPageRoute(
+                builder: (BuildContext context) => NextPage(value: diseaseid),
+              );
+              Navigator.of(context).push(route);
             },
             child: Text(
               'บทความที่เกี่ยวข้อง',
@@ -155,6 +181,7 @@ class _ShowDisState extends State<ShowDis> {
           ),
         ),
       );
+
   Widget showTreatment() => SingleChildScrollView(
         child: Card(
           child: Container(
@@ -174,6 +201,21 @@ class _ShowDisState extends State<ShowDis> {
                     child: Html(
                       data: ('$diseasetreatment'),
                     )),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 5),
+                  child: Container(
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Text(
+                        '3',
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 13.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -200,6 +242,21 @@ class _ShowDisState extends State<ShowDis> {
                   child: Html(
                     data: ('$diseasedefence'),
                   )),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 5),
+                child: Container(
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Text(
+                      '4',
+                      style: TextStyle(
+                        color: Colors.black54,
+                        fontSize: 13.0,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         )),
@@ -225,6 +282,21 @@ class _ShowDisState extends State<ShowDis> {
                     child: Html(
                       data: ('$diseasecause'),
                     )),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 5),
+                  child: Container(
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Text(
+                        '2',
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 13.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -254,6 +326,21 @@ class _ShowDisState extends State<ShowDis> {
                     data: ('$diseasedetail'),
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 5),
+                  child: Container(
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Text(
+                        '1',
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 13.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -280,6 +367,21 @@ class _ShowDisState extends State<ShowDis> {
                   data: ('$diseaseabout'),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 5),
+                child: Container(
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Text(
+                      '5',
+                      style: TextStyle(
+                        color: Colors.black54,
+                        fontSize: 13.0,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -288,7 +390,6 @@ class _ShowDisState extends State<ShowDis> {
   Widget showData() => SingleChildScrollView(
         child: Card(
           child: Container(
-            height: 400,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -384,109 +485,25 @@ class _ShowDisState extends State<ShowDis> {
                     data: ('$diseaseabout'),
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 5),
+                  child: Container(
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Text(
+                        '5',
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 13.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
         ),
       );
-
-  Widget showList() => Container(
-        child: Card(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ListTile(
-                title: Text(
-                  'รายละเอียด',
-                  style: TextStyle(
-                    color: Colors.blue[700],
-                    fontSize: 16.0,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => showDetail(),
-                    ),
-                  );
-                },
-                leading: Icon(Icons.navigate_next),
-              ),
-            ],
-          ),
-        ),
-      );
-  Widget showList2() => Container(
-        child: Card(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ListTile(
-                title: Text(
-                  'สาเหตุ',
-                  style: TextStyle(
-                    color: Colors.blue[700],
-                    fontSize: 16.0,
-                  ),
-                ),
-                onTap: () {
-                  MaterialPageRoute route =
-                      MaterialPageRoute(builder: (value) => showCause());
-                  Navigator.push(context, route);
-                },
-                leading: Icon(Icons.navigate_next),
-              ),
-            ],
-          ),
-        ),
-      );
-  Widget showList3() => Container(
-        child: Card(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ListTile(
-                title: Text(
-                  'เกี่ยวกับโรคเพิ่มเติม',
-                  style: TextStyle(
-                    color: Colors.blue[700],
-                    fontSize: 16.0,
-                  ),
-                ),
-                onTap: () {
-                  MaterialPageRoute route =
-                      MaterialPageRoute(builder: (value) => showAbout());
-                  Navigator.push(context, route);
-                },
-                leading: Icon(Icons.navigate_next),
-              ),
-            ],
-          ),
-        ),
-      );
-  Widget showList4() => Container(
-        child: Card(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ListTile(
-                title: Text(
-                  'ข้อมูลทั่วไป',
-                  style: TextStyle(
-                    color: Colors.blue[700],
-                    fontSize: 16.0,
-                  ),
-                ),
-                onTap: () {
-                  MaterialPageRoute route =
-                      MaterialPageRoute(builder: (value) => showData());
-                  Navigator.push(context, route);
-                },
-                leading: Icon(Icons.navigate_next),
-              ),
-            ],
-          ),
-        ),
-      );
 }
+

@@ -6,18 +6,18 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
-class ShowArticle extends StatefulWidget {
+class ShowAD extends StatefulWidget {
   @override
-  _ShowArticleState createState() => _ShowArticleState();
+  _ShowADState createState() => _ShowADState();
 }
 
-class _ShowArticleState extends State<ShowArticle> {
+class _ShowADState extends State<ShowAD> {
   final CarouselController _controller = CarouselController();
 
-  String articlesid;
+  String articlesId;
   String topic;
   String detail;
-  String issuedate;
+  String issueDate;
   String id;
   String username;
   String password;
@@ -25,7 +25,7 @@ class _ShowArticleState extends State<ShowArticle> {
   String office;
   String userlevel;
   String expertiseId;
-  String diseaseid;
+  String diseaseId;
   @override
   void initState() {
     super.initState();
@@ -37,12 +37,13 @@ class _ShowArticleState extends State<ShowArticle> {
   Future<Null> findId() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
-      articlesid = preferences.getString('articles_id');
+      articlesId = preferences.getString('articles_id');
       topic = preferences.getString('topic');
       detail = preferences.getString('detail');
-      issuedate = preferences.getString('issue_date');
+      issueDate = preferences.getString('issue_date');
       id = preferences.getString('id');
       doctorname = preferences.getString('doctorname');
+      diseaseId = preferences.getString('disease_id');
     });
   }
 
@@ -84,7 +85,7 @@ class _ShowArticleState extends State<ShowArticle> {
                       left: 20,
                     ),
                     child: Text(
-                      '$issuedate',
+                      '$issueDate',
                       style: TextStyle(
                         color: Colors.black54,
                         fontSize: 13.0,
@@ -157,32 +158,5 @@ class _ShowArticleState extends State<ShowArticle> {
         ));
   }
 
-  Widget showData() => Container(
-        child: Column(
-          children: <Widget>[
-            Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                  padding: const EdgeInsets.only(left: 5, right: 5),
-                  child: Html(
-                    data: ('$detail'),
-                  )),
-            ),
-            Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 5, right: 5),
-                child: Text('$issuedate'),
-              ),
-            ),
-            Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 5, bottom: 5),
-                child: Text('$id'),
-              ),
-            ),
-          ],
-        ),
-      );
+ 
 }

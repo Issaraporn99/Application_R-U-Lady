@@ -1,19 +1,24 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:doctorpurin/modal/ad.dart';
 import 'package:doctorpurin/screen/disease/service.dart';
-import 'package:doctorpurin/screen/includes/showArticle.dart';
+import 'package:doctorpurin/screen/includes/showad.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ArticleDis extends StatefulWidget {
-  ArticleDis() : super();
+class NextPage extends StatefulWidget {
+  final String value;
 
-  final String title = "ค้นหาข้อมูลบทความ";
+  NextPage({Key key, this.value}) : super(key: key);
+
   @override
-  _ArticleDisState createState() => _ArticleDisState();
+  _NextPageState createState() => new _NextPageState();
 }
+
 class Debouncer {
   final int milliseconds;
   VoidCallback action;
@@ -30,9 +35,9 @@ class Debouncer {
     _timer = Timer(Duration(milliseconds: milliseconds), action);
   }
 }
-class _ArticleDisState extends State<ArticleDis> {
-  List<ArticleDisInfo> _article2;
-  List<ArticleDisInfo> _filterarticle2;
+
+class _NextPageState extends State<NextPage> {
+  List<ArticleDisInfo> _article;
 
   String ida;
   final _debouncer = Debouncer(milliseconds: 500);
@@ -40,45 +45,21 @@ class _ArticleDisState extends State<ArticleDis> {
   @override
   void initState() {
     super.initState();
-     _article2 = [];
-    _filterarticle2 = [];
+    _article = [];
     _getArticle2();
+    Intl.defaultLocale = "th";
+    initializeDateFormatting();
+    print(widget.value);
   }
+
   _getArticle2() {
-    ServicesArticle2.getArticle2().then((articles) {
+    ServicesArticle2.getArticle2().then((aa) {
       setState(() {
-      _article2 = articles;
-      _filterarticle2 = articles;
+        _article = aa;
       });
 
-      print("Length: ${articles.length}");
+      print("Length: ${aa.length}");
     });
-  }
-  searchField() {
-    return Padding(
-      padding: EdgeInsets.only(left: 10.0,right: 10.0),
-      child: TextField(
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(1.0),
-          hintText: 'ค้นหาบทความ',
-        ),
-        onChanged: (string) {
-          // We will start filtering when the user types in the textfield.
-          // Run the debouncer and start searching
-          _debouncer.run(() {
-            // Filter the original List and update the Filter list
-            setState(() {
-              _filterarticle2 = _article2
-                  .where((u) => (u.topic
-                          .toLowerCase()
-                          .contains(string.toLowerCase()) ||
-                      u.articlesId.toLowerCase().contains(string.toLowerCase())))
-                  .toList();
-            });
-          });
-        },
-      ),
-    );
   }
 
   SingleChildScrollView _dataBody() {
@@ -95,20 +76,20 @@ class _ArticleDisState extends State<ArticleDis> {
               ),
             ),
           ],
-          rows: _filterarticle2
+          rows: _article
               .map(
-                (articles) => DataRow(
+                (aa) => DataRow(
                   cells: [
                     DataCell(
                       Text(
-                        articles.topic,
+                        aa.topic,
                         style: TextStyle(fontFamily: 'Prompt'),
                       ),
                       onTap: () {
-                        print("name " + articles.diseaseId);
-                        ida = articles.diseaseId;
+                        print("name " + aa.topic);
+                        ida = aa.articlesId;
                         print(ida);
-                        routeTS(ShowArticle(), articles);
+                        routeTS(ShowAD(), aa);
                       },
                     ),
                   ],
@@ -119,12 +100,13 @@ class _ArticleDisState extends State<ArticleDis> {
       ),
     );
   }
-    Future<Null> showGetArticle() async {
+
+  Future<Null> showGetArticle() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    String diseaseId = preferences.getString('disease_id');
+    String articlesid = preferences.getString('articles_id');
 
     String url =
-        'http://10.4.14.43/apidoctor/getArticleDis.php?isAdd=true&disease_id=11';
+        'http://10.7.0.80/apidoctor/getArticleWhereId.php?isAdd=true&articles_id=$articlesid';
     await Dio().get(url).then((value) => {print('value = $value')});
     try {
       Response response = await Dio().get(url);
@@ -133,41 +115,50 @@ class _ArticleDisState extends State<ArticleDis> {
       var result = json.decode(response.data);
       print('res = $result');
       for (var map in result) {
-        ArticleDisInfo articleDisInfo = ArticleDisInfo.fromJson(map);
-        if (diseaseId == articleDisInfo.articlesId) {
-          routeTS(ShowArticle(), articleDisInfo);
+        ArticleDisInfo articleInfo = ArticleDisInfo.fromJson(map);
+        if (articlesid == articleInfo.articlesId) {
+          routeTS(ShowAD(), articleInfo);
         }
       }
     } catch (e) {}
   }
-    Future<Null> routeTS(Widget myWidgett, ArticleDisInfo articleDisInfo) async {
+
+  Future<Null> routeTS(Widget myWidgett, ArticleDisInfo articleInfo) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setString('articles_id', articleDisInfo.articlesId);
-    preferences.setString('topic', articleDisInfo.topic);
-    preferences.setString('detail', articleDisInfo.detail);
-    preferences.setString('issuedate', articleDisInfo.issueDate);
-    preferences.setString('id', articleDisInfo.id);
-    preferences.setString('disease_id', articleDisInfo.diseaseId);
+    preferences.setString('articles_id', articleInfo.articlesId);
+    preferences.setString('topic', articleInfo.topic);
+    preferences.setString('detail', articleInfo.detail);
+    preferences.setString('issue_date', articleInfo.issueDate);
+    preferences.setString('id', articleInfo.id);
+    preferences.setString('doctorname', articleInfo.diseaseName);
+    preferences.setString('disease_id', articleInfo.diseaseId);
     MaterialPageRoute route =
         MaterialPageRoute(builder: (context) => myWidgett);
     Navigator.push(context, route);
   }
-   @override
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('ค้นหาบทความ'),
+    String a = (widget.value);
+    print(a);
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text("บทความที่เกี่ยวข้อง"),
       ),
+      // body: new Text("${widget.value}"),
       body: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
               padding: EdgeInsets.all(10.0),
-              child: searchField(),
             ),
             Expanded(
               child: _dataBody(),
+            ),
+            Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Text('$a'),
             ),
           ],
         ),
