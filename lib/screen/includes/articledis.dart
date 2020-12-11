@@ -3,18 +3,12 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:doctorpurin/modal/ad.dart';
-import 'package:doctorpurin/screen/disease/service.dart';
-import 'package:doctorpurin/screen/includes/showad.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class NextPage extends StatefulWidget {
-  final String value;
-
-  NextPage({Key key, this.value}) : super(key: key);
-
   @override
   _NextPageState createState() => new _NextPageState();
 }
@@ -37,32 +31,50 @@ class Debouncer {
 }
 
 class _NextPageState extends State<NextPage> {
-  List<ArticleDisInfo> _article;
-
+  // List<ArticleDisInfo> _article;
+  String diseaseId;
   String ida;
+  String topic;
+  List<ArticleDisInfo> articleD = List();
   final _debouncer = Debouncer(milliseconds: 500);
 
   @override
   void initState() {
     super.initState();
-    _article = [];
-    _getArticle2();
+    // _article = [];
+    // _getArticle2();
     Intl.defaultLocale = "th";
     initializeDateFormatting();
-    print(widget.value);
+    checkid();
   }
 
-  _getArticle2() {
-    ServicesArticle2.getArticle2().then((aa) {
+  // Future<Null> findId() async {
+  //   SharedPreferences preferences = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     diseaseId = preferences.getString('disease_id');
+  //     topic = preferences.getString('topic');
+  //   });
+  // }
+
+  Future<Null> checkid() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    diseaseId = preferences.getString('disease_id');
+    String url =
+        'http://192.168.1.108/apidoctor/getArticleDis.php?disease_id=$diseaseId&isAdd=true';
+    Response response = await Dio().get(url);
+    print('res = $response');
+
+    var result = json.decode(response.data);
+    print('res = $result');
+    for (var map in result) {
+      ArticleDisInfo articleInfo = ArticleDisInfo.fromJson(map);
+
       setState(() {
-        _article = aa;
+        articleD.add(articleInfo);
       });
-
-      print("Length: ${aa.length}");
-    });
+    }
   }
-
-  SingleChildScrollView _dataBody() {
+ SingleChildScrollView _dataBody() {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: SingleChildScrollView(
@@ -76,21 +88,21 @@ class _NextPageState extends State<NextPage> {
               ),
             ),
           ],
-          rows: _article
+          rows: articleD
               .map(
-                (aa) => DataRow(
+                (article) => DataRow(
                   cells: [
                     DataCell(
                       Text(
-                        aa.topic,
+                        article.topic,
                         style: TextStyle(fontFamily: 'Prompt'),
                       ),
-                      onTap: () {
-                        print("name " + aa.topic);
-                        ida = aa.articlesId;
-                        print(ida);
-                        routeTS(ShowAD(), aa);
-                      },
+                      // onTap: () {
+                      //   print("name " + article.topic);
+                      //   ida = article.articlesid;
+                      //   print(ida);
+                      //   routeTS(ShowArticle(), article);
+                      // },
                     ),
                   ],
                 ),
@@ -100,65 +112,67 @@ class _NextPageState extends State<NextPage> {
       ),
     );
   }
-
-  Future<Null> showGetArticle() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    String articlesid = preferences.getString('articles_id');
-
-    String url =
-        'http://10.7.0.80/apidoctor/getArticleWhereId.php?isAdd=true&articles_id=$articlesid';
-    await Dio().get(url).then((value) => {print('value = $value')});
-    try {
-      Response response = await Dio().get(url);
-      print('res = $response');
-
-      var result = json.decode(response.data);
-      print('res = $result');
-      for (var map in result) {
-        ArticleDisInfo articleInfo = ArticleDisInfo.fromJson(map);
-        if (articlesid == articleInfo.articlesId) {
-          routeTS(ShowAD(), articleInfo);
-        }
-      }
-    } catch (e) {}
-  }
-
-  Future<Null> routeTS(Widget myWidgett, ArticleDisInfo articleInfo) async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setString('articles_id', articleInfo.articlesId);
-    preferences.setString('topic', articleInfo.topic);
-    preferences.setString('detail', articleInfo.detail);
-    preferences.setString('issue_date', articleInfo.issueDate);
-    preferences.setString('id', articleInfo.id);
-    preferences.setString('doctorname', articleInfo.diseaseName);
-    preferences.setString('disease_id', articleInfo.diseaseId);
-    MaterialPageRoute route =
-        MaterialPageRoute(builder: (context) => myWidgett);
-    Navigator.push(context, route);
-  }
-
+//   @override
+//   Widget build(BuildContext context) {
+//      return articleD.length == 0
+//         ? Center(
+//             child: CircularProgressIndicator(),
+//           )
+//         // body: new Text("${widget.value}"),
+//         : ListView.builder(
+//             itemBuilder: (ctx, index) {
+//               return GestureDetector(
+//                 child: Padding(
+//                   padding:
+//                       const EdgeInsets.only(top: 10.0, left: 10, right: 10),
+//                     child: Card(
+//                       elevation: 1.5,
+//                       color: Color(0xFFF7F7F9),
+//                       child: Row(
+//                         children: [
+//                           Padding(
+//                             padding: const EdgeInsets.only(left: 15),
+//                             child: Column(
+//                               crossAxisAlignment: CrossAxisAlignment.start,
+//                               children: [
+//                                 Text(
+//                                   '${articleD[index].diseaseId}',
+//                                   style: TextStyle(
+//                                     fontWeight: FontWeight.bold,
+//                                     fontSize: 16,
+//                                   ),
+//                                 ),
+//                                 Text(
+//                                   '${articleD[index].topic}',
+//                                   // DateFormat.yMMMMd()
+//                                   //     .format(myModels[index].detaMissing),
+//                                   style: TextStyle(color: Colors.grey[700]),
+//                                 ),
+//                               ],
+//                             ),
+//                           )
+//                         ],
+//                       ),                  
+//                   ),
+//                 ),
+//               );
+//             },
+//             itemCount: articleD.length,
+//           );
+//   }
+// }
   @override
   Widget build(BuildContext context) {
-    String a = (widget.value);
-    print(a);
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("บทความที่เกี่ยวข้อง"),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('ค้นหาบทความ'),
       ),
-      // body: new Text("${widget.value}"),
       body: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(10.0),
-            ),
             Expanded(
               child: _dataBody(),
-            ),
-            Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Text('$a'),
             ),
           ],
         ),

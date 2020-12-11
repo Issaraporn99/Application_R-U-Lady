@@ -1,7 +1,6 @@
 import 'package:doctorpurin/screen/women_home.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
@@ -12,7 +11,6 @@ class ShowAD extends StatefulWidget {
 }
 
 class _ShowADState extends State<ShowAD> {
-  final CarouselController _controller = CarouselController();
 
   String articlesId;
   String topic;

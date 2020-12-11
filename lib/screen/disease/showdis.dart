@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:doctorpurin/modal/ad.dart';
 import 'package:doctorpurin/screen/includes/articledis.dart';
 import 'package:doctorpurin/screen/women_home.dart';
@@ -12,7 +15,6 @@ class ShowDis extends StatefulWidget {
 }
 
 class _ShowDisState extends State<ShowDis> {
-  var _textController = new TextEditingController();
   final CarouselController _controller = CarouselController();
   String diseaseid;
   String diseasename;
@@ -26,6 +28,7 @@ class _ShowDisState extends State<ShowDis> {
   String expertiseid;
   String expertisename;
   String ida;
+  List<ArticleDisInfo> articleD = List();
   @override
   void initState() {
     super.initState();
@@ -126,27 +129,26 @@ class _ShowDisState extends State<ShowDis> {
         ));
   }
 
-  // Future<Null> showGetArticle() async {
-  //   SharedPreferences preferences = await SharedPreferences.getInstance();
-  //   String diseaseId = preferences.getString('disease_id');
+  Future<Null> checkid() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String diseaseId = preferences.getString('disease_id');
+    String url =
+        'http://192.168.1.108/apidoctor/getArticleDis.php?disease_id=$diseaseId&isAdd=true';
+      Response response = await Dio().get(url);
+      print('res = $response');
 
-  //   String url =
-  //       'http://10.7.0.80/apidoctor/getArticleDis.php?isAdd=true&disease_id=$diseaseId';
-  //   await Dio().get(url).then((value) => {print('value = $value')});
-  //   try {
-  //     Response response = await Dio().get(url);
-  //     print('res = $response');
+      var result = json.decode(response.data);
+      print('res = $result');
+      for (var map in result) {
+        ArticleDisInfo articleInfo = ArticleDisInfo.fromJson(map);
 
-  //     var result = json.decode(response.data);
-  //     print('res = $result');
-  //     for (var map in result) {
-  //       ArticleDisInfo articleInfo = ArticleDisInfo.fromJson(map);
-  //       if (diseaseId == articleInfo.diseaseId) {
-  //         routeTS(ArticleDis(diseaseId: diseaseId,), articleInfo);
-  //       }
-  //     }
-  //   } catch (e) {}
-  // }
+        setState(() {
+          articleD.add(articleInfo);
+           routeTS(NextPage(), articleInfo);
+        });
+      }
+
+  }
 
   Future<Null> routeTS(Widget myWidgett, ArticleDisInfo articleInfo) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -155,6 +157,7 @@ class _ShowDisState extends State<ShowDis> {
     preferences.setString('detail', articleInfo.detail);
     preferences.setString('issue_date', articleInfo.issueDate);
     preferences.setString('id', articleInfo.id);
+    preferences.setString('doctorname', articleInfo.diseaseName);
     preferences.setString('disease_id', articleInfo.diseaseId);
     MaterialPageRoute route =
         MaterialPageRoute(builder: (context) => myWidgett);
@@ -166,10 +169,11 @@ class _ShowDisState extends State<ShowDis> {
           alignment: Alignment.topLeft,
           child: FlatButton(
             onPressed: () {
-              var route = new MaterialPageRoute(
-                builder: (BuildContext context) => NextPage(value: diseaseid),
-              );
-              Navigator.of(context).push(route);
+              // var route = new MaterialPageRoute(
+              //   builder: (BuildContext context) => NextPage(value: diseaseid),
+              // );
+              // Navigator.of(context).push(route);
+              checkid();
             },
             child: Text(
               'บทความที่เกี่ยวข้อง',
@@ -506,4 +510,3 @@ class _ShowDisState extends State<ShowDis> {
         ),
       );
 }
-
