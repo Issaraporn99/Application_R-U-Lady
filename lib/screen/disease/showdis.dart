@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:doctorpurin/utility/normal_dialog.dart';
 
 class ShowDis extends StatefulWidget {
   @override
@@ -134,20 +135,23 @@ class _ShowDisState extends State<ShowDis> {
     String diseaseId = preferences.getString('disease_id');
     String url =
         'http://192.168.1.108/apidoctor/getArticleDis.php?disease_id=$diseaseId&isAdd=true';
-      Response response = await Dio().get(url);
-      print('res = $response');
+    Response response = await Dio().get(url);
+    print('res = $response');
 
-      var result = json.decode(response.data);
-      print('res = $result');
+    var result = json.decode(response.data);
+    print('resss = $result');
+    if (result == null) {
+      normalDialog(context, 'ยังไม่มีบทความที่เกี่ยวข้อง');
+    } else {
       for (var map in result) {
         ArticleDisInfo articleInfo = ArticleDisInfo.fromJson(map);
 
         setState(() {
           articleD.add(articleInfo);
-           routeTS(NextPage(), articleInfo);
+          routeTS(NextPage(), articleInfo);
         });
       }
-
+    }
   }
 
   Future<Null> routeTS(Widget myWidgett, ArticleDisInfo articleInfo) async {
@@ -169,10 +173,6 @@ class _ShowDisState extends State<ShowDis> {
           alignment: Alignment.topLeft,
           child: FlatButton(
             onPressed: () {
-              // var route = new MaterialPageRoute(
-              //   builder: (BuildContext context) => NextPage(value: diseaseid),
-              // );
-              // Navigator.of(context).push(route);
               checkid();
             },
             child: Text(

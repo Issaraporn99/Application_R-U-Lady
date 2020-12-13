@@ -1,3 +1,4 @@
+import 'package:doctorpurin/screen/includes/article.dart';
 import 'package:flutter/material.dart';
 
 //popup
@@ -6,14 +7,21 @@ Future<void> normalDialog(BuildContext context, String message) async {
   showDialog(
     context: context,
     builder: (context) => SimpleDialog(
-      title: Text(message),
+      title: Text(message,style: TextStyle(fontSize: 15.0,),),
       children: <Widget>[
         Row(mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             FlatButton(
+                onPressed: () =>  Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Article())),
+                child: Text(
+                  'ดูบทความอื่น ๆ',
+                  style: TextStyle(color: Colors.blue),
+                )),
+                  FlatButton(
                 onPressed: () => Navigator.pop(context),
                 child: Text(
-                  'OK',
+                  'ปิด',
                   style: TextStyle(color: Colors.red),
                 )),
           ],

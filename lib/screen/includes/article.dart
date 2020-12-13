@@ -161,7 +161,7 @@ class _ArticleState extends State<Article> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ค้นหาบทความ'),
+        title: Text('บทความ'),
       ),
       body: Container(
         child: Column(

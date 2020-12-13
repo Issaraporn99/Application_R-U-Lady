@@ -3,10 +3,12 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:doctorpurin/modal/ad.dart';
+import 'package:doctorpurin/screen/includes/showad.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 
 class NextPage extends StatefulWidget {
   @override
@@ -45,16 +47,16 @@ class _NextPageState extends State<NextPage> {
     // _getArticle2();
     Intl.defaultLocale = "th";
     initializeDateFormatting();
-    checkid();
+    findId();
   }
 
-  // Future<Null> findId() async {
-  //   SharedPreferences preferences = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     diseaseId = preferences.getString('disease_id');
-  //     topic = preferences.getString('topic');
-  //   });
-  // }
+  Future<Null> findId() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      diseaseId = preferences.getString('disease_id');
+      checkid();
+    });
+  }
 
   Future<Null> checkid() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -62,19 +64,51 @@ class _NextPageState extends State<NextPage> {
     String url =
         'http://192.168.1.108/apidoctor/getArticleDis.php?disease_id=$diseaseId&isAdd=true';
     Response response = await Dio().get(url);
-    print('res = $response');
+    print('resrr = $response');
 
     var result = json.decode(response.data);
     print('res = $result');
     for (var map in result) {
       ArticleDisInfo articleInfo = ArticleDisInfo.fromJson(map);
-
       setState(() {
         articleD.add(articleInfo);
       });
     }
   }
- SingleChildScrollView _dataBody() {
+Future<Null> showGetArticle() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String articlesId = preferences.getString('articles_id');
+
+    String url =
+        'http://192.168.1.108/apidoctor/getArticleWhereId.php?isAdd=true&articles_id=$articlesId';
+    await Dio().get(url).then((value) => {print('value = $value')});
+    try {
+      Response response = await Dio().get(url);
+      print('res = $response');
+
+      var result = json.decode(response.data);
+      print('resss = $result');
+      for (var map in result) {
+        ArticleDisInfo articleInfo = ArticleDisInfo.fromJson(map);
+        if (articlesId == articleInfo.articlesId) {
+          routeTS(ShowAD(), articleInfo);
+        }
+      }
+    } catch (e) {}
+  }
+    Future<Null> routeTS(Widget myWidgett, ArticleDisInfo articleInfo) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString('articles_id', articleInfo.articlesId);
+    preferences.setString('topic', articleInfo.topic);
+    preferences.setString('detail', articleInfo.detail);
+    preferences.setString('issue_date', articleInfo.issueDate);
+    preferences.setString('id', articleInfo.id);
+    preferences.setString('doctorname', articleInfo.doctorname);
+    MaterialPageRoute route =
+        MaterialPageRoute(builder: (context) => myWidgett);
+    Navigator.push(context, route);
+  }
+  SingleChildScrollView _dataBody() {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: SingleChildScrollView(
@@ -97,12 +131,12 @@ class _NextPageState extends State<NextPage> {
                         article.topic,
                         style: TextStyle(fontFamily: 'Prompt'),
                       ),
-                      // onTap: () {
-                      //   print("name " + article.topic);
-                      //   ida = article.articlesid;
-                      //   print(ida);
-                      //   routeTS(ShowArticle(), article);
-                      // },
+                      onTap: () {
+                        print("name " + article.topic);
+                        ida = article.articlesId;
+                        print(ida);
+                        routeTS(ShowAD(), article);
+                      },
                     ),
                   ],
                 ),
@@ -112,6 +146,7 @@ class _NextPageState extends State<NextPage> {
       ),
     );
   }
+
 //   @override
 //   Widget build(BuildContext context) {
 //      return articleD.length == 0
@@ -152,7 +187,7 @@ class _NextPageState extends State<NextPage> {
 //                             ),
 //                           )
 //                         ],
-//                       ),                  
+//                       ),
 //                   ),
 //                 ),
 //               );

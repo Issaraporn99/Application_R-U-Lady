@@ -1,4 +1,6 @@
+import 'package:doctorpurin/modal/disinfo_model.dart';
 import 'package:doctorpurin/screen/check/check_disease.dart';
+import 'package:doctorpurin/screen/disease/disease_info.dart';
 import 'package:doctorpurin/screen/disease_menu.dart';
 import 'package:doctorpurin/screen/qa/qa.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +23,7 @@ class _WomenHomeState extends State<WomenHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('   รู้ทันปัญหาสุขภาพผู้หญิง'),
+        title: Text(' รู้ทันปัญหาสุขภาพผู้หญิง'),
       ),
       body: Container(
         alignment: Alignment.topCenter,
@@ -71,7 +73,7 @@ class _WomenHomeState extends State<WomenHome> {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => CheckDisease()));
             },
-            color: Color(0xFFDF7599),
+            color: Color(0xFFa35638),
             padding: EdgeInsets.all(20),
             elevation: 5,
             child: Column(
@@ -103,9 +105,9 @@ class _WomenHomeState extends State<WomenHome> {
           child: RaisedButton(
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => DiseaseMenu()));
+                  MaterialPageRoute(builder: (context) => DisInformation()));
             },
-            color: Color(0xFF1A2849),
+            color: Color(0xFFd7c79e),
             padding: EdgeInsets.all(20),
             elevation: 5,
             child: Column(
@@ -140,7 +142,7 @@ class _WomenHomeState extends State<WomenHome> {
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => Article()));
             },
-            color: Color(0xFF009F9D),
+            color: Color(0xFFe08f62),
             padding: EdgeInsets.all(20),
             elevation: 5,
             child: Column(
@@ -175,7 +177,7 @@ class _WomenHomeState extends State<WomenHome> {
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => QandA()));
             },
-            color: Color(0xFF07456F),
+            color: Color(0xFF9dab86),
             padding: EdgeInsets.all(20),
             elevation: 5,
             child: Column(

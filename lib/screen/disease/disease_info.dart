@@ -169,7 +169,7 @@ class _DisInformationState extends State<DisInformation> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('ค้นหาโรคทั้งหมด'),
+          title: Text('ข้อมูลโรค'),
         ),
        body: Container(
         child: Column(
