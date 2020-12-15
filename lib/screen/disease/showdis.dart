@@ -134,7 +134,7 @@ class _ShowDisState extends State<ShowDis> {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String diseaseId = preferences.getString('disease_id');
     String url =
-        'http://192.168.1.108/apidoctor/getArticleDis.php?disease_id=$diseaseId&isAdd=true';
+        'http://student.crru.ac.th/601463046/apidoctor/getArticleDis.php?disease_id=$diseaseId&isAdd=true';
     Response response = await Dio().get(url);
     print('res = $response');
 
@@ -228,7 +228,7 @@ class _ShowDisState extends State<ShowDis> {
   Widget showDefence() => SingleChildScrollView(
         child: Card(
             child: Container(
-          // height: 400,
+          height: 400,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -268,6 +268,7 @@ class _ShowDisState extends State<ShowDis> {
   Widget showCause() => SingleChildScrollView(
         child: Card(
           child: Container(
+            height: 800,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[

@@ -62,7 +62,7 @@ class _NextPageState extends State<NextPage> {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     diseaseId = preferences.getString('disease_id');
     String url =
-        'http://192.168.1.108/apidoctor/getArticleDis.php?disease_id=$diseaseId&isAdd=true';
+        'http://student.crru.ac.th/601463046/apidoctor/getArticleDis.php?disease_id=$diseaseId&isAdd=true';
     Response response = await Dio().get(url);
     print('resrr = $response');
 
@@ -80,7 +80,7 @@ Future<Null> showGetArticle() async {
     String articlesId = preferences.getString('articles_id');
 
     String url =
-        'http://192.168.1.108/apidoctor/getArticleWhereId.php?isAdd=true&articles_id=$articlesId';
+        'http://student.crru.ac.th/601463046/apidoctor/getArticleWhereId.php?isAdd=true&articles_id=$articlesId';
     await Dio().get(url).then((value) => {print('value = $value')});
     try {
       Response response = await Dio().get(url);

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class MyStyle {
-  Color darkColor = Colors.blue.shade800;
+  Color darkColor = Colors.blueGrey[900];
   Color primaryColor = Colors.grey[200];
 
-  SizedBox mySizeBox() => SizedBox(width: 8.0,height: 16.0,);
- 
+  SizedBox mySizeBox() => SizedBox(
+        width: 8.0,
+        height: 16.0,
+      );
 
   Text showTitle(String title) => Text(
         title,
@@ -19,13 +21,13 @@ class MyStyle {
   Text showTitleH2(String title) => Text(
         title,
         style: TextStyle(
-          fontSize: 18.0,
-          color: Color(0xFF45046a),
+          fontSize: 16.0,
+          color:Colors.blueGrey[900],
           fontWeight: FontWeight.bold,
         ),
       );
 
-        Text menuHome(String title) => Text(
+  Text menuHome(String title) => Text(
         title,
         style: TextStyle(
           fontSize: 18.0,
@@ -34,8 +36,6 @@ class MyStyle {
         ),
       );
 
-
-
   Container showLogo() {
     return Container(
       width: 290.0,
@@ -43,24 +43,26 @@ class MyStyle {
     );
   }
 
-    Container showLogoLogin() {
+  Container showLogoLogin() {
     return Container(
       width: 250.0,
       child: Image.asset('images/login.png'),
     );
   }
 
-   Container showImgHome() {
+  Container showImgHome() {
     return Container(
       width: 180,
       child: Image.asset('images/home.png'),
     );
   }
+
   Container showImgEx() {
     return Container(
       width: 200.0,
       child: Image.asset('images/as.jpg'),
     );
   }
+
   MyStyle();
 }

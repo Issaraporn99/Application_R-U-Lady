@@ -3,6 +3,7 @@ import 'package:doctorpurin/screen/check/check_disease.dart';
 import 'package:doctorpurin/screen/disease/disease_info.dart';
 import 'package:doctorpurin/screen/disease_menu.dart';
 import 'package:doctorpurin/screen/qa/qa.dart';
+import 'package:doctorpurin/screen/qa/showQA.dart';
 import 'package:flutter/material.dart';
 import 'package:doctorpurin/utility/my_style.dart';
 
@@ -175,7 +176,7 @@ class _WomenHomeState extends State<WomenHome> {
           child: RaisedButton(
             onPressed: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => QandA()));
+                  context, MaterialPageRoute(builder: (context) => ShowQA()));
             },
             color: Color(0xFF9dab86),
             padding: EdgeInsets.all(20),

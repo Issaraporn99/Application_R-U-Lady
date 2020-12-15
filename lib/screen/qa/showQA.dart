@@ -2,21 +2,20 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:doctorpurin/modal/article_modal.dart';
+import 'package:doctorpurin/modal/question_modal.dart';
 import 'package:doctorpurin/screen/disease/service.dart';
-import 'package:doctorpurin/screen/includes/showArticle.dart';
+import 'package:doctorpurin/screen/qa/showA.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Article extends StatefulWidget {
-  Article() : super();
-
-  final String title = "ค้นหาข้อมูลบทความ";
+class ShowQA extends StatefulWidget {
+  ShowQA() : super();
   @override
-  _ArticleState createState() => _ArticleState();
+  _ShowQAState createState() => _ShowQAState();
 }
+
 class Debouncer {
   final int milliseconds;
   VoidCallback action;
@@ -33,9 +32,10 @@ class Debouncer {
     _timer = Timer(Duration(milliseconds: milliseconds), action);
   }
 }
-class _ArticleState extends State<Article> {
-  List<ArticleInfo> _article;
-  List<ArticleInfo> _filterarticle;
+
+class _ShowQAState extends State<ShowQA> {
+  List<Question> _filterqa;
+    List<Question> _qa;
 
   String ida;
   final _debouncer = Debouncer(milliseconds: 500);
@@ -43,29 +43,31 @@ class _ArticleState extends State<Article> {
   @override
   void initState() {
     super.initState();
-     _article = [];
-    _filterarticle = [];
-    _getArticle();
+    _filterqa = [];
+    _qa = [];
+    _getQa();
     Intl.defaultLocale = "th";
     initializeDateFormatting();
   }
-  _getArticle() {
-    ServicesArticle.getArticle().then((article) {
+
+  _getQa() {
+    ServicesQA.getQ().then((qa) {
       setState(() {
-      _article = article;
-      _filterarticle = article;
+        _qa = qa;
+        _filterqa = qa;
       });
 
-      print("Length: ${article.length}");
+      print("Length: ${qa.length}");
     });
   }
-  searchField() {
+
+    searchField() {
     return Padding(
       padding: EdgeInsets.only(left: 10.0,right: 10.0),
       child: TextField(
         decoration: InputDecoration(
           contentPadding: EdgeInsets.all(1.0),
-          hintText: 'ค้นหาบทความ',
+          hintText: 'ค้นหาคำถาม',
         ),
         onChanged: (string) {
           // We will start filtering when the user types in the textfield.
@@ -73,11 +75,11 @@ class _ArticleState extends State<Article> {
           _debouncer.run(() {
             // Filter the original List and update the Filter list
             setState(() {
-              _filterarticle = _article
-                  .where((u) => (u.topic
+              _filterqa = _qa
+                  .where((u) => (u.question
                           .toLowerCase()
                           .contains(string.toLowerCase()) ||
-                      u.articlesid.toLowerCase().contains(string.toLowerCase())))
+                      u.questionDate.toLowerCase().contains(string.toLowerCase())))
                   .toList();
             });
           });
@@ -95,26 +97,34 @@ class _ArticleState extends State<Article> {
           columns: [
             DataColumn(
               label: Text(
-                "บทความ",
+                "คำถาม",
                 style: TextStyle(fontFamily: 'Prompt'),
               ),
             ),
+            DataColumn(
+              label: Text(
+                "วันที่",
+                style: TextStyle(fontFamily: 'Prompt',fontSize: 12.0,),
+
+              ),
+            ),
           ],
-          rows: _filterarticle
+          rows: _filterqa
               .map(
-                (article) => DataRow(
+                (qa) => DataRow(
                   cells: [
                     DataCell(
                       Text(
-                        article.topic,
+                        qa.question,
                         style: TextStyle(fontFamily: 'Prompt'),
                       ),
-                      onTap: () {
-                        print("name " + article.topic);
-                        ida = article.articlesid;
-                        print(ida);
-                        routeTS(ShowArticle(), article);
-                      },
+                      onTap: () {routeTS(ShowA(), qa);},
+                    ),
+                    DataCell(
+                      Text(
+                        qa.questionDate,
+                        style: TextStyle(fontFamily: 'Prompt',fontSize: 10.0,color: Colors.black45),
+                      ),
                     ),
                   ],
                 ),
@@ -124,12 +134,12 @@ class _ArticleState extends State<Article> {
       ),
     );
   }
-    Future<Null> showGetArticle() async {
+Future<Null> showGetArticle() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    String articlesid = preferences.getString('articles_id');
+    String questionId = preferences.getString('question_id');
 
     String url =
-        'http://student.crru.ac.th/601463046/apidoctor/getArticleWhereId.php?isAdd=true&articles_id=$articlesid';
+        'http://student.crru.ac.th/601463046/apidoctor/getQAWhereId.php?isAdd=true&question_id=$questionId';
     await Dio().get(url).then((value) => {print('value = $value')});
     try {
       Response response = await Dio().get(url);
@@ -138,30 +148,29 @@ class _ArticleState extends State<Article> {
       var result = json.decode(response.data);
       print('res = $result');
       for (var map in result) {
-        ArticleInfo articleInfo = ArticleInfo.fromJson(map);
-        if (articlesid == articleInfo.articlesid) {
-          routeTS(ShowArticle(), articleInfo);
+        Question qaInfo = Question.fromJson(map);
+        if (questionId == qaInfo.questionId) {
+          routeTS(ShowA(), qaInfo);
         }
       }
     } catch (e) {}
   }
-    Future<Null> routeTS(Widget myWidgett, ArticleInfo articleInfo) async {
+    Future<Null> routeTS(Widget myWidgett, Question qaInfo) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setString('articles_id', articleInfo.articlesid);
-    preferences.setString('topic', articleInfo.topic);
-    preferences.setString('detail', articleInfo.detail);
-    preferences.setString('issue_date', articleInfo.issuedate);
-    preferences.setString('id', articleInfo.id);
-    preferences.setString('doctorname', articleInfo.doctorname);
+    preferences.setString('question_id', qaInfo.questionId);
+    preferences.setString('question', qaInfo.question);
+    preferences.setString('question_date', qaInfo.questionDate);
+    preferences.setString('question_name', qaInfo.questionName);
+    preferences.setString('expertise_id', qaInfo.expertiseId);
     MaterialPageRoute route =
         MaterialPageRoute(builder: (context) => myWidgett);
     Navigator.push(context, route);
   }
-   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('บทความ'),
+        title: Text('คำถาม'),
       ),
       body: Container(
         child: Column(

@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'package:doctorpurin/modal/ad.dart';
 import 'package:doctorpurin/modal/article_modal.dart';
+import 'package:doctorpurin/modal/question_modal.dart';
 import 'package:http/http.dart' as http;
 import 'package:doctorpurin/modal/disinfo_model.dart';
 
 class Services {
-  static const ROOT = 'http://192.168.1.108/apidoctor/disInfo.php?isAdd=true';
+  static const ROOT = 'http://student.crru.ac.th/601463046/apidoctor/disInfo.php?isAdd=true';
   static const String _GET_ACTION = 'true';
 
   static Future<List<DisInfo>> getDisease() async {
@@ -32,7 +33,7 @@ class Services {
 }
 
 class ServicesArticle {
-  static const ROOT = 'http://192.168.1.108/apidoctor/getArticle.php?isAdd=true';
+  static const ROOT = 'http://student.crru.ac.th/601463046/apidoctor/getArticle.php?isAdd=true';
   static const String _GET_ACTION = 'true';
 
   static Future<List<ArticleInfo>> getArticle() async {
@@ -62,7 +63,7 @@ class ServicesArticle {
 
 class ServicesArticle2 {
   static const ROOT =
-      'http://192.168.1.108/apidoctor/getArticleDis.php?disease_id=1&isAdd=true';
+      'http://student.crru.ac.th/601463046/apidoctor/getArticleDis.php?disease_id=1&isAdd=true';
   static const String _GET_ACTION = 'true';
 
   static Future<List<ArticleDisInfo>> getArticle2() async {
@@ -89,6 +90,33 @@ class ServicesArticle2 {
         .toList();
   }
 }
+class ServicesQA {
+  static const ROOT = 'http://student.crru.ac.th/601463046/apidoctor/getQ.php?isAdd=true';
+  static const String _GET_ACTION = 'true';
+
+  static Future<List<Question>> getQ() async {
+    try {
+      var map = new Map<String, dynamic>();
+      map["isAdd"] = _GET_ACTION;
+      final response = await http.post(ROOT, body: map);
+      print("getDisease >> Response:: ${response.body}");
+      if (response.statusCode == 200) {
+        List<Question> list = parsePhotos(response.body);
+        return list;
+      } else {
+        throw List<Question>();
+      }
+    } catch (e) {
+      return List<Question>();
+    }
+  }
+
+  static List<Question> parsePhotos(String responseBody) {
+    final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+    return parsed.map<Question>((json) => Question.fromJson(json)).toList();
+  }
+}
+
 
 // Future<Null> readDis() async {
 //   SharedPreferences preferences = await SharedPreferences.getInstance();

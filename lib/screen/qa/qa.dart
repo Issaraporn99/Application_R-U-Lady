@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
+import 'package:http/http.dart' as http;
 import 'package:doctorpurin/utility/normal_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:doctorpurin/utility/my_style.dart';
@@ -9,38 +12,33 @@ class QandA extends StatefulWidget {
 }
 
 class _QandAState extends State<QandA> {
-   List _typeEx = [
-    "1",
-    "2",
-  ];
-
-  List<DropdownMenuItem<String>> _dropDownMenuItems;
-  // String _currentType;
-@override
-  void initState() {
-    _dropDownMenuItems = getDropDownMenuItems();
-    expertiseId = _dropDownMenuItems[0].value;
-    super.initState();
-  }
-
-  List<DropdownMenuItem<String>> getDropDownMenuItems() {
-    List<DropdownMenuItem<String>> items = new List();
-    for (String typeEx in _typeEx) {
-      items.add(new DropdownMenuItem(value: typeEx, child: new Text(typeEx)));
-    }
-    return items;
-  }
-
-  void changedDropDownItem(String selectedEx) {
-    setState(() {
-      expertiseId = selectedEx;
-    });
-  }
-  String questionId;
+  String selectedValue;
+  List exItem = List();
   String question;
   String questionDate;
   String questionName;
   String expertiseId;
+  String questionId;
+
+  Future getex() async {
+    var url =
+        "http://student.crru.ac.th/601463046/apidoctor/getExType.php?isAdd=true";
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      var jsonData = json.decode(response.body);
+      setState(() {
+        exItem = jsonData;
+      });
+    }
+    print(exItem);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getex();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,15 +59,29 @@ class _QandAState extends State<QandA> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 MyStyle().mySizeBox(),
+                MyStyle().showTitleH2('เลือกสาขาความเชี่ยวชาญ :'),
+                DropdownButton(
+                  hint: Text('เลือก'),
+                  value: selectedValue,
+                  items: exItem.map((ex) {
+                    return DropdownMenuItem(
+                        value: ex['expertise_id'],
+                        child: Text(ex['expertise_name']));
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      selectedValue = value;
+                      expertiseId = selectedValue;
+                    });
+                    print(expertiseId);
+                  },
+                ),
+                MyStyle().mySizeBox(),
                 userForm(),
+                MyStyle().mySizeBox(),
                 qustion(),
-                questiondate(),
-                MyStyle().showTitleH2('เลือกประเภทของผู้เชี่ยวชาญ :'),
-          new DropdownButton(
-            value: expertiseId,
-            items: _dropDownMenuItems,
-            onChanged: changedDropDownItem,
-          ),
+                MyStyle().mySizeBox(),
+                MyStyle().mySizeBox(),
                 registerButton(),
               ],
             ),
@@ -81,14 +93,15 @@ class _QandAState extends State<QandA> {
 
   Widget registerButton() => Container(
       width: 250.0,
+      height: 50,
       child: RaisedButton(
-        color: MyStyle().darkColor,
+        color: Colors.brown,
         onPressed: () {
           print(
-              'question = $question, question_name = $questionName, expertise_id = $expertiseId,question_date=$questionDate');
+              'question_id = $questionId,question = $question, question_name = $questionName, expertise_id = $expertiseId,question_date=$questionDate');
           registerThread();
         },
-        child: Text('Register',
+        child: Text('ถาม',
             style: TextStyle(
               color: Colors.white,
             )),
@@ -96,7 +109,7 @@ class _QandAState extends State<QandA> {
 
   Future<Null> registerThread() async {
     String url =
-        'http://192.168.1.108/apidoctor/addQustion.php?isAdd=true&question=$question&question_name=$questionName&expertise_id=$expertiseId&question_date=$questionDate';
+        'http://student.crru.ac.th/601463046/apidoctor/addQustion.php?isAdd=true&question=$question&question_name=$questionName&expertise_id=$expertiseId';
 
     try {
       Response response = await Dio().get(url);
@@ -119,18 +132,17 @@ class _QandAState extends State<QandA> {
                 onChanged: (value) => question = value.trim(),
                 decoration: InputDecoration(
                   prefixIcon: Icon(
-                    Icons.face,
+                    Icons.border_color,
                     color: MyStyle().darkColor,
                   ),
                   labelStyle: TextStyle(color: MyStyle().darkColor),
-                  labelText: 'question :',
+                  labelText: 'ถามคำถาม :',
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: MyStyle().darkColor)),
                   focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: MyStyle().primaryColor)),
                 ),
-              )
-              ),
+              )),
         ],
       );
 
@@ -143,7 +155,7 @@ class _QandAState extends State<QandA> {
                 onChanged: (value) => questionName = value.trim(),
                 decoration: InputDecoration(
                   prefixIcon: Icon(
-                    Icons.account_box,
+                    Icons.face,
                     color: MyStyle().darkColor,
                   ),
                   labelStyle: TextStyle(color: MyStyle().darkColor),
@@ -156,27 +168,4 @@ class _QandAState extends State<QandA> {
               )),
         ],
       );
-        Widget questiondate() => Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Container(
-              width: 250.0,
-              child: TextField(
-                onChanged: (value) => questionDate = value.trim(),
-                decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.account_box,
-                    color: MyStyle().darkColor,
-                  ),
-                  labelStyle: TextStyle(color: MyStyle().darkColor),
-                  labelText: 'ชื่อ :',
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: MyStyle().darkColor)),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: MyStyle().primaryColor)),
-                ),
-              )),
-        ],
-      );
-
 }
