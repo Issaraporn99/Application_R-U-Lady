@@ -33,7 +33,7 @@ class ArticleDisInfo {
           : DateFormat('วันที่ d MMMM y')
               .format(DateTime.parse(json['issue_date'])),
       id: json['id'] as String,
-      diseaseName: json['diseaseName'] as String,
+      diseaseName: json['disease_name'] as String,
       doctorname: json['doctorname'] as String,
     );
   }

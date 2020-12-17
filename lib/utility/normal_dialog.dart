@@ -7,7 +7,7 @@ Future<void> normalDialog(BuildContext context, String message) async {
   showDialog(
     context: context,
     builder: (context) => SimpleDialog(
-      title: Text(message,style: TextStyle(fontSize: 15.0,),),
+      title: Text(message,style: TextStyle(fontSize: 15.0,fontFamily: 'Prompt'),),
       children: <Widget>[
         Row(mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
@@ -16,13 +16,13 @@ Future<void> normalDialog(BuildContext context, String message) async {
                   context, MaterialPageRoute(builder: (context) => Article())),
                 child: Text(
                   'ดูบทความอื่น ๆ',
-                  style: TextStyle(color: Colors.blue),
+                  style: TextStyle(color: Colors.blue,fontFamily: 'Prompt'),
                 )),
                   FlatButton(
                 onPressed: () => Navigator.pop(context),
                 child: Text(
                   'ปิด',
-                  style: TextStyle(color: Colors.red),
+                  style: TextStyle(color: Colors.red,fontFamily: 'Prompt'),
                 )),
           ],
         )

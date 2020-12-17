@@ -40,76 +40,66 @@ class _ShowAState extends State<ShowA> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('บทความ'),
+          title: Text('ถามตอบ',
+          style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
         ),
+        backgroundColor: Colors.red[200],
+      ),
         body: SingleChildScrollView(
           child: Container(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: 20, right: 20, top: 15, bottom: 5),
-                  child: Text(
-                    '$questionName',
-                    style: TextStyle(
-                      color: Colors.purple[300],
-                      fontSize: 18.0,
-                    ),
-                  ),
-                ),
-
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 50),
-                      child: Html(
-                        data: ('$question'),
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 20,
-                    ),
-                    child: Text(
-                      '$questionName',
-                      style: TextStyle(
-                        color: Colors.black54,
-                        fontSize: 13.0,
+                Row(children: <Widget>[
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20, top: 20),
+                      child: Text(
+                        'คำถามที่ $questionId',
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 13.0,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 20,
-                    ),
-                    child: Text(
-                      'ผู้เขียน $expertiseId',
-                      style: TextStyle(
-                        color: Colors.black54,
-                        fontSize: 13.0,
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 150, top: 20),
+                      child: Text(
+                        'วันที่ $questionDate',
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 13.0,
+                        ),
                       ),
                     ),
                   ),
+                ]),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                      padding: const EdgeInsets.only(left: 30, right: 20),
+                      child: Text('$question')),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
-                  child: FlatButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => WomenHome()));
-                    },
-                    child: Image.asset(
-                      'images/btnh.png',
-                      width: 60,
+                if ('$questionName' != null)
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        left: 20,top: 20
+                      ),
+                      child: Text(
+                        'คำถามจาก คุณ $questionName',
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 13.0,
+                        ),
+                      ),
                     ),
                   ),
-                ),
               ],
             ),
           ),

@@ -1,15 +1,11 @@
-import 'package:doctorpurin/modal/disinfo_model.dart';
 import 'package:doctorpurin/screen/check/check_disease.dart';
 import 'package:doctorpurin/screen/disease/disease_info.dart';
-import 'package:doctorpurin/screen/disease_menu.dart';
-import 'package:doctorpurin/screen/qa/qa.dart';
 import 'package:doctorpurin/screen/qa/showQA.dart';
 import 'package:flutter/material.dart';
 import 'package:doctorpurin/utility/my_style.dart';
 
 import 'check/check_disease.dart';
 import 'includes/article.dart';
-
 
 class WomenHome extends StatefulWidget {
   @override
@@ -24,7 +20,11 @@ class _WomenHomeState extends State<WomenHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(' รู้ทันปัญหาสุขภาพผู้หญิง'),
+        title: Text(
+          ' รู้ทันปัญหาสุขภาพผู้หญิง',
+          style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+        ),
+        backgroundColor: Colors.red[200],
       ),
       body: Container(
         alignment: Alignment.topCenter,
@@ -50,17 +50,17 @@ class _WomenHomeState extends State<WomenHome> {
             ],
           ),
         ),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('images/home.png'),
-              alignment: Alignment.bottomCenter,
-              scale: 2.5
+        // decoration: BoxDecoration(
+        //   image: DecorationImage(
+        //       image: AssetImage('images/home.png'),
+        //       alignment: Alignment.bottomCenter,
+        //       scale: 2.5
 
-              //  width: 65,
-              //  height: 65,
+        //       //  width: 65,
+        //       //  height: 65,
 
-              ),
-        ),
+        //       ),
+        // ),
       ),
     );
   }
@@ -124,7 +124,7 @@ class _WomenHomeState extends State<WomenHome> {
                     'ข้อมูลโรค',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 18.0,
+                      fontSize: 18.0,fontFamily: 'Prompt',
                     ),
                   ),
                 ),
@@ -159,7 +159,7 @@ class _WomenHomeState extends State<WomenHome> {
                     'บทความ',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 18.0,
+                      fontSize: 18.0,fontFamily: 'Prompt',
                     ),
                   ),
                 ),
@@ -194,7 +194,7 @@ class _WomenHomeState extends State<WomenHome> {
                     'ถามตอบ',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 18.0,
+                      fontSize: 18.0,fontFamily: 'Prompt',
                     ),
                   ),
                 ),

@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:doctorpurin/modal/article_modal.dart';
 import 'package:doctorpurin/screen/disease/service.dart';
 import 'package:doctorpurin/screen/includes/showArticle.dart';
+import 'package:doctorpurin/utility/my_style.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
@@ -17,6 +18,7 @@ class Article extends StatefulWidget {
   @override
   _ArticleState createState() => _ArticleState();
 }
+
 class Debouncer {
   final int milliseconds;
   VoidCallback action;
@@ -33,6 +35,7 @@ class Debouncer {
     _timer = Timer(Duration(milliseconds: milliseconds), action);
   }
 }
+
 class _ArticleState extends State<Article> {
   List<ArticleInfo> _article;
   List<ArticleInfo> _filterarticle;
@@ -43,29 +46,40 @@ class _ArticleState extends State<Article> {
   @override
   void initState() {
     super.initState();
-     _article = [];
+    _article = [];
     _filterarticle = [];
     _getArticle();
     Intl.defaultLocale = "th";
     initializeDateFormatting();
   }
+
   _getArticle() {
     ServicesArticle.getArticle().then((article) {
       setState(() {
-      _article = article;
-      _filterarticle = article;
+        _article = article;
+        _filterarticle = article;
       });
 
       print("Length: ${article.length}");
     });
   }
+
   searchField() {
     return Padding(
-      padding: EdgeInsets.only(left: 10.0,right: 10.0),
+      padding: EdgeInsets.only(left: 10.0, right: 10.0),
       child: TextField(
         decoration: InputDecoration(
+          prefixIcon: Icon(
+            Icons.search,
+            color:Colors.grey,
+          ),
           contentPadding: EdgeInsets.all(1.0),
-          hintText: 'ค้นหาบทความ',
+          labelStyle: TextStyle(color:Colors.grey,fontFamily: 'Prompt'),
+          labelText: 'ค้นหาบทความ :',
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red[200])),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red[200])),
         ),
         onChanged: (string) {
           // We will start filtering when the user types in the textfield.
@@ -74,10 +88,11 @@ class _ArticleState extends State<Article> {
             // Filter the original List and update the Filter list
             setState(() {
               _filterarticle = _article
-                  .where((u) => (u.topic
-                          .toLowerCase()
-                          .contains(string.toLowerCase()) ||
-                      u.articlesid.toLowerCase().contains(string.toLowerCase())))
+                  .where((u) =>
+                      (u.topic.toLowerCase().contains(string.toLowerCase()) ||
+                          u.articlesid
+                              .toLowerCase()
+                              .contains(string.toLowerCase())))
                   .toList();
             });
           });
@@ -124,7 +139,8 @@ class _ArticleState extends State<Article> {
       ),
     );
   }
-    Future<Null> showGetArticle() async {
+
+  Future<Null> showGetArticle() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String articlesid = preferences.getString('articles_id');
 
@@ -145,7 +161,8 @@ class _ArticleState extends State<Article> {
       }
     } catch (e) {}
   }
-    Future<Null> routeTS(Widget myWidgett, ArticleInfo articleInfo) async {
+
+  Future<Null> routeTS(Widget myWidgett, ArticleInfo articleInfo) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString('articles_id', articleInfo.articlesid);
     preferences.setString('topic', articleInfo.topic);
@@ -157,11 +174,16 @@ class _ArticleState extends State<Article> {
         MaterialPageRoute(builder: (context) => myWidgett);
     Navigator.push(context, route);
   }
-   @override
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('บทความ'),
+        title: Text(
+          'บทความ',
+          style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+        ),
+        backgroundColor: Colors.red[200],
       ),
       body: Container(
         child: Column(

@@ -49,8 +49,11 @@ class _ShowADState extends State<ShowAD> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('บทความ'),
+          title: Text('บทความ',
+          style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
         ),
+        backgroundColor: Colors.red[200],
+      ),
         body: SingleChildScrollView(
           child: Container(
             child: Column(
@@ -63,7 +66,7 @@ class _ShowADState extends State<ShowAD> {
                     '$topic',
                     style: TextStyle(
                       color: Colors.purple[300],
-                      fontSize: 18.0,
+                      fontSize: 18.0,fontFamily: 'Prompt'
                     ),
                   ),
                 ),

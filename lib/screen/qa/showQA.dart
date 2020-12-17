@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:doctorpurin/modal/question_modal.dart';
 import 'package:doctorpurin/screen/disease/service.dart';
+import 'package:doctorpurin/screen/qa/qa.dart';
 import 'package:doctorpurin/screen/qa/showA.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -35,7 +36,7 @@ class Debouncer {
 
 class _ShowQAState extends State<ShowQA> {
   List<Question> _filterqa;
-    List<Question> _qa;
+  List<Question> _qa;
 
   String ida;
   final _debouncer = Debouncer(milliseconds: 500);
@@ -61,13 +62,22 @@ class _ShowQAState extends State<ShowQA> {
     });
   }
 
-    searchField() {
+  searchField() {
     return Padding(
-      padding: EdgeInsets.only(left: 10.0,right: 10.0),
+      padding: EdgeInsets.only(left: 10.0, right: 10.0),
       child: TextField(
         decoration: InputDecoration(
+          prefixIcon: Icon(
+            Icons.search,
+            color: Colors.grey,
+          ),
           contentPadding: EdgeInsets.all(1.0),
-          hintText: 'ค้นหาคำถาม',
+          labelStyle: TextStyle(color: Colors.grey, fontFamily: 'Prompt'),
+          labelText: 'ค้นหาคำถาม :',
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red[200])),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red[200])),
         ),
         onChanged: (string) {
           // We will start filtering when the user types in the textfield.
@@ -79,7 +89,9 @@ class _ShowQAState extends State<ShowQA> {
                   .where((u) => (u.question
                           .toLowerCase()
                           .contains(string.toLowerCase()) ||
-                      u.questionDate.toLowerCase().contains(string.toLowerCase())))
+                      u.questionDate
+                          .toLowerCase()
+                          .contains(string.toLowerCase())))
                   .toList();
             });
           });
@@ -104,8 +116,10 @@ class _ShowQAState extends State<ShowQA> {
             DataColumn(
               label: Text(
                 "วันที่",
-                style: TextStyle(fontFamily: 'Prompt',fontSize: 12.0,),
-
+                style: TextStyle(
+                  fontFamily: 'Prompt',
+                  fontSize: 12.0,
+                ),
               ),
             ),
           ],
@@ -118,12 +132,17 @@ class _ShowQAState extends State<ShowQA> {
                         qa.question,
                         style: TextStyle(fontFamily: 'Prompt'),
                       ),
-                      onTap: () {routeTS(ShowA(), qa);},
+                      onTap: () {
+                        routeTS(ShowA(), qa);
+                      },
                     ),
                     DataCell(
                       Text(
                         qa.questionDate,
-                        style: TextStyle(fontFamily: 'Prompt',fontSize: 10.0,color: Colors.black45),
+                        style: TextStyle(
+                            fontFamily: 'Prompt',
+                            fontSize: 10.0,
+                            color: Colors.black45),
                       ),
                     ),
                   ],
@@ -131,10 +150,12 @@ class _ShowQAState extends State<ShowQA> {
               )
               .toList(),
         ),
+
       ),
     );
   }
-Future<Null> showGetArticle() async {
+
+  Future<Null> showGetArticle() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String questionId = preferences.getString('question_id');
 
@@ -155,7 +176,8 @@ Future<Null> showGetArticle() async {
       }
     } catch (e) {}
   }
-    Future<Null> routeTS(Widget myWidgett, Question qaInfo) async {
+
+  Future<Null> routeTS(Widget myWidgett, Question qaInfo) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString('question_id', qaInfo.questionId);
     preferences.setString('question', qaInfo.question);
@@ -166,11 +188,16 @@ Future<Null> showGetArticle() async {
         MaterialPageRoute(builder: (context) => myWidgett);
     Navigator.push(context, route);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('คำถาม'),
+        title: Text(
+          'คำถาม',
+          style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+        ),
+        backgroundColor: Colors.red[200],
       ),
       body: Container(
         child: Column(
@@ -182,6 +209,20 @@ Future<Null> showGetArticle() async {
             ),
             Expanded(
               child: _dataBody(),
+            ),
+            Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 70, right: 10),
+                child: FloatingActionButton(
+                  backgroundColor: const Color(0xff03dac6),
+                  onPressed: () {
+                    Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => QandA()));
+                  },
+                  child: Icon(Icons.edit),
+                ),
+              ),
             ),
           ],
         ),

@@ -9,7 +9,6 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class NextPage extends StatefulWidget {
   @override
   _NextPageState createState() => new _NextPageState();
@@ -37,6 +36,7 @@ class _NextPageState extends State<NextPage> {
   String diseaseId;
   String ida;
   String topic;
+  String diseaseName;
   List<ArticleDisInfo> articleD = List();
   final _debouncer = Debouncer(milliseconds: 500);
 
@@ -54,6 +54,7 @@ class _NextPageState extends State<NextPage> {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
       diseaseId = preferences.getString('disease_id');
+      diseaseName = preferences.getString('disease_name');
       checkid();
     });
   }
@@ -61,6 +62,7 @@ class _NextPageState extends State<NextPage> {
   Future<Null> checkid() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     diseaseId = preferences.getString('disease_id');
+    diseaseName = preferences.getString('disease_name');
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/getArticleDis.php?disease_id=$diseaseId&isAdd=true';
     Response response = await Dio().get(url);
@@ -75,7 +77,8 @@ class _NextPageState extends State<NextPage> {
       });
     }
   }
-Future<Null> showGetArticle() async {
+
+  Future<Null> showGetArticle() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String articlesId = preferences.getString('articles_id');
 
@@ -96,7 +99,8 @@ Future<Null> showGetArticle() async {
       }
     } catch (e) {}
   }
-    Future<Null> routeTS(Widget myWidgett, ArticleDisInfo articleInfo) async {
+
+  Future<Null> routeTS(Widget myWidgett, ArticleDisInfo articleInfo) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString('articles_id', articleInfo.articlesId);
     preferences.setString('topic', articleInfo.topic);
@@ -108,6 +112,7 @@ Future<Null> showGetArticle() async {
         MaterialPageRoute(builder: (context) => myWidgett);
     Navigator.push(context, route);
   }
+
   SingleChildScrollView _dataBody() {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
@@ -117,7 +122,7 @@ Future<Null> showGetArticle() async {
           columns: [
             DataColumn(
               label: Text(
-                "บทความ",
+                "บทความเกี่ยวกับโรค " + '$diseaseName',
                 style: TextStyle(fontFamily: 'Prompt'),
               ),
             ),
@@ -200,7 +205,10 @@ Future<Null> showGetArticle() async {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ค้นหาบทความ'),
+        title: Text('บทความ',
+          style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+        ),
+        backgroundColor: Colors.red[200],
       ),
       body: Container(
         child: Column(

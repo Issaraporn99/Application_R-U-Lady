@@ -24,6 +24,7 @@ class MyStyle {
           fontSize: 16.0,
           color:Colors.blueGrey[900],
           fontWeight: FontWeight.bold,
+          fontFamily: 'Prompt'
         ),
       );
 

@@ -17,6 +17,7 @@ class ShowDis extends StatefulWidget {
 
 class _ShowDisState extends State<ShowDis> {
   final CarouselController _controller = CarouselController();
+  int _index = 0;
   String diseaseid;
   String diseasename;
   String diseasedetail;
@@ -29,6 +30,7 @@ class _ShowDisState extends State<ShowDis> {
   String expertiseid;
   String expertisename;
   String ida;
+  final List<String> imgList = ['1', '2', '3', '4', '5'];
   List<ArticleDisInfo> articleD = List();
   @override
   void initState() {
@@ -57,7 +59,11 @@ class _ShowDisState extends State<ShowDis> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('ข้อมูลโรค '),
+          title: Text(
+            'ข้อมูลโรค ',
+            style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+          ),
+          backgroundColor: Colors.red[200],
         ),
         body: SingleChildScrollView(
           child: Column(children: <Widget>[
@@ -66,9 +72,9 @@ class _ShowDisState extends State<ShowDis> {
               child: Text(
                 'โรค $diseasename',
                 style: TextStyle(
-                  color: Colors.purple[300],
-                  fontSize: 18.0,
-                ),
+                    color: Colors.red[900],
+                    fontSize: 18.0,
+                    fontFamily: 'Prompt'),
               ),
             ),
             CarouselSlider(
@@ -82,50 +88,32 @@ class _ShowDisState extends State<ShowDis> {
               options: CarouselOptions(
                   enlargeCenterPage: true,
                   enableInfiniteScroll: false,
-                  height: 400),
-              carouselController: _controller,
+                  aspectRatio: 2.0,
+                  height: 390,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _index = index;
+                    });
+                  }),
             ),
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: FlatButton(
-                      onPressed: () => _controller.previousPage(),
-                      child: Image.asset(
-                        'images/pre.png',
-                        width: 30,
-                      ),
-                    ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: imgList.map((url) {
+                int index = imgList.indexOf(url);
+                return Container(
+                  width: 8.0,
+                  height: 50.0,
+                  margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: _index == index
+                        ? Color.fromRGBO(0, 0, 0, 0.9)
+                        : Color.fromRGBO(0, 0, 0, 0.4),
                   ),
-                  articleDis(),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: FlatButton(
-                      onPressed: () => _controller.nextPage(),
-                      child: Image.asset(
-                        'images/next.png',
-                        width: 30,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                );
+              }).toList(),
             ),
-            Align(
-              alignment: Alignment.topCenter,
-              child: FlatButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => WomenHome()));
-                },
-                child: Image.asset(
-                  'images/btnh.png',
-                  width: 80,
-                ),
-              ),
-            ),
+            articleDis(),
           ]),
         ));
   }
@@ -161,8 +149,9 @@ class _ShowDisState extends State<ShowDis> {
     preferences.setString('detail', articleInfo.detail);
     preferences.setString('issue_date', articleInfo.issueDate);
     preferences.setString('id', articleInfo.id);
-    preferences.setString('doctorname', articleInfo.diseaseName);
+    preferences.setString('doctorname', articleInfo.doctorname);
     preferences.setString('disease_id', articleInfo.diseaseId);
+    preferences.setString('disease_name', articleInfo.diseaseName);
     MaterialPageRoute route =
         MaterialPageRoute(builder: (context) => myWidgett);
     Navigator.push(context, route);
@@ -178,9 +167,9 @@ class _ShowDisState extends State<ShowDis> {
             child: Text(
               'บทความที่เกี่ยวข้อง',
               style: TextStyle(
-                color: (Colors.lightBlue),
-                fontSize: 14.0,
-              ),
+                  color: (Colors.lightBlue),
+                  fontSize: 14.0,
+                  fontFamily: 'Prompt'),
             ),
           ),
         ),
@@ -189,15 +178,17 @@ class _ShowDisState extends State<ShowDis> {
   Widget showTreatment() => SingleChildScrollView(
         child: Card(
           child: Container(
+            constraints:
+                BoxConstraints(minHeight: 400, minWidth: double.infinity),
             child: Column(
               children: <Widget>[
                 ListTile(
                   title: Text(
                     'การรักษา',
                     style: TextStyle(
-                      color: Colors.blue[700],
-                      fontSize: 16.0,
-                    ),
+                        color: Colors.blue[700],
+                        fontSize: 16.0,
+                        fontFamily: 'Prompt'),
                   ),
                 ),
                 Padding(
@@ -205,21 +196,21 @@ class _ShowDisState extends State<ShowDis> {
                     child: Html(
                       data: ('$diseasetreatment'),
                     )),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child: Container(
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Text(
-                        '3',
-                        style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 13.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(bottom: 5),
+                //   child: Container(
+                //     child: Align(
+                //       alignment: Alignment.bottomCenter,
+                //       child: Text(
+                //         '3',
+                //         style: TextStyle(
+                //           color: Colors.black54,
+                //           fontSize: 13.0,
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -228,7 +219,8 @@ class _ShowDisState extends State<ShowDis> {
   Widget showDefence() => SingleChildScrollView(
         child: Card(
             child: Container(
-          height: 400,
+          constraints:
+              BoxConstraints(minHeight: 400, minWidth: double.infinity),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -236,9 +228,9 @@ class _ShowDisState extends State<ShowDis> {
                 title: Text(
                   'การป้องกัน',
                   style: TextStyle(
-                    color: Colors.blue[700],
-                    fontSize: 16.0,
-                  ),
+                      color: Colors.blue[700],
+                      fontSize: 16.0,
+                      fontFamily: 'Prompt'),
                 ),
               ),
               Padding(
@@ -246,21 +238,21 @@ class _ShowDisState extends State<ShowDis> {
                   child: Html(
                     data: ('$diseasedefence'),
                   )),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 5),
-                child: Container(
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Text(
-                      '4',
-                      style: TextStyle(
-                        color: Colors.black54,
-                        fontSize: 13.0,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(bottom: 5),
+              //   child: Container(
+              //     child: Align(
+              //       alignment: Alignment.bottomCenter,
+              //       child: Text(
+              //         '4',
+              //         style: TextStyle(
+              //           color: Colors.black54,
+              //           fontSize: 13.0,
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         )),
@@ -268,7 +260,8 @@ class _ShowDisState extends State<ShowDis> {
   Widget showCause() => SingleChildScrollView(
         child: Card(
           child: Container(
-            height: 800,
+            constraints:
+                BoxConstraints(minHeight: 400, minWidth: double.infinity),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -276,9 +269,9 @@ class _ShowDisState extends State<ShowDis> {
                   title: Text(
                     'สาเหตุ',
                     style: TextStyle(
-                      color: Colors.blue[700],
-                      fontSize: 16.0,
-                    ),
+                        color: Colors.blue[700],
+                        fontSize: 16.0,
+                        fontFamily: 'Prompt'),
                   ),
                 ),
                 Padding(
@@ -287,21 +280,21 @@ class _ShowDisState extends State<ShowDis> {
                     child: Html(
                       data: ('$diseasecause'),
                     )),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child: Container(
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Text(
-                        '2',
-                        style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 13.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(bottom: 5),
+                //   child: Container(
+                //     child: Align(
+                //       alignment: Alignment.bottomCenter,
+                //       child: Text(
+                //         '2',
+                //         style: TextStyle(
+                //           color: Colors.black54,
+                //           fontSize: 13.0,
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -311,7 +304,8 @@ class _ShowDisState extends State<ShowDis> {
   Widget showDetail() => SingleChildScrollView(
         child: Card(
           child: Container(
-            // height: 420,
+            constraints:
+                BoxConstraints(minHeight: 400, minWidth: double.infinity),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -319,9 +313,9 @@ class _ShowDisState extends State<ShowDis> {
                   title: Text(
                     'อาการ',
                     style: TextStyle(
-                      color: Colors.blue[700],
-                      fontSize: 16.0,
-                    ),
+                        color: Colors.blue[700],
+                        fontSize: 16.0,
+                        fontFamily: 'Prompt'),
                   ),
                 ),
                 Padding(
@@ -331,21 +325,21 @@ class _ShowDisState extends State<ShowDis> {
                     data: ('$diseasedetail'),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child: Container(
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Text(
-                        '1',
-                        style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 13.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(bottom: 5),
+                //   child: Container(
+                //     child: Align(
+                //       alignment: Alignment.bottomCenter,
+                //       child: Text(
+                //         '1',
+                //         style: TextStyle(
+                //           color: Colors.black54,
+                //           fontSize: 13.0,
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -354,40 +348,45 @@ class _ShowDisState extends State<ShowDis> {
 
   Widget showAbout() => SingleChildScrollView(
         child: Card(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ListTile(
-                title: Text(
-                  'หมายเหตุ',
-                  style: TextStyle(
-                    color: Colors.blue[700],
-                    fontSize: 16.0,
+          child: Container(
+            constraints:
+                BoxConstraints(minHeight: 400, minWidth: double.infinity),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                ListTile(
+                  title: Text(
+                    'หมายเหตุ',
+                    style: TextStyle(
+                        color: Colors.blue[700],
+                        fontSize: 16.0,
+                        fontFamily: 'Prompt'),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 40, bottom: 20),
-                child: Html(
-                  data: ('$diseaseabout'),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 5),
-                child: Container(
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Text(
-                      '5',
-                      style: TextStyle(
-                        color: Colors.black54,
-                        fontSize: 13.0,
-                      ),
-                    ),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 20, right: 40, bottom: 20),
+                  child: Html(
+                    data: ('$diseaseabout'),
                   ),
                 ),
-              ),
-            ],
+                // Padding(
+                //   padding: const EdgeInsets.only(bottom: 5),
+                //   child: Container(
+                //     child: Align(
+                //       alignment: Alignment.bottomCenter,
+                //       child: Text(
+                //         '5',
+                //         style: TextStyle(
+                //           color: Colors.black54,
+                //           fontSize: 13.0,
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
+              ],
+            ),
           ),
         ),
       );
@@ -395,6 +394,8 @@ class _ShowDisState extends State<ShowDis> {
   Widget showData() => SingleChildScrollView(
         child: Card(
           child: Container(
+            constraints:
+                BoxConstraints(minHeight: 400, minWidth: double.infinity),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -402,9 +403,9 @@ class _ShowDisState extends State<ShowDis> {
                   title: Text(
                     'ข้อมูลทั่วไป',
                     style: TextStyle(
-                      color: Colors.blue[700],
-                      fontSize: 16.0,
-                    ),
+                        color: Colors.blue[700],
+                        fontSize: 16.0,
+                        fontFamily: 'Prompt'),
                   ),
                 ),
                 if ('$diseaserisk' != '')
@@ -415,9 +416,9 @@ class _ShowDisState extends State<ShowDis> {
                       child: Text(
                         'กลุ่มเสี่ยง',
                         style: TextStyle(
-                          color: Colors.red[700],
-                          fontSize: 15.0,
-                        ),
+                            color: Colors.red[700],
+                            fontSize: 15.0,
+                            fontFamily: 'Prompt'),
                       ),
                     ),
                   ),
@@ -437,9 +438,9 @@ class _ShowDisState extends State<ShowDis> {
                       child: Text(
                         'โอกาสเกิด',
                         style: TextStyle(
-                          color: Colors.red[700],
-                          fontSize: 15.0,
-                        ),
+                            color: Colors.red[700],
+                            fontSize: 15.0,
+                            fontFamily: 'Prompt'),
                       ),
                     ),
                   ),
@@ -458,9 +459,9 @@ class _ShowDisState extends State<ShowDis> {
                     child: Text(
                       'ควรพบแพทย์สาขา',
                       style: TextStyle(
-                        color: Colors.red[700],
-                        fontSize: 15.0,
-                      ),
+                          color: Colors.red[700],
+                          fontSize: 15.0,
+                          fontFamily: 'Prompt'),
                     ),
                   ),
                 ),
@@ -478,9 +479,9 @@ class _ShowDisState extends State<ShowDis> {
                     title: Text(
                       'หมายเหตุ',
                       style: TextStyle(
-                        color: Colors.blue[700],
-                        fontSize: 16.0,
-                      ),
+                          color: Colors.blue[700],
+                          fontSize: 16.0,
+                          fontFamily: 'Prompt'),
                     ),
                   ),
                 Padding(
@@ -490,21 +491,21 @@ class _ShowDisState extends State<ShowDis> {
                     data: ('$diseaseabout'),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child: Container(
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Text(
-                        '5',
-                        style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 13.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(bottom: 5),
+                //   child: Container(
+                //     child: Align(
+                //       alignment: Alignment.bottomCenter,
+                //       child: Text(
+                //         '5',
+                //         style: TextStyle(
+                //           color: Colors.black54,
+                //           fontSize: 13.0,
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),

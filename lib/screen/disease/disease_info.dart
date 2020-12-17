@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:doctorpurin/screen/disease/service.dart';
 import 'package:doctorpurin/screen/disease/showdis.dart';
+import 'package:doctorpurin/utility/my_style.dart';
 import 'package:flutter/material.dart';
 import 'package:doctorpurin/modal/disinfo_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,6 +16,7 @@ class DisInformation extends StatefulWidget {
   @override
   _DisInformationState createState() => _DisInformationState();
 }
+
 class Debouncer {
   final int milliseconds;
   VoidCallback action;
@@ -33,12 +35,11 @@ class Debouncer {
 }
 
 class _DisInformationState extends State<DisInformation> {
-  List<DisInfo> _disease ;
-  List<DisInfo> _filterdisease ;
+  List<DisInfo> _disease;
+  List<DisInfo> _filterdisease;
   // DisInfo _selectedDisInfo;
   String id;
   final _debouncer = Debouncer(milliseconds: 500);
-
 
   @override
   void initState() {
@@ -52,12 +53,13 @@ class _DisInformationState extends State<DisInformation> {
     Services.getDisease().then((disease) {
       setState(() {
         _disease = disease;
-        _filterdisease= disease;
+        _filterdisease = disease;
       });
 
       print("Length: ${disease.length}");
     });
   }
+
   SingleChildScrollView _dataBody() {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
@@ -66,12 +68,11 @@ class _DisInformationState extends State<DisInformation> {
         child: DataTable(
           columns: [
             DataColumn(
-                label: Text(
-                  "ชื่อโรค",
-                  style: TextStyle(fontFamily: 'Prompt'),
-                  ),
-                
-                ),
+              label: Text(
+                "ชื่อโรค",
+                style: TextStyle(fontFamily: 'Prompt'),
+              ),
+            ),
           ],
           rows: _filterdisease
               .map(
@@ -100,11 +101,20 @@ class _DisInformationState extends State<DisInformation> {
 
   searchField() {
     return Padding(
-      padding: EdgeInsets.only(left: 10.0,right: 10.0),
+      padding: EdgeInsets.only(left: 10.0, right: 10.0),
       child: TextField(
         decoration: InputDecoration(
+          prefixIcon: Icon(
+            Icons.search,
+            color: Colors.grey,
+          ),
           contentPadding: EdgeInsets.all(1.0),
-          hintText: 'ค้นหาโรค',
+          labelStyle: TextStyle(color: Colors.grey, fontFamily: 'Prompt'),
+          labelText: 'ค้นหาโรค :',
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red[200])),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red[200])),
         ),
         onChanged: (string) {
           // We will start filtering when the user types in the textfield.
@@ -168,16 +178,20 @@ class _DisInformationState extends State<DisInformation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('ข้อมูลโรค'),
+      appBar: AppBar(
+        title: Text(
+          'ข้อมูลโรค',
+          style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
         ),
-       body: Container(
+        backgroundColor: Colors.red[200],
+      ),
+      body: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
               padding: EdgeInsets.all(10.0),
-              child:  searchField(),
+              child: searchField(),
             ),
             Expanded(
               child: _dataBody(),
@@ -185,12 +199,9 @@ class _DisInformationState extends State<DisInformation> {
           ],
         ),
       ),
-        
-        );
+    );
   }
 }
-
-
 
 // Future<Null> readDis() async {
 //   SharedPreferences preferences = await SharedPreferences.getInstance();

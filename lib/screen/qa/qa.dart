@@ -43,7 +43,11 @@ class _QandAState extends State<QandA> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ถาม-ตอบ กับผู้เชี่ยวชาญ'),
+        title: Text(
+          'ถาม-ตอบ กับผู้เชี่ยวชาญ',
+          style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+        ),
+        backgroundColor: Colors.red[200],
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -60,13 +64,14 @@ class _QandAState extends State<QandA> {
               children: <Widget>[
                 MyStyle().mySizeBox(),
                 MyStyle().showTitleH2('เลือกสาขาความเชี่ยวชาญ :'),
+                MyStyle().mySizeBox(),
                 DropdownButton(
-                  hint: Text('เลือก'),
+                  hint: Text('เลือก',style: TextStyle( fontFamily: 'Prompt')),
                   value: selectedValue,
                   items: exItem.map((ex) {
                     return DropdownMenuItem(
                         value: ex['expertise_id'],
-                        child: Text(ex['expertise_name']));
+                        child: Text(ex['expertise_name'],style: TextStyle( fontFamily: 'Prompt'),));
                   }).toList(),
                   onChanged: (value) {
                     setState(() {
@@ -76,6 +81,7 @@ class _QandAState extends State<QandA> {
                     print(expertiseId);
                   },
                 ),
+                MyStyle().mySizeBox(),
                 MyStyle().mySizeBox(),
                 userForm(),
                 MyStyle().mySizeBox(),
@@ -95,7 +101,7 @@ class _QandAState extends State<QandA> {
       width: 250.0,
       height: 50,
       child: RaisedButton(
-        color: Colors.brown,
+        color: Colors.teal[400],
         onPressed: () {
           print(
               'question_id = $questionId,question = $question, question_name = $questionName, expertise_id = $expertiseId,question_date=$questionDate');
@@ -103,7 +109,7 @@ class _QandAState extends State<QandA> {
         },
         child: Text('ถาม',
             style: TextStyle(
-              color: Colors.white,
+              color: Colors.white,fontFamily: 'Prompt',fontSize: 15.0
             )),
       ));
 
@@ -135,7 +141,7 @@ class _QandAState extends State<QandA> {
                     Icons.border_color,
                     color: MyStyle().darkColor,
                   ),
-                  labelStyle: TextStyle(color: MyStyle().darkColor),
+                  labelStyle: TextStyle(color: MyStyle().darkColor, fontFamily: 'Prompt'),
                   labelText: 'ถามคำถาม :',
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: MyStyle().darkColor)),
@@ -158,7 +164,7 @@ class _QandAState extends State<QandA> {
                     Icons.face,
                     color: MyStyle().darkColor,
                   ),
-                  labelStyle: TextStyle(color: MyStyle().darkColor),
+                  labelStyle: TextStyle(color: MyStyle().darkColor,fontFamily: 'Prompt'),
                   labelText: 'ชื่อ :',
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: MyStyle().darkColor)),
