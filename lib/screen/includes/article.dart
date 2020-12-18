@@ -5,7 +5,6 @@ import 'package:dio/dio.dart';
 import 'package:doctorpurin/modal/article_modal.dart';
 import 'package:doctorpurin/screen/disease/service.dart';
 import 'package:doctorpurin/screen/includes/showArticle.dart';
-import 'package:doctorpurin/utility/my_style.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';

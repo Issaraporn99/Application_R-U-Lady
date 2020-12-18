@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:doctorpurin/screen/disease/service.dart';
 import 'package:doctorpurin/screen/disease/showdis.dart';
-import 'package:doctorpurin/utility/my_style.dart';
 import 'package:flutter/material.dart';
 import 'package:doctorpurin/modal/disinfo_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';

@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:doctorpurin/modal/ad.dart';
 import 'package:doctorpurin/screen/includes/articledis.dart';
-import 'package:doctorpurin/screen/women_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,7 +15,6 @@ class ShowDis extends StatefulWidget {
 }
 
 class _ShowDisState extends State<ShowDis> {
-  final CarouselController _controller = CarouselController();
   int _index = 0;
   String diseaseid;
   String diseasename;

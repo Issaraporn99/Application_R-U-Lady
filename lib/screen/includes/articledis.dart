@@ -38,7 +38,7 @@ class _NextPageState extends State<NextPage> {
   String topic;
   String diseaseName;
   List<ArticleDisInfo> articleD = List();
-  final _debouncer = Debouncer(milliseconds: 500);
+ 
 
   @override
   void initState() {
