@@ -14,6 +14,12 @@ class _ShowAState extends State<ShowA> {
   String questionDate;
   String questionName;
   String expertiseId;
+  String answerId;
+  String answerName;
+  String answerDate;
+  String id;
+  String doctorname;
+
   @override
   void initState() {
     super.initState();
@@ -30,6 +36,11 @@ class _ShowAState extends State<ShowA> {
       questionDate = preferences.getString('question_date');
       questionName = preferences.getString('question_name');
       expertiseId = preferences.getString('expertise_id');
+      answerId = preferences.getString('answer_id');
+      answerName = preferences.getString('answer_name');
+      answerDate = preferences.getString('answer_date');
+      id = preferences.getString('id');
+      doctorname = preferences.getString('doctorname');
     });
   }
 
@@ -37,11 +48,12 @@ class _ShowAState extends State<ShowA> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('ถามตอบ',
-          style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+          title: Text(
+            'ถามตอบ',
+            style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+          ),
+          backgroundColor: Colors.red[200],
         ),
-        backgroundColor: Colors.red[200],
-      ),
         body: SingleChildScrollView(
           child: Container(
             child: Column(
@@ -85,9 +97,7 @@ class _ShowAState extends State<ShowA> {
                   Align(
                     alignment: Alignment.topLeft,
                     child: Padding(
-                      padding: const EdgeInsets.only(
-                        left: 20,top: 20
-                      ),
+                      padding: const EdgeInsets.only(left: 20, top: 20),
                       child: Text(
                         'คำถามจาก คุณ $questionName',
                         style: TextStyle(
@@ -97,6 +107,32 @@ class _ShowAState extends State<ShowA> {
                       ),
                     ),
                   ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20, top: 20),
+                    child: Text(
+                      'ตอบ $answerName',
+                      style: TextStyle(
+                        color: Colors.black54,
+                        fontSize: 13.0,
+                      ),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20, top: 20),
+                    child: Text(
+                      'คำตอบจาก ผู้เชี่ยวชาญ $doctorname',
+                      style: TextStyle(
+                        color: Colors.black54,
+                        fontSize: 13.0,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

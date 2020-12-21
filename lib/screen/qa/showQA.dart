@@ -150,7 +150,6 @@ class _ShowQAState extends State<ShowQA> {
               )
               .toList(),
         ),
-
       ),
     );
   }
@@ -184,6 +183,11 @@ class _ShowQAState extends State<ShowQA> {
     preferences.setString('question_date', qaInfo.questionDate);
     preferences.setString('question_name', qaInfo.questionName);
     preferences.setString('expertise_id', qaInfo.expertiseId);
+    preferences.setString('answer_id', qaInfo.answerId);
+    preferences.setString('answer_name', qaInfo.answerName);
+    preferences.setString('answer_date', qaInfo.answerDate);
+    preferences.setString('id', qaInfo.id);
+    preferences.setString('doctorname', qaInfo.doctorname);
     MaterialPageRoute route =
         MaterialPageRoute(builder: (context) => myWidgett);
     Navigator.push(context, route);
@@ -218,7 +222,7 @@ class _ShowQAState extends State<ShowQA> {
                   backgroundColor: const Color(0xff03dac6),
                   onPressed: () {
                     Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => QandA()));
+                        MaterialPageRoute(builder: (context) => QandA()));
                   },
                   child: Icon(Icons.edit),
                 ),
