@@ -21,11 +21,10 @@ class MyStyle {
   Text showTitleH2(String title) => Text(
         title,
         style: TextStyle(
-          fontSize: 16.0,
-          color:Colors.blueGrey[900],
-          fontWeight: FontWeight.bold,
-          fontFamily: 'Prompt'
-        ),
+            fontSize: 16.0,
+            color: Colors.blueGrey[900],
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Prompt'),
       );
 
   Text menuHome(String title) => Text(
@@ -62,6 +61,12 @@ class MyStyle {
     return Container(
       width: 200.0,
       child: Image.asset('images/as.jpg'),
+    );
+  }
+
+  Widget showProgress() {
+    return Center(
+      child: CircularProgressIndicator(),
     );
   }
 

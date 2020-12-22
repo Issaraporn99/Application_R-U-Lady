@@ -1,4 +1,10 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
+import 'package:doctorpurin/modal/group_modal.dart';
+import 'package:doctorpurin/screen/check/showGroup.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CheckDisease extends StatefulWidget {
   @override
@@ -14,18 +20,24 @@ class _CheckDiseaseState extends State<CheckDisease> {
   void showToast() {
     setState(() {
       _isVisible = !_isVisible;
+      _isVisible2 = true;
+      _isVisible3 = true;
     });
   }
 
   void showToast2() {
     setState(() {
       _isVisible2 = !_isVisible2;
+      _isVisible = true;
+      _isVisible3 = true;
     });
   }
 
   void showToast3() {
     setState(() {
       _isVisible3 = !_isVisible3;
+      _isVisible2 = true;
+      _isVisible = true;
     });
   }
 
@@ -33,6 +45,64 @@ class _CheckDiseaseState extends State<CheckDisease> {
     setState(() {
       _isVisible4 = !_isVisible4;
     });
+  }
+
+  Future<Null> showG() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String organId = preferences.getString('organ_id');
+    setState(() {
+      organId = ('1');
+    });
+    String url =
+        'http://192.168.1.108/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
+    await Dio().get(url).then((value) => {print('value = $value')});
+    try {
+      Response response = await Dio().get(url);
+      print('res = $response');
+
+      var result = json.decode(response.data);
+      print('res = $result');
+      for (var map in result) {
+        GroupSym groupInfo = GroupSym.fromJson(map);
+        if (organId == groupInfo.organId) {
+          routeTS(ShowGroup(), groupInfo);
+        }
+      }
+    } catch (e) {}
+  }
+
+  Future<Null> showG2() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String organId = preferences.getString('organ_id');
+    setState(() {
+      organId = ('2');
+    });
+    String url =
+        'http://192.168.1.108/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
+    await Dio().get(url).then((value) => {print('value = $value')});
+    try {
+      Response response = await Dio().get(url);
+      // print('res = $response');
+
+      var result = json.decode(response.data);
+      print('res = $result');
+      for (var map in result) {
+        GroupSym groupInfo = GroupSym.fromJson(map);
+        if (organId == groupInfo.organId) {
+          routeTS(ShowGroup(), groupInfo);
+        }
+      }
+    } catch (e) {}
+  }
+
+  Future<Null> routeTS(Widget myWidgett, GroupSym groupInfo) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString('group_id', groupInfo.groupId);
+    preferences.setString('group_name', groupInfo.groupName);
+    preferences.setString('organ_id', groupInfo.organId);
+    MaterialPageRoute route =
+        MaterialPageRoute(builder: (context) => myWidgett);
+    Navigator.push(context, route);
   }
 
   @override
@@ -100,22 +170,13 @@ class _CheckDiseaseState extends State<CheckDisease> {
     );
   }
 
-  Widget container1() => Container(
-        child: Container(
-          child: InkWell(
-            // onTap: () => print("1"),
-            onTap: showToast,
-          ),
-        ),
-      );
-
   Visibility show1() {
     return Visibility(
       visible: !_isVisible,
       child: Stack(
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(top: 50),
+            margin: EdgeInsets.only(top: 70),
             alignment: Alignment.topLeft,
             height: 70.0,
             child: SizedBox.fromSize(
@@ -146,7 +207,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 20, right: 20),
+            margin: EdgeInsets.only(top: 35, right: 20),
             alignment: Alignment.topRight,
             height: 70.0,
             child: SizedBox.fromSize(
@@ -177,9 +238,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(
-              top: 170,
-            ),
+            margin: EdgeInsets.only(top: 200, left: 10),
             alignment: Alignment.centerLeft,
             height: 70.0,
             child: SizedBox.fromSize(
@@ -241,7 +300,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 200, left: 280),
+            margin: EdgeInsets.only(top: 200, left: 260),
             alignment: Alignment.centerLeft,
             height: 70.0,
             child: SizedBox.fromSize(
@@ -282,7 +341,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
       child: Stack(
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(top: 250, left: 30),
+            margin: EdgeInsets.only(top: 305, left: 15),
             alignment: Alignment.topLeft,
             height: 70.0,
             child: SizedBox.fromSize(
@@ -294,7 +353,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
                     splashColor: Colors.lime[200],
                     // splash color
                     onTap: () {
-                      print('เต้านม');
+                      showG();
                     },
                     // button pressed
                     child: Column(
@@ -315,7 +374,40 @@ class _CheckDiseaseState extends State<CheckDisease> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 305, left: 250),
+            margin: EdgeInsets.only(top: 230, left: 30),
+            alignment: Alignment.topLeft,
+            height: 70.0,
+            child: SizedBox.fromSize(
+              size: Size(70, 70), // button width and height
+              child: ClipOval(
+                child: Material(
+                  color: Colors.cyan[300], // button color
+                  child: InkWell(
+                    splashColor: Colors.lime[200],
+                    // splash color
+                    onTap: () {
+                      // showG2();
+                    },
+                    // button pressed
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          "อก",
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.white,
+                              fontFamily: 'Prompt'),
+                        ), // text
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 305, left: 260),
             height: 70.0,
             child: SizedBox.fromSize(
               size: Size(70, 70), // button width and height
@@ -345,7 +437,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 330, left: 25),
+            margin: EdgeInsets.only(top: 385, left: 20),
             alignment: Alignment.centerLeft,
             height: 70.0,
             child: SizedBox.fromSize(
@@ -406,7 +498,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 375, left: 230),
+            margin: EdgeInsets.only(top: 385, left: 240),
             alignment: Alignment.centerLeft,
             height: 70.0,
             child: SizedBox.fromSize(
@@ -447,23 +539,32 @@ class _CheckDiseaseState extends State<CheckDisease> {
       child: Stack(
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(top: 375, left: 230),
-            height: 80.0,
+            margin: EdgeInsets.only(top: 360, left: 250),
+            height: 70.0,
             child: SizedBox.fromSize(
-              size: Size(100, 100), // button width and height
+              size: Size(70, 70), // button width and height
               child: ClipOval(
                 child: Material(
                   color: Colors.cyan[300], // button color
                   child: InkWell(
                     splashColor: Colors.lime[200],
                     // splash color
-                    onTap: () {},
+                    onTap: () {
+                      showG2();
+                    },
                     // button pressed
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          "อวัยวะสืบพันธุ์",
+                          "อวัยวะ",
+                          style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.white,
+                              fontFamily: 'Prompt'),
+                        ),
+                        Text(
+                          "สืบพันธุ์",
                           style: TextStyle(
                               fontSize: 13,
                               color: Colors.white,
@@ -477,7 +578,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 360, left: 10),
+            margin: EdgeInsets.only(top: 360, left: 20),
             alignment: Alignment.centerLeft,
             height: 70.0,
             child: SizedBox.fromSize(
@@ -508,7 +609,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 460, right: 70),
+            margin: EdgeInsets.only(top: 450, right: 55),
             alignment: Alignment.bottomRight,
             height: 70.0,
             child: SizedBox.fromSize(
