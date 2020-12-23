@@ -54,7 +54,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
       organId = ('1');
     });
     String url =
-        'http://192.168.1.108/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
+        'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
     await Dio().get(url).then((value) => {print('value = $value')});
     try {
       Response response = await Dio().get(url);
@@ -78,14 +78,14 @@ class _CheckDiseaseState extends State<CheckDisease> {
       organId = ('2');
     });
     String url =
-        'http://192.168.1.108/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
-    await Dio().get(url).then((value) => {print('value = $value')});
+        'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
+    await Dio().get(url).then((value) => {print('valueaa = $value')});
     try {
       Response response = await Dio().get(url);
-      // print('res = $response');
+      //   // print('res = $response');
 
       var result = json.decode(response.data);
-      print('res = $result');
+      //   // print('resShow = $result');
       for (var map in result) {
         GroupSym groupInfo = GroupSym.fromJson(map);
         if (organId == groupInfo.organId) {
@@ -341,7 +341,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
       child: Stack(
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(top: 305, left: 15),
+            margin: EdgeInsets.only(top: 280, left: 15),
             alignment: Alignment.topLeft,
             height: 70.0,
             child: SizedBox.fromSize(
@@ -374,7 +374,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 230, left: 30),
+            margin: EdgeInsets.only(top: 205, left: 15),
             alignment: Alignment.topLeft,
             height: 70.0,
             child: SizedBox.fromSize(
@@ -407,7 +407,8 @@ class _CheckDiseaseState extends State<CheckDisease> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 305, left: 260),
+            margin: EdgeInsets.only(top: 280, right: 15),
+            alignment: Alignment.centerRight,
             height: 70.0,
             child: SizedBox.fromSize(
               size: Size(70, 70), // button width and height
@@ -437,7 +438,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 385, left: 20),
+            margin: EdgeInsets.only(top: 355, left: 15),
             alignment: Alignment.centerLeft,
             height: 70.0,
             child: SizedBox.fromSize(
@@ -468,7 +469,8 @@ class _CheckDiseaseState extends State<CheckDisease> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 230, left: 250),
+            margin: EdgeInsets.only(top: 205, right: 15),
+            alignment: Alignment.centerRight,
             height: 70.0,
             child: SizedBox.fromSize(
               size: Size(70, 70), // button width and height
@@ -498,8 +500,8 @@ class _CheckDiseaseState extends State<CheckDisease> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 385, left: 240),
-            alignment: Alignment.centerLeft,
+            margin: EdgeInsets.only(top: 355, right: 15),
+            alignment: Alignment.centerRight,
             height: 70.0,
             child: SizedBox.fromSize(
               size: Size(70, 70), // button width and height

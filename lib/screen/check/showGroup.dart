@@ -27,8 +27,8 @@ class _ShowGroupState extends State<ShowGroup> {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     organId = preferences.getString('organ_id');
     String url =
-        'http://192.168.1.108/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
-    await Dio().get(url).then((value) => {print('value = $value')});
+        'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
+    // await Dio().get(url).then((value) => {print('value = $value')});
 
     Response response = await Dio().get(url);
     // print('res = $response');
