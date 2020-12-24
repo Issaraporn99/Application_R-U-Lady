@@ -38,7 +38,6 @@ class _NextPageState extends State<NextPage> {
   String topic;
   String diseaseName;
   List<ArticleDisInfo> articleD = List();
- 
 
   @override
   void initState() {
@@ -205,7 +204,8 @@ class _NextPageState extends State<NextPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('บทความ',
+        title: Text(
+          'บทความ',
           style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
         ),
         backgroundColor: Colors.red[200],

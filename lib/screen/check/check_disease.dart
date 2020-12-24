@@ -82,10 +82,8 @@ class _CheckDiseaseState extends State<CheckDisease> {
     await Dio().get(url).then((value) => {print('valueaa = $value')});
     try {
       Response response = await Dio().get(url);
-      //   // print('res = $response');
-
       var result = json.decode(response.data);
-      //   // print('resShow = $result');
+
       for (var map in result) {
         GroupSym groupInfo = GroupSym.fromJson(map);
         if (organId == groupInfo.organId) {
@@ -100,6 +98,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
     preferences.setString('group_id', groupInfo.groupId);
     preferences.setString('group_name', groupInfo.groupName);
     preferences.setString('organ_id', groupInfo.organId);
+    Navigator.pop(context);
     MaterialPageRoute route =
         MaterialPageRoute(builder: (context) => myWidgett);
     Navigator.push(context, route);

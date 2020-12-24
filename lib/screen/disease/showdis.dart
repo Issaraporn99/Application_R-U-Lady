@@ -150,6 +150,7 @@ class _ShowDisState extends State<ShowDis> {
     preferences.setString('doctorname', articleInfo.doctorname);
     preferences.setString('disease_id', articleInfo.diseaseId);
     preferences.setString('disease_name', articleInfo.diseaseName);
+    Navigator.pop(context);
     MaterialPageRoute route =
         MaterialPageRoute(builder: (context) => myWidgett);
     Navigator.push(context, route);
