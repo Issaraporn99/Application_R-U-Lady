@@ -6,6 +6,7 @@ import 'package:doctorpurin/utility/normal_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:doctorpurin/utility/my_style.dart';
 
+
 class QandA extends StatefulWidget {
   @override
   _QandAState createState() => _QandAState();
@@ -66,12 +67,15 @@ class _QandAState extends State<QandA> {
                 MyStyle().showTitleH2('เลือกสาขาความเชี่ยวชาญ :'),
                 MyStyle().mySizeBox(),
                 DropdownButton(
-                  hint: Text('เลือก',style: TextStyle( fontFamily: 'Prompt')),
+                  hint: Text('เลือก', style: TextStyle(fontFamily: 'Prompt')),
                   value: selectedValue,
                   items: exItem.map((ex) {
                     return DropdownMenuItem(
                         value: ex['expertise_id'],
-                        child: Text(ex['expertise_name'],style: TextStyle( fontFamily: 'Prompt'),));
+                        child: Text(
+                          ex['expertise_name'],
+                          style: TextStyle(fontFamily: 'Prompt'),
+                        ));
                   }).toList(),
                   onChanged: (value) {
                     setState(() {
@@ -109,8 +113,7 @@ class _QandAState extends State<QandA> {
         },
         child: Text('ถาม',
             style: TextStyle(
-              color: Colors.white,fontFamily: 'Prompt',fontSize: 15.0
-            )),
+                color: Colors.white, fontFamily: 'Prompt', fontSize: 15.0)),
       ));
 
   Future<Null> registerThread() async {
@@ -141,7 +144,8 @@ class _QandAState extends State<QandA> {
                     Icons.border_color,
                     color: MyStyle().darkColor,
                   ),
-                  labelStyle: TextStyle(color: MyStyle().darkColor, fontFamily: 'Prompt'),
+                  labelStyle: TextStyle(
+                      color: MyStyle().darkColor, fontFamily: 'Prompt'),
                   labelText: 'ถามคำถาม :',
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: MyStyle().darkColor)),
@@ -164,7 +168,8 @@ class _QandAState extends State<QandA> {
                     Icons.face,
                     color: MyStyle().darkColor,
                   ),
-                  labelStyle: TextStyle(color: MyStyle().darkColor,fontFamily: 'Prompt'),
+                  labelStyle: TextStyle(
+                      color: MyStyle().darkColor, fontFamily: 'Prompt'),
                   labelText: 'ชื่อ :',
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: MyStyle().darkColor)),

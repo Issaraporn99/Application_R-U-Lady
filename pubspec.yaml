@@ -35,7 +35,8 @@ dependencies:
   intl: ^0.16.1
   google_nav_bar: ^3.1.0
   line_icons: ^0.2.0
-  
+  pull_to_refresh: ^1.6.3
+
 
 dev_dependencies:
   flutter_test:

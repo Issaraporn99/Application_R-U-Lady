@@ -6,10 +6,12 @@ import 'package:doctorpurin/modal/question_modal.dart';
 import 'package:doctorpurin/screen/disease/service.dart';
 import 'package:doctorpurin/screen/qa/qa.dart';
 import 'package:doctorpurin/screen/qa/showA.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ShowQA extends StatefulWidget {
   ShowQA() : super();
@@ -40,6 +42,24 @@ class _ShowQAState extends State<ShowQA> {
 
   String ida;
   final _debouncer = Debouncer(milliseconds: 500);
+
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+  void _onRefresh() async {
+    await Future.delayed(Duration(milliseconds: 500));
+    setState(() {
+      _getQa();
+    });
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    // if failed,use loadFailed(),if no data return,use LoadNodata()
+    setState(() {});
+    _refreshController.loadComplete();
+  }
 
   @override
   void initState() {
@@ -203,7 +223,15 @@ class _ShowQAState extends State<ShowQA> {
         ),
         backgroundColor: Colors.red[200],
       ),
-      body: Container(
+      body: SmartRefresher(
+        enablePullDown: true,
+        enablePullUp: true,
+        header: WaterDropMaterialHeader(
+          backgroundColor: Colors.red[200],
+        ),
+        controller: _refreshController,
+        onRefresh: _onRefresh,
+        onLoading: _onLoading,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
