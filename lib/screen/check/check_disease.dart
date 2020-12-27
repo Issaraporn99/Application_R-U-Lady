@@ -93,6 +93,314 @@ class _CheckDiseaseState extends State<CheckDisease> {
     } catch (e) {}
   }
 
+  Future<Null> showG3() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String organId = preferences.getString('organ_id');
+    setState(() {
+      organId = ('3');
+    });
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
+    await Dio().get(url).then((value) => {print('valueaa = $value')});
+    try {
+      Response response = await Dio().get(url);
+      var result = json.decode(response.data);
+
+      for (var map in result) {
+        GroupSym groupInfo = GroupSym.fromJson(map);
+        if (organId == groupInfo.organId) {
+          routeTS(ShowGroup(), groupInfo);
+        }
+      }
+    } catch (e) {}
+  }
+
+  Future<Null> showG4() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String organId = preferences.getString('organ_id');
+    setState(() {
+      organId = ('4');
+    });
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
+    await Dio().get(url).then((value) => {print('valueaa = $value')});
+    try {
+      Response response = await Dio().get(url);
+      var result = json.decode(response.data);
+
+      for (var map in result) {
+        GroupSym groupInfo = GroupSym.fromJson(map);
+        if (organId == groupInfo.organId) {
+          routeTS(ShowGroup(), groupInfo);
+        }
+      }
+    } catch (e) {}
+  }
+
+  Future<Null> showG5() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String organId = preferences.getString('organ_id');
+    setState(() {
+      organId = ('5');
+    });
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
+    await Dio().get(url).then((value) => {print('valueaa = $value')});
+    try {
+      Response response = await Dio().get(url);
+      var result = json.decode(response.data);
+
+      for (var map in result) {
+        GroupSym groupInfo = GroupSym.fromJson(map);
+        if (organId == groupInfo.organId) {
+          routeTS(ShowGroup(), groupInfo);
+        }
+      }
+    } catch (e) {}
+  }
+
+  Future<Null> showG6() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String organId = preferences.getString('organ_id');
+    setState(() {
+      organId = ('6');
+    });
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
+    await Dio().get(url).then((value) => {print('valueaa = $value')});
+    try {
+      Response response = await Dio().get(url);
+      var result = json.decode(response.data);
+
+      for (var map in result) {
+        GroupSym groupInfo = GroupSym.fromJson(map);
+        if (organId == groupInfo.organId) {
+          routeTS(ShowGroup(), groupInfo);
+        }
+      }
+    } catch (e) {}
+  }
+
+  Future<Null> showG7() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String organId = preferences.getString('organ_id');
+    setState(() {
+      organId = ('7');
+    });
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
+    await Dio().get(url).then((value) => {print('valueaa = $value')});
+    try {
+      Response response = await Dio().get(url);
+      var result = json.decode(response.data);
+
+      for (var map in result) {
+        GroupSym groupInfo = GroupSym.fromJson(map);
+        if (organId == groupInfo.organId) {
+          routeTS(ShowGroup(), groupInfo);
+        }
+      }
+    } catch (e) {}
+  }
+
+  Future<Null> showG8() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String organId = preferences.getString('organ_id');
+    setState(() {
+      organId = ('8');
+    });
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
+    await Dio().get(url).then((value) => {print('valueaa = $value')});
+    try {
+      Response response = await Dio().get(url);
+      var result = json.decode(response.data);
+
+      for (var map in result) {
+        GroupSym groupInfo = GroupSym.fromJson(map);
+        if (organId == groupInfo.organId) {
+          routeTS(ShowGroup(), groupInfo);
+        }
+      }
+    } catch (e) {}
+  }
+
+  Future<Null> showG9() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String organId = preferences.getString('organ_id');
+    setState(() {
+      organId = ('9');
+    });
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
+    await Dio().get(url).then((value) => {print('valueaa = $value')});
+    try {
+      Response response = await Dio().get(url);
+      var result = json.decode(response.data);
+
+      for (var map in result) {
+        GroupSym groupInfo = GroupSym.fromJson(map);
+        if (organId == groupInfo.organId) {
+          routeTS(ShowGroup(), groupInfo);
+        }
+      }
+    } catch (e) {}
+  }
+
+  Future<Null> showG10() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String organId = preferences.getString('organ_id');
+    setState(() {
+      organId = ('10');
+    });
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
+    await Dio().get(url).then((value) => {print('valueaa = $value')});
+    try {
+      Response response = await Dio().get(url);
+      var result = json.decode(response.data);
+
+      for (var map in result) {
+        GroupSym groupInfo = GroupSym.fromJson(map);
+        if (organId == groupInfo.organId) {
+          routeTS(ShowGroup(), groupInfo);
+        }
+      }
+    } catch (e) {}
+  }
+
+  Future<Null> showG11() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String organId = preferences.getString('organ_id');
+    setState(() {
+      organId = ('11');
+    });
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
+    await Dio().get(url).then((value) => {print('valueaa = $value')});
+    try {
+      Response response = await Dio().get(url);
+      var result = json.decode(response.data);
+
+      for (var map in result) {
+        GroupSym groupInfo = GroupSym.fromJson(map);
+        if (organId == groupInfo.organId) {
+          routeTS(ShowGroup(), groupInfo);
+        }
+      }
+    } catch (e) {}
+  }
+
+  Future<Null> showG12() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String organId = preferences.getString('organ_id');
+    setState(() {
+      organId = ('12');
+    });
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
+    await Dio().get(url).then((value) => {print('valueaa = $value')});
+    try {
+      Response response = await Dio().get(url);
+      var result = json.decode(response.data);
+
+      for (var map in result) {
+        GroupSym groupInfo = GroupSym.fromJson(map);
+        if (organId == groupInfo.organId) {
+          routeTS(ShowGroup(), groupInfo);
+        }
+      }
+    } catch (e) {}
+  }
+
+  Future<Null> showG13() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String organId = preferences.getString('organ_id');
+    setState(() {
+      organId = ('13');
+    });
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
+    await Dio().get(url).then((value) => {print('valueaa = $value')});
+    try {
+      Response response = await Dio().get(url);
+      var result = json.decode(response.data);
+
+      for (var map in result) {
+        GroupSym groupInfo = GroupSym.fromJson(map);
+        if (organId == groupInfo.organId) {
+          routeTS(ShowGroup(), groupInfo);
+        }
+      }
+    } catch (e) {}
+  }
+
+  Future<Null> showG14() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String organId = preferences.getString('organ_id');
+    setState(() {
+      organId = ('14');
+    });
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
+    await Dio().get(url).then((value) => {print('valueaa = $value')});
+    try {
+      Response response = await Dio().get(url);
+      var result = json.decode(response.data);
+
+      for (var map in result) {
+        GroupSym groupInfo = GroupSym.fromJson(map);
+        if (organId == groupInfo.organId) {
+          routeTS(ShowGroup(), groupInfo);
+        }
+      }
+    } catch (e) {}
+  }
+
+  Future<Null> showG15() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String organId = preferences.getString('organ_id');
+    setState(() {
+      organId = ('15');
+    });
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
+    await Dio().get(url).then((value) => {print('valueaa = $value')});
+    try {
+      Response response = await Dio().get(url);
+      var result = json.decode(response.data);
+
+      for (var map in result) {
+        GroupSym groupInfo = GroupSym.fromJson(map);
+        if (organId == groupInfo.organId) {
+          routeTS(ShowGroup(), groupInfo);
+        }
+      }
+    } catch (e) {}
+  }
+
+  Future<Null> showG16() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String organId = preferences.getString('organ_id');
+    setState(() {
+      organId = ('16');
+    });
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
+    await Dio().get(url).then((value) => {print('valueaa = $value')});
+    try {
+      Response response = await Dio().get(url);
+      var result = json.decode(response.data);
+
+      for (var map in result) {
+        GroupSym groupInfo = GroupSym.fromJson(map);
+        if (organId == groupInfo.organId) {
+          routeTS(ShowGroup(), groupInfo);
+        }
+      }
+    } catch (e) {}
+  }
+
   Future<Null> routeTS(Widget myWidgett, GroupSym groupInfo) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString('group_id', groupInfo.groupId);
@@ -175,7 +483,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
       child: Stack(
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(top: 70),
+            margin: EdgeInsets.only(top: 50),
             alignment: Alignment.topLeft,
             height: 70.0,
             child: SizedBox.fromSize(
@@ -186,7 +494,9 @@ class _CheckDiseaseState extends State<CheckDisease> {
                   child: InkWell(
                     splashColor: Colors.lime[200],
                     // splash color
-                    onTap: () {},
+                    onTap: () {
+                      showG5();
+                    },
                     // button pressed
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -206,7 +516,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 35, right: 20),
+            margin: EdgeInsets.only(top: 20, right: 2),
             alignment: Alignment.topRight,
             height: 70.0,
             child: SizedBox.fromSize(
@@ -217,8 +527,10 @@ class _CheckDiseaseState extends State<CheckDisease> {
                   child: InkWell(
                     splashColor: Colors.lime[200],
                     // splash color
-                    onTap: () {},
-                    // button pressed
+                    onTap: () {
+                      showG3();
+                    },
+
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -237,7 +549,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 200, left: 10),
+            margin: EdgeInsets.only(top: 180, left: 1),
             alignment: Alignment.centerLeft,
             height: 70.0,
             child: SizedBox.fromSize(
@@ -248,8 +560,10 @@ class _CheckDiseaseState extends State<CheckDisease> {
                   child: InkWell(
                     splashColor: Colors.lime[200],
                     // splash color
-                    onTap: () {},
-                    // button pressed
+                    onTap: () {
+                      showG4();
+                    },
+
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -268,7 +582,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 120, left: 280),
+            margin: EdgeInsets.only(top: 100, left: 280),
             alignment: Alignment.centerLeft,
             height: 70.0,
             child: SizedBox.fromSize(
@@ -279,7 +593,9 @@ class _CheckDiseaseState extends State<CheckDisease> {
                   child: InkWell(
                     splashColor: Colors.lime[200],
                     // splash color
-                    onTap: () {},
+                    onTap: () {
+                      showG6();
+                    },
                     // button pressed
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -299,7 +615,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 200, left: 260),
+            margin: EdgeInsets.only(top: 180, left: 280),
             alignment: Alignment.centerLeft,
             height: 70.0,
             child: SizedBox.fromSize(
@@ -310,7 +626,9 @@ class _CheckDiseaseState extends State<CheckDisease> {
                   child: InkWell(
                     splashColor: Colors.lime[200],
                     // splash color
-                    onTap: () {},
+                    onTap: () {
+                      showG7();
+                    },
                     // button pressed
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -385,7 +703,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
                     splashColor: Colors.lime[200],
                     // splash color
                     onTap: () {
-                      // showG2();
+                      showG12();
                     },
                     // button pressed
                     child: Column(
@@ -417,7 +735,9 @@ class _CheckDiseaseState extends State<CheckDisease> {
                   child: InkWell(
                     splashColor: Colors.lime[200],
                     // splash color
-                    onTap: () {},
+                    onTap: () {
+                      showG11();
+                    },
                     // button pressed
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -448,7 +768,9 @@ class _CheckDiseaseState extends State<CheckDisease> {
                   child: InkWell(
                     splashColor: Colors.lime[200],
                     // splash color
-                    onTap: () {},
+                    onTap: () {
+                      showG13();
+                    },
                     // button pressed
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -479,7 +801,9 @@ class _CheckDiseaseState extends State<CheckDisease> {
                   child: InkWell(
                     splashColor: Colors.lime[200],
                     // splash color
-                    onTap: () {},
+                    onTap: () {
+                      showG9();
+                    },
                     // button pressed
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -510,7 +834,9 @@ class _CheckDiseaseState extends State<CheckDisease> {
                   child: InkWell(
                     splashColor: Colors.lime[200],
                     // splash color
-                    onTap: () {},
+                    onTap: () {
+                      showG10();
+                    },
                     // button pressed
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -590,7 +916,9 @@ class _CheckDiseaseState extends State<CheckDisease> {
                   child: InkWell(
                     splashColor: Colors.lime[200],
                     // splash color
-                    onTap: () {},
+                    onTap: () {
+                      showG14();
+                    },
                     // button pressed
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -621,7 +949,9 @@ class _CheckDiseaseState extends State<CheckDisease> {
                   child: InkWell(
                     splashColor: Colors.lime[200],
                     // splash color
-                    onTap: () {},
+                    onTap: () {
+                      showG16();
+                    },
                     // button pressed
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -652,7 +982,9 @@ class _CheckDiseaseState extends State<CheckDisease> {
                   child: InkWell(
                     splashColor: Colors.lime[200],
                     // splash color
-                    onTap: () {},
+                    onTap: () {
+                      showG15();
+                    },
                     // button pressed
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,

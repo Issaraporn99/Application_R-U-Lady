@@ -44,7 +44,7 @@ class _ShowQAState extends State<ShowQA> {
   final _debouncer = Debouncer(milliseconds: 500);
 
   RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
+      RefreshController(initialRefresh: true);
   void _onRefresh() async {
     await Future.delayed(Duration(milliseconds: 500));
     setState(() {
@@ -133,6 +133,7 @@ class _ShowQAState extends State<ShowQA> {
                 style: TextStyle(fontFamily: 'Prompt'),
               ),
             ),
+            
             DataColumn(
               label: Text(
                 "วันที่",
