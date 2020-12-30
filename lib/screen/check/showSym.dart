@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:doctorpurin/modal/group_modal.dart';
 import 'package:doctorpurin/modal/sym_modal.dart';
+import 'package:doctorpurin/utility/my_style.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,31 +17,45 @@ class _ShowSymState extends State<ShowSym> {
   String symptomName;
   String groupId;
   String diseaseId;
-  List<SymModal> groupInfo = List();
+
   @override
   void initState() {
     super.initState();
     findId();
   }
 
+  // Future<Null> findId() async {
+  //   SharedPreferences preferences = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     symptomName = preferences.getString('symptom_name');
+  //     groupId = preferences.getString('group_id');
+  //   });
+  // }
+
   Future<Null> findId() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
+    symptomName = preferences.getString('symptom_name');
+    String groupId = preferences.getString('group_id');
 
-    groupId = preferences.getString('group_id');
     String url =
-        'http://192.168.1.108/apidoctor/getSym.php?group_id=$groupId&isAdd=true';
-    // await Dio().get(url).then((value) => {print('value = $value')});
-    Response response = await Dio().get(url);
-    // print('res = $response');
-    var result = json.decode(response.data);
-    print('res = $result');
-    for (var map in result) {
-      SymModal model = SymModal.fromJson(map);
-      setState(() {
-        groupInfo.add(model);
-      });
-    }
+        'http://192.168.100.5/apidoctor/apiSym.php?group_id=$groupId&isAdd=true';
+    await Dio().get(url).then((value) => {print('valueSSS = $value')});
+    setState(() {
+      symptomName = preferences.getString('symptom_name');
+    });
   }
+
+  // Future<Null> routeTS(Widget myWidgett, SymModal sym) async {
+  //   SharedPreferences preferences = await SharedPreferences.getInstance();
+  //   preferences.setString('group_id', sym.groupId);
+  //   preferences.setString('symptom_name', sym.symptomName);
+  //   preferences.setString('symptom_id', sym.symptomId);
+  //   preferences.setString('disease_id', sym.diseaseId);
+  //   // Navigator.pop(context);
+  //   MaterialPageRoute route =
+  //       MaterialPageRoute(builder: (context) => myWidgett);
+  //   Navigator.push(context, route);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -59,13 +75,55 @@ class _ShowSymState extends State<ShowSym> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               sym(),
-              
             ],
           ),
         ),
       ),
     );
   }
+//         body: groupInfo.length == 0
+//             ? MyStyle().showProgress()
+//             : ListView.builder(
+//                 itemCount: groupInfo.length,
+//                 itemBuilder: (context, index) => Padding(
+//                       padding: const EdgeInsets.all(5),
+//                       child: SizedBox(
+//                         height: 70,
+//                         child: Card(
+//                           elevation: 1.5,
+//                           color: Colors.white,
+//                           child: Row(
+//                             children: [
+//                               Padding(
+//                                 padding:
+//                                     const EdgeInsets.only(left: 15, top: 17),
+//                                 child: InkWell(
+//                                   splashColor: Colors.white,
+//                                   // splash color
+//                                   onTap: () {
+//                                     // showSym();
+//                                   },
+//                                   child: Column(
+//                                     crossAxisAlignment:
+//                                         CrossAxisAlignment.start,
+//                                     children: [
+//                                       Text(
+//                                         groupInfo[index].symptomName,
+//                                         style: TextStyle(
+//                                             color: Colors.black,
+//                                             fontFamily: 'Prompt'),
+//                                       ),
+//                                     ],
+//                                   ),
+//                                 ),
+//                               ),
+//                             ],
+//                           ),
+//                         ),
+//                       ),
+//                     )));
+//   }
+// }
 
   Widget sym() => Container(
           child: SizedBox(
@@ -79,7 +137,7 @@ class _ShowSymState extends State<ShowSym> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(20),
-                  child: Text('อาการ1',
+                  child: Text('$symptomName',
                       style: TextStyle(
                         fontSize: 18.0,
                         color: Colors.black,
@@ -93,9 +151,9 @@ class _ShowSymState extends State<ShowSym> {
                       padding: const EdgeInsets.only(top: 100),
                       child: RaisedButton(
                         onPressed: () {},
-                        color: Color(0xFFdf7861),
+                        color: Color(0xFF70af85),
                         padding: EdgeInsets.all(5),
-                        child: Text('ไม่',
+                        child: Text('ใช่',
                             style: TextStyle(
                               fontSize: 14.0,
                               color: Colors.white,
@@ -107,9 +165,9 @@ class _ShowSymState extends State<ShowSym> {
                       padding: const EdgeInsets.only(top: 100),
                       child: RaisedButton(
                         onPressed: () {},
-                        color: Color(0xFF70af85),
+                        color: Color(0xFFdf7861),
                         padding: EdgeInsets.all(5),
-                        child: Text('ใช่',
+                        child: Text('ไม่ใช่',
                             style: TextStyle(
                               fontSize: 14.0,
                               color: Colors.white,
