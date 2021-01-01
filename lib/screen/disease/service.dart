@@ -6,7 +6,8 @@ import 'package:http/http.dart' as http;
 import 'package:doctorpurin/modal/disinfo_model.dart';
 
 class Services {
-  static const ROOT = 'http://student.crru.ac.th/601463046/apidoctor/disInfo.php?isAdd=true';
+  static const ROOT =
+      'http://student.crru.ac.th/601463046/apidoctor/disInfo.php?isAdd=true';
   static const String _GET_ACTION = 'true';
 
   static Future<List<DisInfo>> getDisease() async {
@@ -33,7 +34,8 @@ class Services {
 }
 
 class ServicesArticle {
-  static const ROOT = 'http://student.crru.ac.th/601463046/apidoctor/getArticle.php?isAdd=true';
+  static const ROOT =
+      'http://student.crru.ac.th/601463046/apidoctor/getArticle.php?isAdd=true';
   static const String _GET_ACTION = 'true';
 
   static Future<List<ArticleInfo>> getArticle() async {
@@ -90,8 +92,9 @@ class ServicesArticle2 {
         .toList();
   }
 }
+
 class ServicesQA {
-  static const ROOT = 'http://student.crru.ac.th/601463046/apidoctor/getQ.php?isAdd=true';
+  static const ROOT = 'http://192.168.43.187/apidoctor/getQ.php?isAdd=true';
   static const String _GET_ACTION = 'true';
 
   static Future<List<Question>> getQ() async {
@@ -116,7 +119,6 @@ class ServicesQA {
     return parsed.map<Question>((json) => Question.fromJson(json)).toList();
   }
 }
-
 
 // Future<Null> readDis() async {
 //   SharedPreferences preferences = await SharedPreferences.getInstance();

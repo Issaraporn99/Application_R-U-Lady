@@ -39,7 +39,7 @@ class Debouncer {
 class _ShowQAState extends State<ShowQA> {
   List<Question> _filterqa;
   List<Question> _qa;
-
+ List<Question> articleD = List();
   String ida;
   final _debouncer = Debouncer(milliseconds: 500);
 
@@ -133,7 +133,6 @@ class _ShowQAState extends State<ShowQA> {
                 style: TextStyle(fontFamily: 'Prompt'),
               ),
             ),
-            
             DataColumn(
               label: Text(
                 "วันที่",
@@ -154,6 +153,7 @@ class _ShowQAState extends State<ShowQA> {
                         style: TextStyle(fontFamily: 'Prompt'),
                       ),
                       onTap: () {
+                        print(qa.questionId);
                         routeTS(ShowA(), qa);
                       },
                     ),
@@ -180,7 +180,7 @@ class _ShowQAState extends State<ShowQA> {
     String questionId = preferences.getString('question_id');
 
     String url =
-        'http://student.crru.ac.th/601463046/apidoctor/getQAWhereId.php?isAdd=true&question_id=$questionId';
+        'http://192.168.43.187/apidoctor/getQAWhereId.php?isAdd=true&question_id=$questionId';
     await Dio().get(url).then((value) => {print('value = $value')});
     try {
       Response response = await Dio().get(url);
@@ -188,12 +188,15 @@ class _ShowQAState extends State<ShowQA> {
 
       var result = json.decode(response.data);
       print('res = $result');
-      for (var map in result) {
-        Question qaInfo = Question.fromJson(map);
-        if (questionId == qaInfo.questionId) {
+           for (var map in result) {
+       Question qaInfo = Question.fromJson(map);
+
+        setState(() {
+          articleD.add(qaInfo);
           routeTS(ShowA(), qaInfo);
-        }
+        });
       }
+
     } catch (e) {}
   }
 
@@ -209,6 +212,7 @@ class _ShowQAState extends State<ShowQA> {
     preferences.setString('answer_date', qaInfo.answerDate);
     preferences.setString('id', qaInfo.id);
     preferences.setString('doctorname', qaInfo.doctorname);
+    preferences.setString('COUNT(answer_id)', qaInfo.cOUNTAnswerId);
     MaterialPageRoute route =
         MaterialPageRoute(builder: (context) => myWidgett);
     Navigator.push(context, route);

@@ -38,7 +38,7 @@ class _ShowSymState extends State<ShowSym> {
     String groupId = preferences.getString('group_id');
 
     String url =
-        'http://192.168.100.5/apidoctor/apiSym.php?group_id=$groupId&isAdd=true';
+        'http://192.168.43.187/apidoctor/apiSym.php?group_id=$groupId&isAdd=true';
     await Dio().get(url).then((value) => {print('valueSSS = $value')});
     setState(() {
       symptomName = preferences.getString('symptom_name');
@@ -81,49 +81,6 @@ class _ShowSymState extends State<ShowSym> {
       ),
     );
   }
-//         body: groupInfo.length == 0
-//             ? MyStyle().showProgress()
-//             : ListView.builder(
-//                 itemCount: groupInfo.length,
-//                 itemBuilder: (context, index) => Padding(
-//                       padding: const EdgeInsets.all(5),
-//                       child: SizedBox(
-//                         height: 70,
-//                         child: Card(
-//                           elevation: 1.5,
-//                           color: Colors.white,
-//                           child: Row(
-//                             children: [
-//                               Padding(
-//                                 padding:
-//                                     const EdgeInsets.only(left: 15, top: 17),
-//                                 child: InkWell(
-//                                   splashColor: Colors.white,
-//                                   // splash color
-//                                   onTap: () {
-//                                     // showSym();
-//                                   },
-//                                   child: Column(
-//                                     crossAxisAlignment:
-//                                         CrossAxisAlignment.start,
-//                                     children: [
-//                                       Text(
-//                                         groupInfo[index].symptomName,
-//                                         style: TextStyle(
-//                                             color: Colors.black,
-//                                             fontFamily: 'Prompt'),
-//                                       ),
-//                                     ],
-//                                   ),
-//                                 ),
-//                               ),
-//                             ],
-//                           ),
-//                         ),
-//                       ),
-//                     )));
-//   }
-// }
 
   Widget sym() => Container(
           child: SizedBox(
@@ -137,7 +94,8 @@ class _ShowSymState extends State<ShowSym> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(20),
-                  child: Text('$symptomName',
+                  child: Text(
+                    '$symptomName',
                       style: TextStyle(
                         fontSize: 18.0,
                         color: Colors.black,

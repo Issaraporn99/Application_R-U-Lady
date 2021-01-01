@@ -32,7 +32,7 @@ class _ShowGroupState extends State<ShowGroup> {
     organId = preferences.getString('organ_id');
     symptomName = preferences.getString('symptom_name');
     String url =
-        'http://192.168.100.5/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
+        'http://192.168.43.187/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
     // await Dio().get(url).then((value) => {print('value = $value')});
 
     Response response = await Dio().get(url);
@@ -84,65 +84,96 @@ class _ShowGroupState extends State<ShowGroup> {
     Navigator.push(context, route);
   }
 
-  SingleChildScrollView _dataBody() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: DataTable(
-          columns: [
-            DataColumn(
-              label: Text(
-                "กลุ่ม ",
-                style: TextStyle(fontFamily: 'Prompt'),
-              ),
-            ),
-          ],
-          rows: groupInfo
-              .map(
-                (article) => DataRow(
-                  cells: [
-                    DataCell(
-                      Text(
-                        article.groupName,
-                        style: TextStyle(fontFamily: 'Prompt'),
-                      ),
-                      onTap: () {
-                        print("ID " + article.groupId);
-                        routeTsS(ShowSym(), article);
-                      },
-                    ),
-                  ],
-                ),
-              )
-              .toList(),
-        ),
-      ),
-    );
-  }
+  // SingleChildScrollView _dataBody() {
+  //   return SingleChildScrollView(
+  //     scrollDirection: Axis.vertical,
+  //     child: SingleChildScrollView(
+  //       scrollDirection: Axis.vertical,
+  //       child: DataTable(
+  //         columns: [
+  //           DataColumn(
+  //             label: Text(
+  //               "กลุ่ม ",
+  //               style: TextStyle(fontFamily: 'Prompt'),
+  //             ),
+  //           ),
+  //         ],
+  //         rows: groupInfo
+  //             .map(
+  //               (article) => DataRow(
+  //                 cells: [
+  //                   DataCell(
+  //                     Text(
+  //                       article.groupName,
+  //                       style: TextStyle(fontFamily: 'Prompt'),
+  //                     ),
+  //                     onTap: () {
+  //                       print("ID " + article.groupId);
+  //                       routeTsS(ShowSym(), article);
+  //                     },
+  //                   ),
+  //                 ],
+  //               ),
+  //             )
+  //             .toList(),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'คุณมีความผิดปกติเกี่ยวกับ ?',
-          style: TextStyle(
-              color: Colors.white, fontFamily: 'Prompt', fontSize: 18.0),
+        appBar: AppBar(
+          title: Text(
+            'คุณมีความผิดปกติเกี่ยวกับ ?',
+            style: TextStyle(
+                color: Colors.white, fontFamily: 'Prompt', fontSize: 18.0),
+          ),
+          backgroundColor: Colors.red[200],
         ),
-        backgroundColor: Colors.red[200],
-      ),
-      body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Expanded(
-              child: _dataBody(),
-            ),
-          ],
-        ),
-      ),
-    );
+        body: groupInfo.length == 0
+            ? MyStyle().showProgress()
+            : ListView.builder(
+                itemCount: groupInfo.length,
+                itemBuilder: (context, index) => Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: SizedBox(
+                        height: 70,
+                        child: Card(
+                          elevation: 1.5,
+                          color: Colors.white,
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 15, top: 17),
+                                child: InkWell(
+                                  splashColor: Colors.white,
+                                  // splash color
+                                  onTap: () {
+                                    routeTsS(ShowSym(),  groupInfo[index]);
+                                    print(groupInfo[index].groupName);
+                                  },
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        groupInfo[index].groupName,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontFamily: 'Prompt'),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )));
   }
 }
 
