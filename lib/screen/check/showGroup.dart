@@ -32,7 +32,7 @@ class _ShowGroupState extends State<ShowGroup> {
     organId = preferences.getString('organ_id');
     symptomName = preferences.getString('symptom_name');
     String url =
-        'http://192.168.43.187/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
+        'http://192.168.1.108/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
     // await Dio().get(url).then((value) => {print('value = $value')});
 
     Response response = await Dio().get(url);

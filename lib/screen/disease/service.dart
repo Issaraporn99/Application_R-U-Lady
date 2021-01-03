@@ -94,7 +94,7 @@ class ServicesArticle2 {
 }
 
 class ServicesQA {
-  static const ROOT = 'http://192.168.43.187/apidoctor/getQ.php?isAdd=true';
+  static const ROOT = 'http://192.168.1.108/apidoctor/getQ.php?isAdd=true';
   static const String _GET_ACTION = 'true';
 
   static Future<List<Question>> getQ() async {

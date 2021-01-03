@@ -57,14 +57,14 @@ class _ShowAState extends State<ShowA> {
     String questionId = preferences.getString('question_id');
 
     String url =
-        'http://192.168.43.187/apidoctor/getQAWhereId.php?isAdd=true&question_id=$questionId';
+        'http://192.168.1.108/apidoctor/getQAWhereId.php?isAdd=true&question_id=$questionId';
     await Dio().get(url).then((value) => {print('value = $value')});
     try {
       Response response = await Dio().get(url);
       print('res = $response');
 
       var result = json.decode(response.data);
-      print('res = $result');
+
       for (var map in result) {
         Question qaInfo = Question.fromJson(map);
 
@@ -75,19 +75,94 @@ class _ShowAState extends State<ShowA> {
       }
     } catch (e) {}
   }
- SingleChildScrollView _dataBody() {
-    return  SingleChildScrollView(
-          child: groupInfo.length == 0
-          ? MyStyle().showProgress()
-          : ListView.builder(
+
+  Widget an_builder(context, index) {
+    return SingleChildScrollView(
+      child: Align(
+          alignment: Alignment.topLeft,
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    Container(
+                      constraints: BoxConstraints(minWidth: double.infinity),
+                      child: Text(
+                        doctorname == null
+                            ? ''
+                            : 'ตอบโดยผู้เชี่ยวชาญ ' +
+                                groupInfo[index].doctorname,
+                        style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 13.0,
+                            fontFamily: 'Prompt'),
+                      ),
+                    ),
+                    Container(
+                      constraints: BoxConstraints(minWidth: double.infinity),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10, top: 10),
+                        child: Text(
+                          answerName == null
+                              ? '* ยังไม่มีคำตอบ'
+                              : groupInfo[index].answerName,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16.0,
+                              fontFamily: 'Prompt'),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          )),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'คำตอบ',
+          style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+        ),
+        backgroundColor: Colors.red[200],
+      ),
+      body: new Column(
+        children: <Widget>[
+          _dataBody(),
+          new Expanded(
+            child: new ListView.builder(
               itemCount: groupInfo.length,
-              itemBuilder: (context, index) =>  Container(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[     
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
+              itemBuilder: (context, index) {
+                return an_builder(context, index);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  SingleChildScrollView _dataBody() {
+    return SingleChildScrollView(
+      child: Container(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Row(children: <Widget>[
+              qId(),
+              qdate(),
+            ]),
+            qq(),
+            Align(
+                alignment: Alignment.topLeft,
+                child: Padding(
                     padding: const EdgeInsets.only(left: 20, top: 5),
                     child: Text(
                       'ตอบ',
@@ -95,133 +170,11 @@ class _ShowAState extends State<ShowA> {
                           color: Colors.red[200],
                           fontSize: 16.0,
                           fontFamily: 'Prompt'),
-                    ),
-                  ),
-                ),
-                 Align(
-                    alignment: Alignment.topLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: Column(
-                            children: [
-                              Container(
-                                constraints:
-                                    BoxConstraints(minWidth: double.infinity),
-                                child: Text(
-                                  doctorname == null
-                                      ? ''
-                                      : 'ตอบโดยผู้เชี่ยวชาญ ' +
-                                          groupInfo[index].doctorname,
-                                  style: TextStyle(
-                                      color: Colors.black54,
-                                      fontSize: 13.0,
-                                      fontFamily: 'Prompt'),
-                                ),
-                              ),
-                              Container(
-                                constraints:
-                                    BoxConstraints(minWidth: double.infinity),
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 10, top: 10),
-                                  child: Text(
-                                    answerName == null
-                                        ? '* ยังไม่มีคำตอบ'
-                                        : groupInfo[index].answerName,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16.0,
-                                        fontFamily: 'Prompt'),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    )),
-              ],
-            ),
-          ),
-        ));
-  }
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'ถามตอบ',
-            style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
-          ),
-          backgroundColor: Colors.red[200],
+                    ))),
+          ],
         ),
-        
-        body: groupInfo.length == 0
-          ? MyStyle().showProgress()
-          : ListView.builder(
-              itemCount: groupInfo.length,
-              itemBuilder: (context, index) => SingleChildScrollView( 
-               child: Container(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Row(children: <Widget>[
-                  qId(),
-                  qdate(),
-                ]),
-               qq(),
-                Align(
-                    alignment: Alignment.topLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: Column(
-                            children: [
-                              Container(
-                                constraints:
-                                    BoxConstraints(minWidth: double.infinity),
-                                child: Text(
-                                  doctorname == null
-                                      ? ''
-                                      : 'ตอบโดยผู้เชี่ยวชาญ ' +
-                                          groupInfo[index].doctorname,
-                                  style: TextStyle(
-                                      color: Colors.black54,
-                                      fontSize: 13.0,
-                                      fontFamily: 'Prompt'),
-                                ),
-                              ),
-                              Container(
-                                constraints:
-                                    BoxConstraints(minWidth: double.infinity),
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 10, top: 10),
-                                  child: Text(
-                                    answerName == null
-                                        ? '* ยังไม่มีคำตอบ'
-                                        : groupInfo[index].answerName,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16.0,
-                                        fontFamily: 'Prompt'),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    )), 
-              ],
-            ),
-          ),
-        )));
+      ),
+    );
   }
 
   Widget qId() => Container(
@@ -250,49 +203,47 @@ class _ShowAState extends State<ShowA> {
           ),
         ),
       );
-      Widget qq() => Container(
-        child:  Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Card(
+  Widget qq() => Container(
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Card(
+              color: Colors.red[50],
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    Container(
+                      constraints: BoxConstraints(minWidth: double.infinity),
+                      child: Text(
+                        questionName == 'null'
+                            ? 'ไม่ระบุชื่อ'
+                            : 'จาก คุณ$questionName',
+                        style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 13.0,
+                            fontFamily: 'Prompt'),
+                      ),
+                    ),
+                    Container(
+                      constraints: BoxConstraints(minWidth: double.infinity),
                       child: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Column(
-                          children: [
-                            Container(
-                              constraints:
-                                  BoxConstraints(minWidth: double.infinity),
-                              child: Text(
-                                questionName == 'null'
-                                    ? 'ไม่ระบุชื่อ'
-                                    : 'จาก คุณ$questionName',
-                                style: TextStyle(
-                                    color: Colors.black54,
-                                    fontSize: 13.0,
-                                    fontFamily: 'Prompt'),
-                              ),
-                            ),
-                            Container(
-                              constraints:
-                                  BoxConstraints(minWidth: double.infinity),
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 10, top: 10),
-                                child: Text(
-                                  '$question',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 15.0,
-                                      fontFamily: 'Prompt'),
-                                ),
-                              ),
-                            ),
-                          ],
+                        padding: const EdgeInsets.only(left: 10, top: 10),
+                        child: Text(
+                          '$question',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 15.0,
+                              fontFamily: 'Prompt'),
                         ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
+              ),
+            ),
+          ),
+        ),
       );
 }
