@@ -1,3 +1,4 @@
+import 'package:doctorpurin/main.dart';
 import 'package:doctorpurin/screen/women_home.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,7 +13,6 @@ class ShowArticle extends StatefulWidget {
 }
 
 class _ShowArticleState extends State<ShowArticle> {
-
   String articlesid;
   String topic;
   String detail;
@@ -48,115 +48,80 @@ class _ShowArticleState extends State<ShowArticle> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('บทความ',
+      appBar: AppBar(
+        title: Text(
+          'บทความ',
           style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
         ),
         backgroundColor: Colors.red[200],
       ),
-        body: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: 20, right: 20, top: 15, bottom: 5),
-                  child: Text(
-                    '$topic',
-                    style: TextStyle(
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 20, right: 20, top: 15, bottom: 5),
+                child: Text(
+                  '$topic',
+                  style: TextStyle(
                       color: Colors.red[900],
-                      fontSize: 18.0,fontFamily: 'Prompt'
+                      fontSize: 18.0,
+                      fontFamily: 'Prompt'),
+                ),
+              ),
+              Align(
+                alignment: Alignment.topLeft,
+                child: Padding(
+                    padding: const EdgeInsets.only(left: 10, right: 50),
+                    child: Html(
+                      data: ('$detail'),
+                    )),
+              ),
+              Align(
+                alignment: Alignment.topLeft,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    left: 20,top: 20
+                  ),
+                  child: Text(
+                    '$issuedate',
+                    style: TextStyle(
+                      color: Colors.black54,
+                      fontSize: 13.0,
                     ),
                   ),
                 ),
-
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 50),
-                      child: Html(
-                        data: ('$detail'),
-                      )),
-                ),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 20,
-                    ),
-                    child: Text(
-                      '$issuedate',
-                      style: TextStyle(
-                        color: Colors.black54,
-                        fontSize: 13.0,
-                      ),
+              ),
+              Align(
+                alignment: Alignment.topLeft,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    left: 20,bottom: 40
+                  ),
+                  child: Text(
+                    'ผู้เขียน $doctorname',
+                    style: TextStyle(
+                      color: Colors.black54,
+                      fontSize: 13.0,
                     ),
                   ),
                 ),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 20,
-                    ),
-                    child: Text(
-                      'ผู้เขียน $doctorname',
-                      style: TextStyle(
-                        color: Colors.black54,
-                        fontSize: 13.0,
-                      ),
-                    ),
-                  ),
-                ),
-
-                // CarouselSlider(
-                //   items: [showData(),],
-                //   options: CarouselOptions(enlargeCenterPage: true, height: 400),
-                //   carouselController: _controller,
-                // ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: <Widget>[
-                //     Padding(
-                //       padding: const EdgeInsets.only(bottom: 20),
-                //       child: FlatButton(
-                //         onPressed: () => _controller.previousPage(),
-                //         child: Image.asset(
-                //           'images/pre.png',
-                //           width: 30,
-                //         ),
-                //       ),
-                //     ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
-                  child: FlatButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => WomenHome()));
-                    },
-                    child: Image.asset(
-                      'images/btnh.png',
-                      width: 60,
-                    ),
-                  ),
-                ),
-                //     Padding(
-                //       padding: const EdgeInsets.only(bottom: 20),
-                //       child: FlatButton(
-                //         onPressed: () => _controller.nextPage(),
-                //         child: Image.asset(
-                //           'images/next.png',
-                //           width: 30,
-                //         ),
-                //       ),
-                //     ),
-                //   ],
-                // )
-              ],
-            ),
+              ),
+            ],
           ),
-        ));
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.red[200],
+        onPressed: () {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => MyApp()));
+        },
+        child: Icon(Icons.home),
+      ),
+    );
   }
 
   Widget showData() => Container(

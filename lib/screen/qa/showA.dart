@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:doctorpurin/modal/question_modal.dart';
-import 'package:doctorpurin/utility/my_style.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -128,7 +127,7 @@ class _ShowAState extends State<ShowA> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'คำตอบ',
+          'ถามตอบ',
           style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
         ),
         backgroundColor: Colors.red[200],
@@ -165,7 +164,7 @@ class _ShowAState extends State<ShowA> {
                 child: Padding(
                     padding: const EdgeInsets.only(left: 20, top: 5),
                     child: Text(
-                      'ตอบ',
+                      answerName == null ? '* ยังไม่มีคำตอบ' : 'คำตอบ',
                       style: TextStyle(
                           color: Colors.red[200],
                           fontSize: 16.0,

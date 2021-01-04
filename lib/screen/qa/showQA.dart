@@ -44,7 +44,7 @@ class _ShowQAState extends State<ShowQA> {
   final _debouncer = Debouncer(milliseconds: 500);
 
   RefreshController _refreshController =
-      RefreshController(initialRefresh: true);
+      RefreshController(initialRefresh: false);
   void _onRefresh() async {
     await Future.delayed(Duration(milliseconds: 500));
     setState(() {
@@ -264,6 +264,14 @@ class _ShowQAState extends State<ShowQA> {
           ],
         ),
       ),
+      //       floatingActionButton: FloatingActionButton(
+      //   backgroundColor: const Color(0xff03dac6),
+      //   onPressed: () {
+      //     Navigator.pushReplacement(
+      //         context, MaterialPageRoute(builder: (context) => QandA()));
+      //   },
+      //   child: Icon(Icons.edit),
+      // ),
     );
   }
 }

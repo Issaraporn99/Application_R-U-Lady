@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:doctorpurin/modal/group_modal.dart';
-import 'package:doctorpurin/modal/sym_modal.dart';
 import 'package:doctorpurin/screen/check/showSym.dart';
 import 'package:doctorpurin/utility/my_style.dart';
 import 'package:flutter/material.dart';
@@ -83,43 +82,6 @@ class _ShowGroupState extends State<ShowGroup> {
         MaterialPageRoute(builder: (context) => myWidgett);
     Navigator.push(context, route);
   }
-
-  // SingleChildScrollView _dataBody() {
-  //   return SingleChildScrollView(
-  //     scrollDirection: Axis.vertical,
-  //     child: SingleChildScrollView(
-  //       scrollDirection: Axis.vertical,
-  //       child: DataTable(
-  //         columns: [
-  //           DataColumn(
-  //             label: Text(
-  //               "กลุ่ม ",
-  //               style: TextStyle(fontFamily: 'Prompt'),
-  //             ),
-  //           ),
-  //         ],
-  //         rows: groupInfo
-  //             .map(
-  //               (article) => DataRow(
-  //                 cells: [
-  //                   DataCell(
-  //                     Text(
-  //                       article.groupName,
-  //                       style: TextStyle(fontFamily: 'Prompt'),
-  //                     ),
-  //                     onTap: () {
-  //                       print("ID " + article.groupId);
-  //                       routeTsS(ShowSym(), article);
-  //                     },
-  //                   ),
-  //                 ],
-  //               ),
-  //             )
-  //             .toList(),
-  //       ),
-  //     ),
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {

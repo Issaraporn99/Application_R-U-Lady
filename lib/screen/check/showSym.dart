@@ -1,9 +1,6 @@
-import 'dart:convert';
+
 
 import 'package:dio/dio.dart';
-import 'package:doctorpurin/modal/group_modal.dart';
-import 'package:doctorpurin/modal/sym_modal.dart';
-import 'package:doctorpurin/utility/my_style.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -24,14 +21,6 @@ class _ShowSymState extends State<ShowSym> {
     findId();
   }
 
-  // Future<Null> findId() async {
-  //   SharedPreferences preferences = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     symptomName = preferences.getString('symptom_name');
-  //     groupId = preferences.getString('group_id');
-  //   });
-  // }
-
   Future<Null> findId() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     symptomName = preferences.getString('symptom_name');
@@ -44,18 +33,6 @@ class _ShowSymState extends State<ShowSym> {
       symptomName = preferences.getString('symptom_name');
     });
   }
-
-  // Future<Null> routeTS(Widget myWidgett, SymModal sym) async {
-  //   SharedPreferences preferences = await SharedPreferences.getInstance();
-  //   preferences.setString('group_id', sym.groupId);
-  //   preferences.setString('symptom_name', sym.symptomName);
-  //   preferences.setString('symptom_id', sym.symptomId);
-  //   preferences.setString('disease_id', sym.diseaseId);
-  //   // Navigator.pop(context);
-  //   MaterialPageRoute route =
-  //       MaterialPageRoute(builder: (context) => myWidgett);
-  //   Navigator.push(context, route);
-  // }
 
   @override
   Widget build(BuildContext context) {

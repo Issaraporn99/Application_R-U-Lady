@@ -62,29 +62,13 @@ class _MyHomePageState extends State<MyHomePage> {
     return MaterialApp(
       home: Scaffold(
         extendBody: true,
-        // appBar: AppBar(
-        //   brightness: Brightness.light,
-        //   title: Text(
-        //     'GoogleNavBar',
-        //     style: TextStyle(color: Colors.black),
-        //   ),
-        //   backgroundColor: Colors.white,
-        // ),
         body: PageView(
-          // itemCount: 4,
           controller: controller,
           onPageChanged: (page) {
             setState(() {
               _index = page;
             });
           },
-
-          // itemBuilder:(context,position){
-          //   return Container(
-          //     color: colors[position],
-          //     child:Center(child: text[position]),
-          //   );
-          // }
           children: [
             WomenHome(),
             DisInformation(),
@@ -158,6 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     backgroundColor: Colors.teal.withOpacity(0.2),
                     iconSize: 24,
                     padding: padding,
+                    
                   ),
                 ],
                 selectedIndex: _index,

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:doctorpurin/main.dart';
 import 'package:doctorpurin/modal/ad.dart';
 import 'package:doctorpurin/screen/includes/articledis.dart';
 import 'package:flutter/material.dart';
@@ -56,64 +57,71 @@ class _ShowDisState extends State<ShowDis> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'ข้อมูลโรค ',
-            style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
-          ),
-          backgroundColor: Colors.red[200],
+      appBar: AppBar(
+        title: Text(
+          'ข้อมูลโรค ',
+          style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
         ),
-        body: SingleChildScrollView(
-          child: Column(children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: Text(
-                'โรค $diseasename',
-                style: TextStyle(
-                    color: Colors.red[900],
-                    fontSize: 18.0,
-                    fontFamily: 'Prompt'),
-              ),
+        backgroundColor: Colors.red[200],
+      ),
+      body: SingleChildScrollView(
+        child: Column(children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: Text(
+              'โรค $diseasename',
+              style: TextStyle(
+                  color: Colors.red[900], fontSize: 18.0, fontFamily: 'Prompt'),
             ),
-            CarouselSlider(
-              items: [
-                showDetail(),
-                showCause(),
-                showTreatment(),
-                showDefence(),
-                showData(),
-              ],
-              options: CarouselOptions(
-                  enlargeCenterPage: true,
-                  enableInfiniteScroll: false,
-                  aspectRatio: 2.0,
-                  height: 390,
-                  onPageChanged: (index, reason) {
-                    setState(() {
-                      _index = index;
-                    });
-                  }),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: imgList.map((url) {
-                int index = imgList.indexOf(url);
-                return Container(
-                  width: 8.0,
-                  height: 50.0,
-                  margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: _index == index
-                        ? Color.fromRGBO(0, 0, 0, 0.9)
-                        : Color.fromRGBO(0, 0, 0, 0.4),
-                  ),
-                );
-              }).toList(),
-            ),
-            articleDis(),
-          ]),
-        ));
+          ),
+          CarouselSlider(
+            items: [
+              showDetail(),
+              showCause(),
+              showTreatment(),
+              showDefence(),
+              showData(),
+            ],
+            options: CarouselOptions(
+                enlargeCenterPage: true,
+                enableInfiniteScroll: false,
+                aspectRatio: 2.0,
+                height: 390,
+                onPageChanged: (index, reason) {
+                  setState(() {
+                    _index = index;
+                  });
+                }),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: imgList.map((url) {
+              int index = imgList.indexOf(url);
+              return Container(
+                width: 8.0,
+                height: 50.0,
+                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: _index == index
+                      ? Color.fromRGBO(0, 0, 0, 0.9)
+                      : Color.fromRGBO(0, 0, 0, 0.4),
+                ),
+              );
+            }).toList(),
+          ),
+          articleDis(),
+        ]),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.red[200],
+        onPressed: () {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => MyApp()));
+        },
+        child: Icon(Icons.home),
+      ),
+    );
   }
 
   Future<Null> checkid() async {
