@@ -202,16 +202,3 @@ class _DisInformationState extends State<DisInformation> {
   }
 }
 
-// Future<Null> readDis() async {
-//   SharedPreferences preferences = await SharedPreferences.getInstance();
-//   String disease_id = preferences.getString('disease_id');
-
-//   String url =
-//       'http://192.168.43.187/issaafood/disInfo.php?isAdd=true&disease_id=$disease_id';
-//   // await Dio().get(url).then((value) => {print('value = $value')});
-//   Response response = await Dio().get(url);
-//   print('dis = $response');
-//   var result = json.decode(response.data);
-//   dis = result;
-//   // print(dis);
-// }

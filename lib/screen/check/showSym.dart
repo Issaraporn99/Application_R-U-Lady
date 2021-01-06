@@ -27,7 +27,7 @@ class _ShowSymState extends State<ShowSym> {
     String groupId = preferences.getString('group_id');
 
     String url =
-        'http://192.168.1.108/apidoctor/apiSym.php?group_id=$groupId&isAdd=true';
+        'http://student.crru.ac.th/601463046/apidoctor/apiSym.php?group_id=$groupId&isAdd=true';
     await Dio().get(url).then((value) => {print('valueSSS = $value')});
     setState(() {
       symptomName = preferences.getString('symptom_name');

@@ -56,7 +56,7 @@ class _ShowAState extends State<ShowA> {
     String questionId = preferences.getString('question_id');
 
     String url =
-        'http://192.168.1.108/apidoctor/getQAWhereId.php?isAdd=true&question_id=$questionId';
+        'http://student.crru.ac.th/601463046/apidoctor/getQAWhereId.php?isAdd=true&question_id=$questionId';
     await Dio().get(url).then((value) => {print('value = $value')});
     try {
       Response response = await Dio().get(url);
@@ -208,7 +208,7 @@ class _ShowAState extends State<ShowA> {
           child: Padding(
             padding: const EdgeInsets.all(10),
             child: Card(
-              color: Colors.red[50],
+              color: Colors.amber[50],
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(

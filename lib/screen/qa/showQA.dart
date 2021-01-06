@@ -180,7 +180,7 @@ class _ShowQAState extends State<ShowQA> {
     String questionId = preferences.getString('question_id');
 
     String url =
-        'http://192.168.1.108/apidoctor/getQAWhereId.php?isAdd=true&question_id=$questionId';
+        'http://student.crru.ac.th/601463046/apidoctor/getQAWhereId.php?isAdd=true&question_id=$questionId';
     await Dio().get(url).then((value) => {print('value = $value')});
     try {
       Response response = await Dio().get(url);
