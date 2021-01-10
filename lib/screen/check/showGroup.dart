@@ -17,6 +17,7 @@ class _ShowGroupState extends State<ShowGroup> {
   String groupName;
   String organId;
   String symptomName;
+  String symptomId;
 
   List<GroupSym> groupInfo = List();
   List<GroupSym> symInfo = List();
@@ -30,6 +31,7 @@ class _ShowGroupState extends State<ShowGroup> {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     organId = preferences.getString('organ_id');
     symptomName = preferences.getString('symptom_name');
+    symptomId = preferences.getString('symptom_id');
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
     // await Dio().get(url).then((value) => {print('value = $value')});
@@ -47,29 +49,6 @@ class _ShowGroupState extends State<ShowGroup> {
     }
   }
 
-  // Future<Null> showSym() async {
-  //   SharedPreferences preferences = await SharedPreferences.getInstance();
-  //   symptomName = preferences.getString('symptom_name');
-  //   String groupId = preferences.getString('group_id');
-
-  //   String url =
-  //       'http://student.crru.ac.th/601463046/apidoctor/apiSym.php?group_id=$groupId&isAdd=true';
-  //   await Dio().get(url).then((value) => {print('valueSSS = $value')});
-  //   try {
-  //     Response response = await Dio().get(url);
-  //     var result = json.decode(response.data);
-  //     for (var map in result) {
-  //       GroupSym sym = GroupSym.fromJson(map);
-  //       setState(() {
-  //         if (groupId == sym.groupId) {
-  //           // routeTsS(ShowSym(), symInfo);
-  //           print(groupId);
-  //         }
-  //       });
-  //     }
-  //   } catch (e) {}
-  // }
-
   Future<Null> routeTsS(Widget myWidgett, GroupSym sym) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString('group_id', sym.groupId);
@@ -86,100 +65,107 @@ class _ShowGroupState extends State<ShowGroup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'คุณมีความผิดปกติเกี่ยวกับ ?',
-            style: TextStyle(
-                color: Colors.white, fontFamily: 'Prompt', fontSize: 18.0),
-          ),
-          backgroundColor: Colors.red[200],
+      appBar: AppBar(
+        title: Text(
+          'คุณมีความผิดปกติเกี่ยวกับ ?',
+          style: TextStyle(
+              color: Colors.white, fontFamily: 'Prompt', fontSize: 18.0),
         ),
-        body: groupInfo.length == 0
-            ? MyStyle().showProgress()
-            : ListView.builder(
-                itemCount: groupInfo.length,
-                itemBuilder: (context, index) => Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: SizedBox(
-                        height: 70,
-                        child: Card(
-                          elevation: 1.5,
-                          color: Colors.white,
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 15, top: 17),
-                                child: InkWell(
-                                  splashColor: Colors.white,
-                                  // splash color
-                                  onTap: () {
-                                    routeTsS(ShowSym(), groupInfo[index]);
-                                    print(groupInfo[index].groupName);
-                                  },
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        groupInfo[index].groupName,
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontFamily: 'Prompt'),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+        backgroundColor: Colors.red[200],
+      ),
+      body: new Column(
+        children: <Widget>[
+          nono(),
+          new Expanded(
+            child: new ListView.builder(
+              itemCount: groupInfo.length,
+              itemBuilder: (context, index) {
+                return an_builder(context, index);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget an_builder(context, index) {
+    return SingleChildScrollView(
+      child: Align(
+          alignment: Alignment.topLeft,
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: SizedBox(
+              height: 70,
+              child: InkWell(
+                splashColor: Colors.white,
+                onTap: () {
+                  routeTsS(ShowSym(), groupInfo[index]);
+                  print(groupInfo[index].groupName);
+                },
+                child: Card(
+                  elevation: 1.5,
+                  color: Colors.white,
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15, top: 17),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              groupInfo[index].groupName,
+                              style: TextStyle(
+                                  color: Colors.black, fontFamily: 'Prompt'),
+                            ),
+                          ],
                         ),
                       ),
-                    )));
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          )),
+    );
   }
-}
 
-//         body: groupInfo.length == 0
-//             ? MyStyle().showProgress()
-//             : ListView.builder(
-//                 itemCount: groupInfo.length,
-//                 itemBuilder: (context, index) => Padding(
-//                       padding: const EdgeInsets.all(5),
-//                       child: SizedBox(
-//                         height: 70,
-//                         child: Card(
-//                           elevation: 1.5,
-//                           color: Colors.white,
-//                           child: Row(
-//                             children: [
-//                               Padding(
-//                                 padding:
-//                                     const EdgeInsets.only(left: 15, top: 17),
-//                                 child: InkWell(
-//                                   splashColor: Colors.white,
-//                                   // splash color
-//                                   onTap: () {
-//                                     showSym();
-//                                     print(groupInfo[index].groupName);
-//                                   },
-//                                   child: Column(
-//                                     crossAxisAlignment:
-//                                         CrossAxisAlignment.start,
-//                                     children: [
-//                                       Text(
-//                                         groupInfo[index].groupName,
-//                                         style: TextStyle(
-//                                             color: Colors.black,
-//                                             fontFamily: 'Prompt'),
-//                                       ),
-//                                     ],
-//                                   ),
-//                                 ),
-//                               ),
-//                             ],
-//                           ),
-//                         ),
-//                       ),
-//                     )));
-//   }
-// }
+  Widget nono() => Container(
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: SizedBox(
+              height: 70,
+              child: InkWell(
+                splashColor: Colors.white,
+                onTap: () {
+                  print("ไม่ทราบ");
+                },
+                child: Card(
+                  elevation: 1.5,
+                  color: Colors.white,
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15, top: 17),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "ไม่ทราบ",
+                              style: TextStyle(
+                                  color: Colors.black, fontFamily: 'Prompt'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+}
