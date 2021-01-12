@@ -4,8 +4,9 @@ class GroupSym {
   String organId;
   String symptomId;
   String symptomName;
-
+  String status;
   String diseaseId;
+  String yn;
 
   GroupSym({this.groupId, this.groupName, this.organId});
 
@@ -15,8 +16,9 @@ class GroupSym {
     organId = json['organ_id'];
     symptomId = json['symptom_id'];
     symptomName = json['symptom_name'];
-
+    status = json['status'];
     diseaseId = json['disease_id'];
+    yn = json['yn'];
   }
 
   Map<String, dynamic> toJson() {
@@ -26,16 +28,9 @@ class GroupSym {
     data['organ_id'] = this.organId;
     data['symptom_id'] = this.symptomId;
     data['symptom_name'] = this.symptomName;
+    data['status'] = this.status;
     data['disease_id'] = this.diseaseId;
+    data['yn'] = this.yn;
     return data;
   }
 }
-
-// Future<Null> findId() async {
-//   SharedPreferences preferences = await SharedPreferences.getInstance();
-//   setState(() {
-//     organId = preferences.getString('organ_id');
-//     groupName = preferences.getString('group_name');
-//     groupId = preferences.getString('group_id');
-//   });
-// }

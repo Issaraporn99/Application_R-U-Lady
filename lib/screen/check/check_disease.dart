@@ -58,10 +58,10 @@ class _CheckDiseaseState extends State<CheckDisease> {
     await Dio().get(url).then((value) => {print('value = $value')});
     try {
       Response response = await Dio().get(url);
-      print('res = $response');
+      // print('res = $response');
 
       var result = json.decode(response.data);
-      print('res = $result');
+      // print('res = $result');
       for (var map in result) {
         GroupSym groupInfo = GroupSym.fromJson(map);
         if (organId == groupInfo.organId) {
