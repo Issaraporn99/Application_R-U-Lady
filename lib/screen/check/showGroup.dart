@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:doctorpurin/modal/group_modal.dart';
 import 'package:doctorpurin/screen/check/showSym.dart';
+import 'package:doctorpurin/screen/check/showsym2.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -272,6 +273,10 @@ class _ShowGroupState extends State<ShowGroup> {
                 splashColor: Colors.white,
                 onTap: () {
                   noname();
+                  MaterialPageRoute route =
+                      MaterialPageRoute(builder: (context) => ShowSym2());
+                  Navigator.push(context, route);
+                 
                 },
                 child: Card(
                   elevation: 1.5,
