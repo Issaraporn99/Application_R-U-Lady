@@ -1,4 +1,4 @@
-class getdissym {
+class Getdissym {
   String diseaseId;
   String symptomId;
   String status;
@@ -14,8 +14,9 @@ class getdissym {
   String diseaseDefence;
   String diseaseAbout;
   String expertiseId;
+  String expertiseName;
 
-  getdissym(
+  Getdissym(
       {this.diseaseId,
       this.symptomId,
       this.status,
@@ -30,9 +31,10 @@ class getdissym {
       this.diseaseTreatment,
       this.diseaseDefence,
       this.diseaseAbout,
-      this.expertiseId});
+      this.expertiseId,
+      this.expertiseName});
 
-  getdissym.fromJson(Map<String, dynamic> json) {
+  Getdissym.fromJson(Map<String, dynamic> json) {
     diseaseId = json['disease_id'];
     symptomId = json['symptom_id'];
     status = json['status'];
@@ -48,6 +50,7 @@ class getdissym {
     diseaseDefence = json['disease_defence'];
     diseaseAbout = json['disease_about'];
     expertiseId = json['expertise_id'];
+    expertiseName = json['expertise_name'];
   }
 
   Map<String, dynamic> toJson() {
@@ -67,6 +70,7 @@ class getdissym {
     data['disease_defence'] = this.diseaseDefence;
     data['disease_about'] = this.diseaseAbout;
     data['expertise_id'] = this.expertiseId;
+    data['expertise_name'] = this.expertiseName;
     return data;
   }
 }
