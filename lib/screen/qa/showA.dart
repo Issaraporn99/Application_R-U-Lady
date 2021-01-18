@@ -184,7 +184,9 @@ class _ShowAState extends State<ShowA> {
             child: Text(
               'คำถามที่ $questionId',
               style: TextStyle(
-                  color: Colors.red[200], fontSize: 16.0, fontFamily: 'Prompt'),
+                  color: Colors.black,
+                  fontSize: 16.0,
+                  fontFamily: 'Prompt'),
             ),
           ),
         ),

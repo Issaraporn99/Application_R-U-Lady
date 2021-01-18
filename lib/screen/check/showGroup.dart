@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:doctorpurin/modal/group_modal.dart';
 import 'package:doctorpurin/screen/check/showSym.dart';
 import 'package:doctorpurin/screen/check/showsym2.dart';
+import 'package:doctorpurin/utility/normal_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -152,19 +153,14 @@ class _ShowGroupState extends State<ShowGroup> {
       n4++;
       i4++;
     }
-    print(text4);
+    print("$text1&$text2&$text3&$text4");
+
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/addToDB.php?isAdd=true&$text1&$text2&$text3&$text4';
 
     try {
       Response response = await Dio().get(url);
       print('res=$response');
-
-      if (response.toString() == 'true') {
-        Navigator.pop(context);
-      } else {
-        print(url);
-      }
     } catch (e) {}
   }
 
@@ -273,10 +269,9 @@ class _ShowGroupState extends State<ShowGroup> {
                 splashColor: Colors.white,
                 onTap: () {
                   noname();
-                  MaterialPageRoute route =
-                      MaterialPageRoute(builder: (context) => ShowSym2());
-                  Navigator.push(context, route);
-                 
+                  // MaterialPageRoute route =
+                  //     MaterialPageRoute(builder: (context) => ShowSym2());
+                  // Navigator.push(context, route);
                 },
                 child: Card(
                   elevation: 1.5,

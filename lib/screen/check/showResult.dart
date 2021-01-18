@@ -55,7 +55,6 @@ class _ShowResultState extends State<ShowResult> {
   }
 
   Future<Null> show2() async {
-    saveToDig();
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/getresult.php?isAdd=true';
     await Dio().get(url).then((value) => {print('show2 = $value')});
@@ -67,7 +66,7 @@ class _ShowResultState extends State<ShowResult> {
         routeTS(ShowDis(), disInfo);
       }
     }
-  
+    saveToDig();
   }
 
   Future<Null> routeTS(Widget myWidgett, Getdissym disInfo) async {
@@ -96,7 +95,7 @@ class _ShowResultState extends State<ShowResult> {
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/saveToDig.php?isAdd=true&id=$id';
     await Dio().get(url).then((value) => {print('saveToDig = $url')});
-    Response response = await Dio().get(url);
+    // Response response = await Dio().get(url);
     del();
   }
 
