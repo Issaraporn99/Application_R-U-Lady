@@ -26,6 +26,10 @@ class _ShowGroupState extends State<ShowGroup> {
   var symm = new List();
   var statuss = new List();
   var ynn = new List();
+  var d = new List();
+  var s = new List();
+  var st = new List();
+  var y = new List();
   List<int> myModels = [];
   List<GroupSym> groupInfo = List();
   List<GroupSym> symInfo = List();
@@ -174,18 +178,88 @@ class _ShowGroupState extends State<ShowGroup> {
     var result = json.decode(response.data);
 
     for (var x in result) {
-      diss.add(x['disease_id']);
+      d.add(x['disease_id']);
     }
 
     for (var x in result) {
-      symm.add(x['symptom_id']);
+      s.add(x['symptom_id']);
     }
 
     for (var x in result) {
-      statuss.add(x['status']);
+      st.add(x['status']);
+    }
+    print("result =$result");
+
+    insertToDB2();
+  }
+
+  Future<Null> insertToDB2() async {
+    String text1 = "";
+    int cnum = d.length;
+    int i = 1;
+    int n = 0;
+    for (var x in d) {
+      if (i == cnum) {
+        text1 = text1 + "diss[" + '$n' + "]=" + x;
+      } else {
+        text1 = text1 + "diss[" + '$n' + "]=" + x + "&";
+      }
+      n++;
+      i++;
     }
 
-    insertToDB();
+    String text2 = "";
+    int cnum2 = s.length;
+    int i2 = 1;
+    int n2 = 0;
+    for (var x2 in s) {
+      if (i2 == cnum2) {
+        text2 = text2 + "symm[" + '$n2' + "]=" + x2;
+      } else {
+        text2 = text2 + "symm[" + '$n2' + "]=" + x2 + "&";
+      }
+      n2++;
+      i2++;
+    }
+    print("text2=$text2");
+
+    String text3 = "";
+    int cnum3 = st.length;
+    int i3 = 1;
+    int n3 = 0;
+    for (var x3 in st) {
+      if (i3 == cnum3) {
+        text3 = text3 + "statuss[" + '$n3' + "]=" + x3;
+      } else {
+        text3 = text3 + "statuss[" + '$n3' + "]=" + x3 + "&";
+      }
+      n3++;
+      i3++;
+    }
+
+    String text4 = "";
+    int cnum4 = st.length;
+    int i4 = 1;
+    int n4 = 0;
+    for (var x4 in st) {
+      if (i4 == cnum4) {
+        text4 = text4 + "ynn[" + '$n4' + "]=a";
+      } else {
+        text4 = text4 + "ynn[" + '$n4' + "]=a&";
+      }
+      n4++;
+      i4++;
+    }
+
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/addToDB.php?isAdd=true&$text1&$text2&$text3&$text4';
+
+   try {
+      Response response = await Dio().get(url);
+      print('res=$response');
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override

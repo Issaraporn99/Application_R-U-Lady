@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:doctorpurin/main.dart';
 import 'package:doctorpurin/screen/disease/disease_info.dart';
+import 'package:doctorpurin/utility/my_style.dart';
 import 'package:flutter/material.dart';
 
 class ShowResult2 extends StatefulWidget {
@@ -29,14 +30,15 @@ class _ShowResult2State extends State<ShowResult2> {
                 Align(
                   alignment: Alignment.center,
                   child: Text(
-                    "คุณสบายดี",
+                    "คุณสบายดี !!",
                     style: TextStyle(
-                      color: Colors.redAccent[100],
+                      color: Colors.lightBlueAccent[700],
                       fontFamily: 'Prompt',
-                      fontSize: 18.0,
+                      fontSize: 25.0,
                     ),
                   ),
                 ),
+                MyStyle().rr(),
                 button(),
               ],
             ),
@@ -70,7 +72,7 @@ class _ShowResult2State extends State<ShowResult2> {
               color: Color(0xFF214151),
               elevation: 8,
               child: Text(
-                'กลับหน้าหลัก',
+                'ดูข้อมูลอื่น ๆ',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 15.0,
