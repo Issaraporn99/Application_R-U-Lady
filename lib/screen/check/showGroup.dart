@@ -1,10 +1,9 @@
 import 'dart:convert';
-
+import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 import 'package:doctorpurin/modal/group_modal.dart';
 import 'package:doctorpurin/screen/check/showSym.dart';
 import 'package:doctorpurin/screen/check/showsym2.dart';
-import 'package:doctorpurin/utility/normal_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,10 +25,11 @@ class _ShowGroupState extends State<ShowGroup> {
   var symm = new List();
   var statuss = new List();
   var ynn = new List();
-  var d = new List();
-  var s = new List();
-  var st = new List();
-  var y = new List();
+  var d = new List<String>();
+  var s = new List<String>();
+  var st = new List<String>();
+  var y = new List<String>();
+
   List<int> myModels = [];
   List<GroupSym> groupInfo = List();
   List<GroupSym> symInfo = List();
@@ -169,6 +169,11 @@ class _ShowGroupState extends State<ShowGroup> {
   }
 
   Future<Null> noname() async {
+    setState(() {
+      d = [""];
+      s = [""];
+      st = [""];
+    });
     SharedPreferences preferences = await SharedPreferences.getInstance();
     organId = preferences.getString('organ_id');
     String url =
@@ -188,78 +193,40 @@ class _ShowGroupState extends State<ShowGroup> {
     for (var x in result) {
       st.add(x['status']);
     }
-    print("result =$result");
 
     insertToDB2();
   }
 
   Future<Null> insertToDB2() async {
-    String text1 = "";
-    int cnum = d.length;
-    int i = 1;
+    var url = 'http://student.crru.ac.th/601463046/apidoctor/add.php';
+    var map = new Map<String, dynamic>();
+    String a = "";
     int n = 0;
     for (var x in d) {
-      if (i == cnum) {
-        text1 = text1 + "diss[" + '$n' + "]=" + x;
-      } else {
-        text1 = text1 + "diss[" + '$n' + "]=" + x + "&";
-      }
+      a = x;
+      map["diss[$n]"] = a;
       n++;
-      i++;
     }
-
-    String text2 = "";
-    int cnum2 = s.length;
-    int i2 = 1;
+    String b = "";
     int n2 = 0;
-    for (var x2 in s) {
-      if (i2 == cnum2) {
-        text2 = text2 + "symm[" + '$n2' + "]=" + x2;
-      } else {
-        text2 = text2 + "symm[" + '$n2' + "]=" + x2 + "&";
-      }
+    for (var x in s) {
+      b = x;
+      map["symm[$n2]"] = b;
       n2++;
-      i2++;
     }
-    print("text2=$text2");
-
-    String text3 = "";
-    int cnum3 = st.length;
-    int i3 = 1;
+    String c = "";
     int n3 = 0;
-    for (var x3 in st) {
-      if (i3 == cnum3) {
-        text3 = text3 + "statuss[" + '$n3' + "]=" + x3;
-      } else {
-        text3 = text3 + "statuss[" + '$n3' + "]=" + x3 + "&";
-      }
+    for (var x in st) {
+      c = x;
+      map["statuss[$n3]"] = c;
       n3++;
-      i3++;
     }
-
-    String text4 = "";
-    int cnum4 = st.length;
-    int i4 = 1;
-    int n4 = 0;
-    for (var x4 in st) {
-      if (i4 == cnum4) {
-        text4 = text4 + "ynn[" + '$n4' + "]=a";
-      } else {
-        text4 = text4 + "ynn[" + '$n4' + "]=a&";
-      }
-      n4++;
-      i4++;
-    }
-
-    String url =
-        'http://student.crru.ac.th/601463046/apidoctor/addToDB.php?isAdd=true&$text1&$text2&$text3&$text4';
-
-   try {
-      Response response = await Dio().get(url);
-      print('res=$response');
-    } catch (e) {
-      print(e);
-    }
+    final response = await http.post(url, body: map);
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+    MaterialPageRoute route =
+        MaterialPageRoute(builder: (context) => ShowSym2());
+    Navigator.push(context, route);
   }
 
   @override
@@ -343,9 +310,6 @@ class _ShowGroupState extends State<ShowGroup> {
                 splashColor: Colors.white,
                 onTap: () {
                   noname();
-                  // MaterialPageRoute route =
-                  //     MaterialPageRoute(builder: (context) => ShowSym2());
-                  // Navigator.push(context, route);
                 },
                 child: Card(
                   elevation: 1.5,

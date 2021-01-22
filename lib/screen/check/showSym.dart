@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:doctorpurin/modal/group_modal.dart';
 import 'package:doctorpurin/screen/check/showResult.dart';
 import 'package:doctorpurin/screen/check/showResult2.dart';
+import 'package:doctorpurin/utility/my_style.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -21,6 +22,7 @@ class _ShowSymState extends State<ShowSym> {
   String dis;
   String status;
   String yn;
+  int limit = 0;
   var diss = new List();
   List<GroupSym> strArr = List();
   var symm = new List();
@@ -62,11 +64,11 @@ class _ShowSymState extends State<ShowSym> {
   Future<Null> count() async {
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/countSym.php?isAdd=true';
-    await Dio().get(url).then((value) => {print('count = $value')});
     Response response = await Dio().get(url);
+    print('res=$response');
     if (response.toString() == 'null') {
       setState(() {
-        d = 1;
+        d = 0;
         print("d null=$d");
       });
     } else {
@@ -85,68 +87,71 @@ class _ShowSymState extends State<ShowSym> {
   }
 
   Future<Null> idArray() async {
-    if (d > 1) {
-      count();
-    }
-    String text = "";
-    int cnum = diss.length;
-    int i = 1;
-    for (var x in diss) {
-      if (i == cnum) {
-        text = text + x;
-      } else {
-        text = text + x + ",";
-      }
-      i++;
-    }
-    print("ล่าสุด=$text");
-
-    String text2 = "";
-    int cnum2 = ynn.length;
-    int i2 = 1;
-    for (var x in ynn) {
-      if (i2 == cnum2) {
-        text2 = x;
-      }
-      i2++;
-    }
-    print("ล่าสุด=$text2");
-    print("d=$d");
-    if (text2 == "a" && d == 1) {
-      countyn();
-    } else if (cnum == 1 && text2 == "y") {
+    limit = 0;
+    await count();
+    if (d <= 1) {
       getDis();
     } else {
-      setState(() {
-        diss = [];
-        symm = [];
-        symName = [];
-        sym2 = [];
-        ynn = [];
-      });
+      String text = "";
+      int cnum = diss.length;
+      int i = 1;
+      for (var x in diss) {
+        if (i == cnum) {
+          text = text + x;
+        } else {
+          text = text + x + ",";
+        }
+        i++;
+      }
+      print("ล่าสุด=$text");
 
-      String url =
-          'http://student.crru.ac.th/601463046/apidoctor/apiSym2.php?symptom_id=$symptomId&isAdd=true';
-      await Dio().get(url).then((value) => {print('idArray = $value')});
-      Response response = await Dio().get(url);
-      var result = json.decode(response.data);
-      print("$result");
-      setState(() {
-        for (var x in result) {
-          diss.add(x['disease_id']);
+      String text2 = "";
+      int cnum2 = ynn.length;
+      int i2 = 1;
+      for (var x in ynn) {
+        if (i2 == cnum2) {
+          text2 = x;
         }
-        for (var x in result) {
-          symm.add(x['symptom_id']);
-        }
-        for (var x in result) {
-          statuss.add(x['status']);
-        }
-        for (var x in result) {
-          ynn.add(x['yn']);
-        }
-      });
+        i2++;
+      }
+      print("ล่าสุด=$text2");
+      print("d=$d");
+      if (text2 == "a" && d == 1) {
+        getDis();
+      } else if (cnum == 1 && text2 == "y") {
+        getDis();
+      } else {
+        setState(() {
+          diss = [];
+          symm = [];
+          symName = [];
+          sym2 = [];
+          ynn = [];
+        });
 
-      updateYN();
+        String url =
+            'http://student.crru.ac.th/601463046/apidoctor/apiSym2.php?symptom_id=$symptomId&isAdd=true';
+        await Dio().get(url).then((value) => {print('idArray = $value')});
+        Response response = await Dio().get(url);
+        var result = json.decode(response.data);
+        print("$result");
+        setState(() {
+          for (var x in result) {
+            diss.add(x['disease_id']);
+          }
+          for (var x in result) {
+            symm.add(x['symptom_id']);
+          }
+          for (var x in result) {
+            statuss.add(x['status']);
+          }
+          for (var x in result) {
+            ynn.add(x['yn']);
+          }
+        });
+
+        updateYN();
+      }
     }
   }
 
@@ -232,93 +237,93 @@ class _ShowSymState extends State<ShowSym> {
     await Dio().get(url).then((value) => {print('del = $value')});
     Response response = await Dio().get(url);
     // var result = json.decode(response.data);
-
     coutsym();
   }
 
   Future<Null> coutsym() async {
-     if (d > 1) {
-      count();
-    }
-    String text = "";
-    int cnum = diss.length;
-    int i = 1;
-    for (var x in diss) {
-      if (i == cnum) {
-        text = text + x;
-      } else {
-        text = text + x + ",";
-      }
-      i++;
-    }
-    print("โรคที่ถามไปล่าสุด=$text");
-
-    String text2 = "";
-    int cnum2 = ynn.length;
-    int i2 = 1;
-    for (var x in ynn) {
-      if (i2 == cnum2) {
-        text2 = x;
-      }
-      i2++;
-    }
-    print("ล่าสุด=$text2");
-    String text3 = "";
-    int cnum3 = symm.length;
-    int i3 = 1;
-    for (var x in symm) {
-      if (i3 == cnum3) {
-        text3 = x;
-      }
-      i3++;
-    }
-    print("D=$d");
-    print("ล่าสุด=$text3");
-
-    if (text2 == "a" && cnum == 1 && d == 1) {
-      countyn();
-    } else if (cnum == 1 && text2 == "y") {
-      getDis();
+    await count();
+    if (d == 0) {
+      getDis2();
     } else {
-      setState(() {
-        symptomId = '';
-        symptomName = '';
-      });
+      String text = "";
+      int cnum = diss.length;
+      int i = 1;
+      for (var x in diss) {
+        if (i == cnum) {
+          text = text + x;
+        } else {
+          text = text + x + ",";
+        }
+        i++;
+      }
+      print("โรคที่ถามไปล่าสุด=$text");
 
-      String url =
-          'http://student.crru.ac.th/601463046/apidoctor/apiSym3.php?&text=$text&isAdd=true';
-      await Dio().get(url).then((value) => {print('coutsym = $value')});
-      Response response = await Dio().get(url);
-      var result = json.decode(response.data);
-      setState(() {
-        for (var x in result) {
-          symName.add(x['symptom_name']);
+      String text2 = "";
+      int cnum2 = ynn.length;
+      int i2 = 1;
+      for (var x in ynn) {
+        if (i2 == cnum2) {
+          text2 = x;
         }
-        String sn = "";
-        for (var s in symName) {
-          sn = sn + s;
+        i2++;
+      }
+      print("text2ล่าสุด=$text2");
+      String text3 = "";
+      int cnum3 = symm.length;
+      int i3 = 1;
+      for (var x in symm) {
+        if (i3 == cnum3) {
+          text3 = x;
         }
-        for (var x in result) {
-          dis2.add(x['disease_id']);
-        }
-        for (var x in result) {
-          sym2.add(x['symptom_id']);
-        }
-        String snn = "";
-        for (var s in sym2) {
-          snn = snn + s;
-        }
-        print(snn);
-        for (var x in result) {
-          status2.add(x['status']);
-        }
-        for (var x in result) {
-          ynn.add(x['yn']);
-        }
-        print(sn);
-        symptomName = sn;
-        symptomId = snn;
-      });
+        i3++;
+      }
+      print("D=$d");
+
+      if (text2 == "a" && cnum == 1 && d == 1) {
+        countyn();
+      } else if (cnum == 1 && text2 == "y") {
+        getDis();
+      } else {
+        setState(() {
+          symptomId = '';
+          symptomName = '';
+        });
+
+        String url =
+            'http://student.crru.ac.th/601463046/apidoctor/apiSym3.php?&text=$text&isAdd=true';
+        await Dio().get(url).then((value) => {print('coutsym = $value')});
+        Response response = await Dio().get(url);
+        var result = json.decode(response.data);
+        setState(() {
+          for (var x in result) {
+            symName.add(x['symptom_name']);
+          }
+          String sn = "";
+          for (var s in symName) {
+            sn = sn + s;
+          }
+          for (var x in result) {
+            dis2.add(x['disease_id']);
+          }
+          for (var x in result) {
+            sym2.add(x['symptom_id']);
+          }
+          String snn = "";
+          for (var s in sym2) {
+            snn = snn + s;
+          }
+          print(snn);
+          for (var x in result) {
+            status2.add(x['status']);
+          }
+          for (var x in result) {
+            ynn.add(x['yn']);
+          }
+          print(sn);
+          symptomName = sn;
+          symptomId = snn;
+        });
+      }
     }
   }
 
@@ -383,11 +388,11 @@ class _ShowSymState extends State<ShowSym> {
       symptomName = sn;
       symptomId = snn;
       print(ym);
-      if (ym == "a") {
-        updateYN2();
-      } else {
-        getDis();
-      }
+      // if (ym == "a" && d == 1) {
+      //   updateYN2();
+      // } else {
+      //   getDis();
+      // }
     });
   }
 
@@ -457,6 +462,7 @@ class _ShowSymState extends State<ShowSym> {
 
 ///////// ตอบไม่ //////////////////
   Future<Null> idArray2() async {
+    limit = 0;
     if (d > 1) {
       count();
     }
@@ -485,43 +491,44 @@ class _ShowSymState extends State<ShowSym> {
     print("ล่าสุด=$text2");
     print("Dd=$d");
 
-    if (d == 1) {
+    if (d == 0) {
       getDis2();
-    }
-    setState(() {
-      diss = [];
-      symm = [];
-      symName = [];
-      sym2 = [];
-      ynn = [];
-    });
+    } else {
+      setState(() {
+        diss = [];
+        symm = [];
+        symName = [];
+        sym2 = [];
+        ynn = [];
+      });
 
-    String url =
-        'http://student.crru.ac.th/601463046/apidoctor/apiSym2.php?symptom_id=$symptomId&isAdd=true';
-    await Dio().get(url).then((value) => {print('idArray2 = $value')});
-    Response response = await Dio().get(url);
-    var result = json.decode(response.data);
-    print("$result");
-    setState(() {
-      for (var x in result) {
-        diss.add(x['disease_id']);
-      }
-      print(diss);
-      for (var x in result) {
-        symm.add(x['symptom_id']);
-      }
-      for (var x in result) {
-        statuss.add(x['status']);
-      }
-      for (var x in result) {
-        ynn.add(x['yn']);
-      }
-    });
-    getno();
+      String url =
+          'http://student.crru.ac.th/601463046/apidoctor/apiSym2.php?symptom_id=$symptomId&isAdd=true';
+      await Dio().get(url).then((value) => {print('idArray2 = $value')});
+      Response response = await Dio().get(url);
+      var result = json.decode(response.data);
+      print("$result");
+      setState(() {
+        for (var x in result) {
+          diss.add(x['disease_id']);
+        }
+        print(diss);
+        for (var x in result) {
+          symm.add(x['symptom_id']);
+        }
+        for (var x in result) {
+          statuss.add(x['status']);
+        }
+        for (var x in result) {
+          ynn.add(x['yn']);
+        }
+      });
+      getno();
+    }
   }
 
   Future<Null> delsym2() async {
-     if (d > 1) {
+    if (d > 1) {
       count();
     }
     String del = "";
@@ -570,46 +577,96 @@ class _ShowSymState extends State<ShowSym> {
   }
 
   Future<Null> coutsym2() async {
-     if (d > 1) {
-      count();
-    }
-    String text = "";
-    int cnum = diss.length;
-    int i = 1;
-    for (var x in diss) {
-      if (i == cnum) {
-        text = text + x;
-      } else {
-        text = text + x + ",";
-      }
-      i++;
-    }
-    print("ล่าสุด=$text");
-
-    String text2 = "";
-    int cnum2 = ynn.length;
-    int i2 = 1;
-    for (var x in ynn) {
-      if (i2 == cnum2) {
-        text2 = x;
-      }
-      i2++;
-    }
-    print("ล่าสุด=$text2");
-
-    if (d == 1) {
+    await count();
+    if (d == 0) {
       getDis2();
     } else {
-      setState(() {
-        symptomId = '';
-        symptomName = '';
-      });
+      String text = "";
+      int cnum = diss.length;
+      int i = 1;
+      for (var x in diss) {
+        if (i == cnum) {
+          text = text + x;
+        } else {
+          text = text + x + ",";
+        }
+        i++;
+      }
+      print("ล่าสุด=$text");
 
-      String url =
-          'http://student.crru.ac.th/601463046/apidoctor/idarray2.php?&text=$text&isAdd=true';
-      await Dio().get(url).then((value) => {print('coutsym2 = $value')});
-      Response response = await Dio().get(url);
-      var result = json.decode(response.data);
+      String text2 = "";
+      int cnum2 = ynn.length;
+      int i2 = 1;
+      for (var x in ynn) {
+        if (i2 == cnum2) {
+          text2 = x;
+        }
+        i2++;
+      }
+      print("ล่าสุด=$text2");
+
+      if (d == 0) {
+        getDis2();
+      } else {
+        setState(() {
+          symptomId = '';
+          symptomName = '';
+        });
+
+        String url =
+            'http://student.crru.ac.th/601463046/apidoctor/idarray2.php?&text=$text&isAdd=true';
+        await Dio().get(url).then((value) => {print('coutsym2 = $value')});
+        Response response = await Dio().get(url);
+        var result = json.decode(response.data);
+        setState(() {
+          for (var x in result) {
+            symName.add(x['symptom_name']);
+          }
+          String sn = "";
+          for (var s in symName) {
+            sn = sn + s;
+          }
+          for (var x in result) {
+            dis2.add(x['disease_id']);
+          }
+          for (var x in result) {
+            sym2.add(x['symptom_id']);
+          }
+          String snn = "";
+          for (var s in sym2) {
+            snn = snn + s;
+          }
+          print(snn);
+          for (var x in result) {
+            status2.add(x['status']);
+          }
+          for (var x in result) {
+            ynn.add(x['yn']);
+          }
+          print(sn);
+          symptomName = sn;
+          symptomId = snn;
+        });
+      }
+    }
+  }
+
+  Future<Null> apiSym32() async {
+    await count();
+    setState(() {
+      symName = [];
+      sym2 = [];
+      limit = limit + 1;
+    });
+
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/apiSym32.php?&text=$limit&isAdd=true';
+
+    Response response = await Dio().get(url);
+    var result = json.decode(response.data);
+    if (response.toString() == 'null') {
+      getDis2();
+    } else {
       setState(() {
         for (var x in result) {
           symName.add(x['symptom_name']);
@@ -681,7 +738,7 @@ class _ShowSymState extends State<ShowSym> {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(20),
-                    child: Text(('$symptomName') ?? "...",
+                    child: Text(('$symptomName') ?? MyStyle().showProgress(),
                         style: TextStyle(
                           fontSize: 18.0,
                           color: Colors.black,
@@ -711,7 +768,7 @@ class _ShowSymState extends State<ShowSym> {
                         padding: const EdgeInsets.only(top: 100, bottom: 20),
                         child: RaisedButton(
                           onPressed: () {
-                            
+                            apiSym32();
                           },
                           color: Color(0xFFfdb827),
                           padding: EdgeInsets.all(5),

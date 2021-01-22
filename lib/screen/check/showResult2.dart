@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:doctorpurin/main.dart';
-import 'package:doctorpurin/screen/disease/disease_info.dart';
 import 'package:doctorpurin/utility/my_style.dart';
 import 'package:flutter/material.dart';
 
