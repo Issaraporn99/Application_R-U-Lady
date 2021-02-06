@@ -16,6 +16,7 @@ class ShowSym2 extends StatefulWidget {
 class _ShowSym2State extends State<ShowSym2> {
   String symptomId = "";
   String symptomName = "";
+  String ym = "";
   String groupId;
   String diseaseId;
   String id;
@@ -243,8 +244,16 @@ class _ShowSym2State extends State<ShowSym2> {
 
   Future<Null> coutsym() async {
     await count();
+
+    print("d=$d");
+    print("ym=$ym");
     if (d == 0) {
-      getDis2();
+      await countyn();
+      if (ym == "y") {
+        getDis();
+      } else {
+        getDis2();
+      }
     } else {
       String text = "";
       int cnum = diss.length;
@@ -280,9 +289,7 @@ class _ShowSym2State extends State<ShowSym2> {
       }
       print("D=$d");
 
-      if (text2 == "a" && cnum == 1 && d == 1) {
-        countyn();
-      } else if (cnum == 1 && text2 == "y") {
+      if (cnum == 1 && text2 == "y") {
         getDis();
       } else {
         setState(() {
@@ -344,10 +351,6 @@ class _ShowSym2State extends State<ShowSym2> {
 
   Future<Null> countyn() async {
     setState(() {
-      diss = [];
-      symm = [];
-      symName = [];
-      sym2 = [];
       ynn = [];
     });
     String url =
@@ -357,43 +360,12 @@ class _ShowSym2State extends State<ShowSym2> {
     var result = json.decode(response.data);
     setState(() {
       for (var x in result) {
-        diss.add(x['disease_id']);
-      }
-      for (var x in result) {
-        symName.add(x['symptom_name']);
-      }
-      String sn = "";
-      for (var s in symName) {
-        sn = s;
-      }
-
-      for (var x in result) {
-        symm.add(x['symptom_id']);
-      }
-      String snn = "";
-      for (var s in symm) {
-        snn = s;
-      }
-      print(snn);
-      for (var x in result) {
-        statuss.add(x['status']);
-      }
-      for (var x in result) {
         ynn.add(x['yn']);
       }
-      String ym = "";
       for (var s in ynn) {
         ym = s;
       }
-      print(sn);
-      symptomName = sn;
-      symptomId = snn;
       print(ym);
-      // if (ym == "a" && d == 1) {
-      //   updateYN2();
-      // } else {
-      //   getDis();
-      // }
     });
   }
 

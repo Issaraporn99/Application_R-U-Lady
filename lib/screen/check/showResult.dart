@@ -56,7 +56,7 @@ class _ShowResultState extends State<ShowResult> {
 
   Future<Null> show2() async {
     String url =
-        'http://student.crru.ac.th/601463046/apidoctor/getresult.php?isAdd=true';
+        'http://student.crru.ac.th/601463046/apidoctor/getrs2.php?isAdd=true';
     await Dio().get(url).then((value) => {print('show2 = $value')});
     Response response = await Dio().get(url);
     var result = json.decode(response.data);
@@ -82,12 +82,13 @@ class _ShowResultState extends State<ShowResult> {
     preferences.setString('disease_about', disInfo.diseaseAbout);
     preferences.setString('expertise_id', disInfo.expertiseId);
     preferences.setString('expertise_name', disInfo.expertiseName);
-    // Navigator.pop(context);
+
+    Navigator.push(context, MaterialPageRoute(builder: (context) => myWidgett));
     // MaterialPageRoute route =
     //     MaterialPageRoute(builder: (context) => myWidgett);
     // Navigator.push(context, route);
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => myWidgett));
+    // Navigator.pushReplacement(
+    //     context, MaterialPageRoute(builder: (context) => myWidgett));
   }
 
   Future<Null> saveToDig() async {
@@ -96,15 +97,15 @@ class _ShowResultState extends State<ShowResult> {
         'http://student.crru.ac.th/601463046/apidoctor/saveToDig.php?isAdd=true&id=$id';
     await Dio().get(url).then((value) => {print('saveToDig = $url')});
     // Response response = await Dio().get(url);
-    del();
+    // del();
   }
 
-  Future<Null> del() async {
-    String url =
-        'http://student.crru.ac.th/601463046/apidoctor/deleteGetdis.php?&isAdd=true';
-    await Dio().get(url).then((value) => {print('del = $value')});
-    Response response = await Dio().get(url);
-  }
+  // Future<Null> del() async {
+  //   String url =
+  //       'http://student.crru.ac.th/601463046/apidoctor/deleteGetdis.php?&isAdd=true';
+  //   await Dio().get(url).then((value) => {print('del = $value')});
+  //   Response response = await Dio().get(url);
+  // }
 
   @override
   Widget build(BuildContext context) {

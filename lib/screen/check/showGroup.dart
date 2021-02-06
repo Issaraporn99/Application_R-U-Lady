@@ -37,7 +37,17 @@ class _ShowGroupState extends State<ShowGroup> {
   void initState() {
     super.initState();
     findId();
+    del();
   }
+
+  // ลบข้อมูลใน ตาราง get_dis
+  Future<Null> del() async {
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/deleteGetdis.php?&isAdd=true';
+    await Dio().get(url).then((value) => {print('del = $value')});
+    Response response = await Dio().get(url);
+  }
+  // ลบข้อมูลใน ตาราง get_dis
 
   Future<Null> findId() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -47,14 +57,8 @@ class _ShowGroupState extends State<ShowGroup> {
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
     // await Dio().get(url).then((value) => {print('value = $value')});
-
     Response response = await Dio().get(url);
-    // print('res = $response');
-
     var result = json.decode(response.data);
-
-    // print('res = $result');
-
     for (var map in result) {
       GroupSym model = GroupSym.fromJson(map);
       setState(() {
@@ -72,9 +76,8 @@ class _ShowGroupState extends State<ShowGroup> {
     preferences.setString('group_name', sym.groupName);
     preferences.setString('yn', sym.yn);
     preferences.setString('status', sym.status);
-    MaterialPageRoute route =
-        MaterialPageRoute(builder: (context) => myWidgett);
-    Navigator.push(context, route);
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => myWidgett));
   }
 
   Future<Null> apisym4() async {

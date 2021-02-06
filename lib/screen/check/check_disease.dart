@@ -47,6 +47,21 @@ class _CheckDiseaseState extends State<CheckDisease> {
     });
   }
 
+  @override
+  void initState() {
+    super.initState();
+    del();
+  }
+
+  // ลบข้อมูลใน ตาราง get_dis
+  Future<Null> del() async {
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/deleteGetdis.php?&isAdd=true';
+    await Dio().get(url).then((value) => {print('del = $value')});
+    Response response = await Dio().get(url);
+  }
+
+  // ลบข้อมูลใน ตาราง get_dis
   Future<Null> showG() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String organId = preferences.getString('organ_id');

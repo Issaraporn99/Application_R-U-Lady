@@ -82,6 +82,7 @@ class _ShowAState extends State<ShowA> {
           child: Padding(
             padding: const EdgeInsets.all(10),
             child: Card(
+              color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(
@@ -184,9 +185,7 @@ class _ShowAState extends State<ShowA> {
             child: Text(
               'คำถามที่ $questionId',
               style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16.0,
-                  fontFamily: 'Prompt'),
+                  color: Colors.black, fontSize: 16.0, fontFamily: 'Prompt'),
             ),
           ),
         ),
