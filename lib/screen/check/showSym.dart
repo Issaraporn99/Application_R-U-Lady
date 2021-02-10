@@ -47,8 +47,6 @@ class _ShowSymState extends State<ShowSym> {
     symptomName = preferences.getString('symptom_name');
     symptomId = preferences.getString('symptom_id');
     diseaseId = preferences.getString('disease_id');
-    yn = preferences.getString('yn');
-    status = preferences.getString('status');
 
     String groupId = preferences.getString('group_id');
 

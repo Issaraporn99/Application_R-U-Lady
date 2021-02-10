@@ -23,12 +23,12 @@ class _ShowGroupState extends State<ShowGroup> {
   String status;
   var diss = new List();
   var symm = new List();
-  var statuss = new List();
-  var ynn = new List();
+  var dess = new List();
+  var groupp = new List();
   var d = new List<String>();
   var s = new List<String>();
-  var st = new List<String>();
-  var y = new List<String>();
+  var de = new List<String>();
+  var gr = new List<String>();
 
   List<int> myModels = [];
   List<GroupSym> groupInfo = List();
@@ -74,8 +74,7 @@ class _ShowGroupState extends State<ShowGroup> {
     preferences.setString('symptom_id', sym.symptomId);
     preferences.setString('disease_id', sym.diseaseId);
     preferences.setString('group_name', sym.groupName);
-    preferences.setString('yn', sym.yn);
-    preferences.setString('status', sym.status);
+    preferences.setString('des_id', sym.desId);
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => myWidgett));
   }
@@ -89,7 +88,7 @@ class _ShowGroupState extends State<ShowGroup> {
     await Dio().get(url).then((value) => {print('valueSymId = $value')});
     Response response = await Dio().get(url);
     var result = json.decode(response.data);
-
+    print("reeee$result");
     for (var x in result) {
       diss.add(x['disease_id']);
     }
@@ -99,7 +98,10 @@ class _ShowGroupState extends State<ShowGroup> {
     }
 
     for (var x in result) {
-      statuss.add(x['status']);
+      dess.add(x['des_id']);
+    }
+    for (var x in result) {
+      groupp.add(x['group_id']);
     }
 
     insertToDB();
@@ -135,27 +137,27 @@ class _ShowGroupState extends State<ShowGroup> {
     }
 
     String text3 = "";
-    int cnum3 = statuss.length;
+    int cnum3 = dess.length;
     int i3 = 1;
     int n3 = 0;
-    for (var x3 in statuss) {
+    for (var x3 in dess) {
       if (i3 == cnum3) {
-        text3 = text3 + "statuss[" + '$n3' + "]=" + x3;
+        text3 = text3 + "dess[" + '$n3' + "]=" + x3;
       } else {
-        text3 = text3 + "statuss[" + '$n3' + "]=" + x3 + "&";
+        text3 = text3 + "dess[" + '$n3' + "]=" + x3 + "&";
       }
       n3++;
       i3++;
     }
     String text4 = "";
-    int cnum4 = statuss.length;
+    int cnum4 = groupp.length;
     int i4 = 1;
     int n4 = 0;
-    for (var x4 in statuss) {
+    for (var x4 in groupp) {
       if (i4 == cnum4) {
-        text4 = text4 + "ynn[" + '$n4' + "]=a";
+        text4 = text4 + "groupp[" + '$n4' + "]=" + x4;
       } else {
-        text4 = text4 + "ynn[" + '$n4' + "]=a&";
+        text4 = text4 + "groupp[" + '$n4' + "]=" + x4 + "&";
       }
       n4++;
       i4++;
@@ -172,11 +174,6 @@ class _ShowGroupState extends State<ShowGroup> {
   }
 
   Future<Null> noname() async {
-    setState(() {
-      d = [""];
-      s = [""];
-      st = [""];
-    });
     SharedPreferences preferences = await SharedPreferences.getInstance();
     organId = preferences.getString('organ_id');
     String url =
@@ -194,7 +191,10 @@ class _ShowGroupState extends State<ShowGroup> {
     }
 
     for (var x in result) {
-      st.add(x['status']);
+      de.add(x['des_id']);
+    }
+    for (var x in result) {
+      gr.add(x['group_id']);
     }
 
     insertToDB2();
@@ -219,10 +219,17 @@ class _ShowGroupState extends State<ShowGroup> {
     }
     String c = "";
     int n3 = 0;
-    for (var x in st) {
+    for (var x in de) {
       c = x;
-      map["statuss[$n3]"] = c;
+      map["dess[$n3]"] = c;
       n3++;
+    }
+    String g = "";
+    int n4 = 0;
+    for (var x in gr) {
+      g = x;
+      map["groupp[$n4]"] = g;
+      n4++;
     }
     final response = await http.post(url, body: map);
     print('Response status: ${response.statusCode}');
@@ -281,7 +288,8 @@ class _ShowGroupState extends State<ShowGroup> {
                   child: Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 15, top: 17),
+                        padding:
+                            const EdgeInsets.only(left: 15, top: 17, right: 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
