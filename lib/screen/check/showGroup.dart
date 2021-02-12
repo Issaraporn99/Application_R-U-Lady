@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:doctorpurin/screen/check/newShowSym.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 import 'package:doctorpurin/modal/group_modal.dart';
@@ -22,6 +23,7 @@ class _ShowGroupState extends State<ShowGroup> {
   String id;
   String status;
   var diss = new List();
+  var diss2 = new List();
   var symm = new List();
   var dess = new List();
   var groupp = new List();
@@ -80,12 +82,36 @@ class _ShowGroupState extends State<ShowGroup> {
   }
 
   Future<Null> apisym4() async {
-    // SharedPreferences preferences = await SharedPreferences.getInstance();
-    // groupId = preferences.getString('group_id');
-    print(id);
+    // print(id);
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/apiSym4.php?group_id=$id&isAdd=true';
     await Dio().get(url).then((value) => {print('valueSymId = $value')});
+    Response response = await Dio().get(url);
+    var result = json.decode(response.data);
+    setState(() {
+      for (var x in result) {
+        diss2.add(x['disease_id']);
+      }
+    });
+    apisym41();
+  }
+
+  Future<Null> apisym41() async {
+    String text = "";
+    int cnum = diss2.length;
+    int i = 1;
+    for (var x in diss2) {
+      if (i == cnum) {
+        text = text + x;
+      } else {
+        text = text + x + ",";
+      }
+      i++;
+    }
+    print("text1=$text");
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/apiSym41.php?&text=$text&isAdd=true';
+    await Dio().get(url).then((value) => {print('apisym41 = $value')});
     Response response = await Dio().get(url);
     var result = json.decode(response.data);
     print("reeee$result");
@@ -104,7 +130,7 @@ class _ShowGroupState extends State<ShowGroup> {
       groupp.add(x['group_id']);
     }
 
-    insertToDB();
+    await insertToDB();
   }
 
   Future<Null> insertToDB() async {
@@ -171,6 +197,9 @@ class _ShowGroupState extends State<ShowGroup> {
       Response response = await Dio().get(url);
       print('res=$response');
     } catch (e) {}
+
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => NewShowSym()));
   }
 
   Future<Null> noname() async {
@@ -277,10 +306,10 @@ class _ShowGroupState extends State<ShowGroup> {
               child: InkWell(
                 splashColor: Colors.white,
                 onTap: () {
-                  routeTsS(ShowSym(), groupInfo[index]);
                   id = groupInfo[index].groupId;
                   print(id);
                   apisym4();
+                  // routeTsS(NewShowSym(), groupInfo[index]);
                 },
                 child: Card(
                   elevation: 1.5,

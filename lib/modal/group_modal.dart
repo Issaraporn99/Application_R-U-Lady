@@ -5,6 +5,7 @@ class GroupSym {
   String symptomId;
   String symptomName;
   String desId;
+  String desName;
   String diseaseId;
   String yn;
 
@@ -17,6 +18,7 @@ class GroupSym {
     symptomId = json['symptom_id'];
     symptomName = json['symptom_name'];
     desId = json['des_id'];
+    desName = json['des_name'];
     diseaseId = json['disease_id'];
     yn = json['yn'];
   }
@@ -29,6 +31,7 @@ class GroupSym {
     data['symptom_id'] = this.symptomId;
     data['symptom_name'] = this.symptomName;
     data['des_id'] = this.desId;
+    data['des_name'] = this.desName;
     data['disease_id'] = this.diseaseId;
     data['yn'] = this.yn;
     return data;
