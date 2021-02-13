@@ -2,8 +2,6 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:doctorpurin/modal/group_modal.dart';
-import 'package:doctorpurin/screen/check/showResult.dart';
-import 'package:doctorpurin/screen/check/showResult2.dart';
 import 'package:doctorpurin/utility/my_style.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,7 +14,8 @@ class NewShowSym extends StatefulWidget {
 class _NewShowSymState extends State<NewShowSym> {
   String symptomId;
   String symptomName;
-  String groupId;
+  String groupId = "";
+  String idname = "";
   String diseaseId;
   String id;
   String des;
@@ -30,6 +29,7 @@ class _NewShowSymState extends State<NewShowSym> {
   var dess = new List();
   var ynn = new List();
   var gName = new List();
+  var gd = new List();
   String ardes = "";
   List<GroupSym> groupDes = List();
   @override
@@ -43,16 +43,21 @@ class _NewShowSymState extends State<NewShowSym> {
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/apiSym.php?&isAdd=true';
     await Dio().get(url).then((value) => {print('findId = $value')});
+
     setState(() {
       symptomId = preferences.getString('symptom_id');
       symptomName = preferences.getString('symptom_name');
-      groupName = preferences.getString('group_name');
+      idname = preferences.getString('group_name');
+      id = preferences.getString('group_id');
+      groupId = id;
+      groupName = idname;
     });
+    print("$idname");
+
     showdes();
   }
 
   Future<Null> showdes() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
     print("symptomId=$symptomId");
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/newsym.php?&isAdd=true&symptom_id=$symptomId';
@@ -73,7 +78,7 @@ class _NewShowSymState extends State<NewShowSym> {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     print("symptomId=$symptomId");
     String url =
-        'http://student.crru.ac.th/601463046/apidoctor/newsym.php?&isAdd=true&symptom_id=$symptomId';
+        'http://student.crru.ac.th/601463046/apidoctor/newsymnext.php?&isAdd=true&symptom_id=$symptomId';
     await Dio().get(url).then((value) => {print('showdes = $value')});
     Response response = await Dio().get(url);
     var result = json.decode(response.data);
@@ -317,8 +322,7 @@ class _NewShowSymState extends State<NewShowSym> {
                       Padding(
                         padding: const EdgeInsets.all(20),
                         child: Text(
-                            ('$symptomName$groupName') ??
-                                MyStyle().showProgress(),
+                            ('$symptomName$idname') ?? MyStyle().showProgress(),
                             style: TextStyle(
                               fontSize: 18.0,
                               color: Colors.black,

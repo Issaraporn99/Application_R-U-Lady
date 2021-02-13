@@ -21,6 +21,7 @@ class _ShowGroupState extends State<ShowGroup> {
   String symptomId;
   String diseaseId;
   String id;
+  String idname;
   String status;
   var diss = new List();
   var diss2 = new List();
@@ -200,6 +201,9 @@ class _ShowGroupState extends State<ShowGroup> {
 
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => NewShowSym()));
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString('group_id', id);
+    preferences.setString('group_name', idname);
   }
 
   Future<Null> noname() async {
@@ -307,7 +311,7 @@ class _ShowGroupState extends State<ShowGroup> {
                 splashColor: Colors.white,
                 onTap: () {
                   id = groupInfo[index].groupId;
-                  print(id);
+                  idname = groupInfo[index].groupName;
                   apisym4();
                   // routeTsS(NewShowSym(), groupInfo[index]);
                 },
