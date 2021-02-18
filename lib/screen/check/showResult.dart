@@ -128,12 +128,13 @@ class _ShowResultState extends State<ShowResult> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
           'ผลการตรวจโรค',
           style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
         ),
-        backgroundColor: Colors.red[200],
+        backgroundColor: Colors.pinkAccent[100],
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -163,6 +164,18 @@ class _ShowResultState extends State<ShowResult> {
                       )),
                 ),
                 button(),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 8, left: 10, right: 10, bottom: 10),
+                  child: Text(
+                    "หมายเหตุ : หากคุณมีอาการผิดปกติ ควรปรึกษาแพทย์ผู้เชี่ยวชาญ",
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontFamily: 'Prompt',
+                      fontSize: 16.0,
+                    ),
+                  ),
+                ),
                 Align(
                   alignment: Alignment.topLeft,
                   child: Padding(

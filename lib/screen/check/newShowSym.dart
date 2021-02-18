@@ -333,7 +333,7 @@ class _NewShowSymState extends State<NewShowSym> {
           'คุณมีอาการอะไรบ้าง?',
           style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
         ),
-        backgroundColor: Colors.red[200],
+       backgroundColor: Colors.pinkAccent[100],
       ),
       body: new Column(
         children: <Widget>[

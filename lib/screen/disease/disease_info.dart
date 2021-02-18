@@ -182,7 +182,7 @@ class _DisInformationState extends State<DisInformation> {
           'ข้อมูลโรค',
           style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
         ),
-        backgroundColor: Colors.red[200],
+        backgroundColor: Colors.pinkAccent[100],
       ),
       body: Container(
         child: Column(

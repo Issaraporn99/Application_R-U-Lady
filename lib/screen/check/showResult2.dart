@@ -17,7 +17,7 @@ class _ShowResult2State extends State<ShowResult2> {
           'ผลการตรวจโรค',
           style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
         ),
-        backgroundColor: Colors.red[200],
+        backgroundColor: Colors.pinkAccent[100],
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -29,15 +29,27 @@ class _ShowResult2State extends State<ShowResult2> {
                 Align(
                   alignment: Alignment.center,
                   child: Text(
-                    "คุณสบายดี !!",
+                    "คุณยังไม่มีแนวโน้มที่จะเป็นโรค",
                     style: TextStyle(
                       color: Colors.lightBlueAccent[700],
                       fontFamily: 'Prompt',
-                      fontSize: 25.0,
+                      fontSize: 20.0,
                     ),
                   ),
                 ),
                 MyStyle().rr(),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 10, left: 10, right: 10, bottom: 10),
+                  child: Text(
+                    "หมายเหตุ : หากคุณมีอาการผิดปกติ ควรปรึกษาแพทย์ผู้เชี่ยวชาญ",
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontFamily: 'Prompt',
+                      fontSize: 16.0,
+                    ),
+                  ),
+                ),
                 button(),
               ],
             ),

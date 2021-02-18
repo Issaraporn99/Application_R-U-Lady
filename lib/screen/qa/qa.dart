@@ -48,7 +48,7 @@ class _QandAState extends State<QandA> {
           'ถาม-ตอบ กับผู้เชี่ยวชาญ',
           style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
         ),
-        backgroundColor: Colors.red[200],
+        backgroundColor: Colors.pinkAccent[100],
       ),
       body: Container(
         decoration: BoxDecoration(

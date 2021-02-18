@@ -62,7 +62,7 @@ class _ShowDisState extends State<ShowDis> {
           'ข้อมูลโรค ',
           style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
         ),
-        backgroundColor: Colors.red[200],
+        backgroundColor: Colors.pinkAccent[100],
       ),
       body: SingleChildScrollView(
         child: Column(children: <Widget>[
@@ -114,7 +114,7 @@ class _ShowDisState extends State<ShowDis> {
         ]),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.red[200],
+        backgroundColor: Colors.pinkAccent[100],
         onPressed: () {
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => MyApp()));

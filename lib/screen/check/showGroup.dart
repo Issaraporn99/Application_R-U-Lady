@@ -251,7 +251,7 @@ class _ShowGroupState extends State<ShowGroup> {
           style: TextStyle(
               color: Colors.white, fontFamily: 'Prompt', fontSize: 18.0),
         ),
-        backgroundColor: Colors.red[200],
+        backgroundColor: Colors.pinkAccent[100],
       ),
       body: new Column(
         children: <Widget>[

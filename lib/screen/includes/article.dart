@@ -182,7 +182,7 @@ class _ArticleState extends State<Article> {
           'บทความ',
           style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
         ),
-        backgroundColor: Colors.red[200],
+        backgroundColor: Colors.pinkAccent[100],
       ),
       body: Container(
         child: Column(

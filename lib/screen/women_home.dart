@@ -24,7 +24,7 @@ class _WomenHomeState extends State<WomenHome> {
           ' รู้ทันปัญหาสุขภาพผู้หญิง',
           style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
         ),
-        backgroundColor: Colors.red[200],
+        backgroundColor: Colors.pinkAccent[100],
       ),
       body: Container(
         alignment: Alignment.topCenter,
@@ -67,21 +67,21 @@ class _WomenHomeState extends State<WomenHome> {
 
   Widget checkButton() => Container(
         child: SizedBox(
-          width: 150,
+          width: 140,
           height: 139,
           child: RaisedButton(
             onPressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => CheckDisease()));
             },
-            color: Color(0xFFa35638),
+            color: Color(0xFFf9c0c0),
             padding: EdgeInsets.all(20),
             elevation: 5,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Image.asset(
-                  './images/cd.png',
+                  './images/stethoscope.png',
                   width: 65,
                   height: 65,
                 ),
@@ -89,7 +89,7 @@ class _WomenHomeState extends State<WomenHome> {
                   child: Text('ตรวจโรค',
                       style: TextStyle(
                         fontSize: 18.0,
-                        color: Colors.white,
+                        color: Colors.grey[600],
                         fontFamily: 'Prompt',
                       )),
                 ),
@@ -101,21 +101,21 @@ class _WomenHomeState extends State<WomenHome> {
 
   Widget diseaseButton() => Container(
         child: SizedBox(
-          width: 150,
+          width: 140,
           height: 139,
           child: RaisedButton(
             onPressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => DisInformation()));
             },
-            color: Color(0xFFd7c79e),
+            color: Color(0xFFf6d6ad),
             padding: EdgeInsets.all(20),
             elevation: 5,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Image.asset(
-                  './images/info.png',
+                  './images/medical-record.png',
                   width: 65,
                   height: 65,
                 ),
@@ -123,8 +123,9 @@ class _WomenHomeState extends State<WomenHome> {
                   child: Text(
                     'ข้อมูลโรค',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18.0,fontFamily: 'Prompt',
+                      color: Colors.grey[600],
+                      fontSize: 18.0,
+                      fontFamily: 'Prompt',
                     ),
                   ),
                 ),
@@ -136,21 +137,21 @@ class _WomenHomeState extends State<WomenHome> {
 
   Widget articleButton() => Container(
         child: SizedBox(
-          width: 150,
+          width: 140,
           height: 139,
           child: RaisedButton(
             onPressed: () {
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => Article()));
             },
-            color: Color(0xFFe08f62),
+            color: Color(0xFFd3dbff),
             padding: EdgeInsets.all(20),
             elevation: 5,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Image.asset(
-                  './images/artc.png',
+                  './images/medical-book.png',
                   width: 65,
                   height: 65,
                 ),
@@ -158,8 +159,9 @@ class _WomenHomeState extends State<WomenHome> {
                   child: Text(
                     'บทความ',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18.0,fontFamily: 'Prompt',
+                      color: Colors.grey[600],
+                      fontSize: 18.0,
+                      fontFamily: 'Prompt',
                     ),
                   ),
                 ),
@@ -171,21 +173,21 @@ class _WomenHomeState extends State<WomenHome> {
 
   Widget qaButton() => Container(
         child: SizedBox(
-          width: 150,
+          width: 140,
           height: 139,
           child: RaisedButton(
             onPressed: () {
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => ShowQA()));
             },
-            color: Color(0xFF9dab86),
+            color: Color(0xFFccf0e1),
             padding: EdgeInsets.all(20),
             elevation: 5,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Image.asset(
-                  './images/qa.png',
+                  './images/question.png',
                   width: 65,
                   height: 65,
                 ),
@@ -193,8 +195,9 @@ class _WomenHomeState extends State<WomenHome> {
                   child: Text(
                     'ถามตอบ',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18.0,fontFamily: 'Prompt',
+                      color: Colors.grey[600],
+                      fontSize: 18.0,
+                      fontFamily: 'Prompt',
                     ),
                   ),
                 ),

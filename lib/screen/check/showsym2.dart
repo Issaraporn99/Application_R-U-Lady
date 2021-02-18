@@ -680,7 +680,7 @@ class _ShowSym2State extends State<ShowSym2> {
           'คุณมีอาการอะไรบ้าง?',
           style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
         ),
-        backgroundColor: Colors.red[200],
+        backgroundColor: Colors.pinkAccent[100],
       ),
       body: Container(
         alignment: Alignment.topCenter,

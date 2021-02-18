@@ -52,7 +52,7 @@ class _ShowArticleState extends State<ShowArticle> {
           'บทความ',
           style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
         ),
-        backgroundColor: Colors.red[200],
+        backgroundColor: Colors.pinkAccent[100],
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -113,7 +113,7 @@ class _ShowArticleState extends State<ShowArticle> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.red[200],
+        backgroundColor: Colors.pinkAccent[100],
         onPressed: () {
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => MyApp()));

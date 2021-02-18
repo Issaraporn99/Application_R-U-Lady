@@ -437,7 +437,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
           'คุณไม่สบายตรงไหน?',
           style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
         ),
-        backgroundColor: Colors.red[200],
+        backgroundColor: Colors.pinkAccent[100],
       ),
       body: SafeArea(
         child: Stack(

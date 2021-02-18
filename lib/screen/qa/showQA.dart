@@ -226,13 +226,13 @@ class _ShowQAState extends State<ShowQA> {
           'คำถาม',
           style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
         ),
-        backgroundColor: Colors.red[200],
+        backgroundColor: Colors.pinkAccent[100],
       ),
       body: SmartRefresher(
         enablePullDown: true,
         enablePullUp: true,
         header: WaterDropMaterialHeader(
-          backgroundColor: Colors.red[200],
+          backgroundColor: Colors.pinkAccent[100],
         ),
         controller: _refreshController,
         onRefresh: _onRefresh,

@@ -114,7 +114,7 @@ class _ShowADState extends State<ShowAD> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.red[200],
+        backgroundColor: Colors.pinkAccent[100],
         onPressed: () {
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => MyApp()));
