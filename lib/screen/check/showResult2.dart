@@ -47,12 +47,12 @@ class _ShowResult2State extends State<ShowResult2> {
     );
   }
 
-  Future<Null> del() async {
-    String url =
-        'http://student.crru.ac.th/601463046/apidoctor/deleteGetdis.php?&isAdd=true';
-    await Dio().get(url).then((value) => {print('del = $value')});
-    Response response = await Dio().get(url);
-  }
+  // Future<Null> del() async {
+  //   String url =
+  //       'http://student.crru.ac.th/601463046/apidoctor/deleteGetdis.php?&isAdd=true';
+  //   await Dio().get(url).then((value) => {print('del = $value')});
+  //   Response response = await Dio().get(url);
+  // }
 
   Widget button() => Container(
         child: Padding(
@@ -62,7 +62,6 @@ class _ShowResult2State extends State<ShowResult2> {
             height: 50,
             child: RaisedButton(
               onPressed: () {
-                del();
                 Navigator.pop(context);
                 MaterialPageRoute route =
                     MaterialPageRoute(builder: (context) => MyApp());

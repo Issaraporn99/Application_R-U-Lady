@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:doctorpurin/modal/group_modal.dart';
+import 'package:doctorpurin/screen/check/showResult.dart';
+import 'package:doctorpurin/screen/check/showResult2.dart';
 import 'package:doctorpurin/utility/my_style.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,6 +24,7 @@ class _NewShowSymState extends State<NewShowSym> {
   String desName;
   String groupName;
   String desId;
+  int d = 0;
   var symName = new List();
   var groupp = new List();
   var symm = new List();
@@ -30,6 +33,8 @@ class _NewShowSymState extends State<NewShowSym> {
   var ynn = new List();
   var gName = new List();
   var gd = new List();
+  String del2dis = "";
+  var del2diss = new List();
   String ardes = "";
   List<GroupSym> groupDes = List();
   @override
@@ -40,19 +45,33 @@ class _NewShowSymState extends State<NewShowSym> {
 
   Future<Null> findId() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    String url =
-        'http://student.crru.ac.th/601463046/apidoctor/apiSym.php?&isAdd=true';
-    await Dio().get(url).then((value) => {print('findId = $value')});
-
-    setState(() {
-      symptomId = preferences.getString('symptom_id');
-      symptomName = preferences.getString('symptom_name');
       idname = preferences.getString('group_name');
       id = preferences.getString('group_id');
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/apiSym.php?group_id=$id&isAdd=true';
+    await Dio().get(url).then((value) => {print('findId = $value')});
+    Response response = await Dio().get(url);
+    var result = json.decode(response.data);
+    print("result=$result");
+    setState(() {
+      for (var x in result) {
+        symm.add(x['symptom_id']);
+      }
+      for (var x in symm) {
+        symptomId = x;
+      }
+      for (var x in result) {
+        symName.add(x['symptom_name']);
+      }
+      for (var x in symName) {
+        symptomName = x;
+      }
+
+
       groupId = id;
       groupName = idname;
     });
-    print("$idname");
+    print("id=$groupName");
 
     showdes();
   }
@@ -69,6 +88,37 @@ class _NewShowSymState extends State<NewShowSym> {
       GroupSym model = GroupSym.fromJson(map);
       setState(() {
         groupDes.add(model);
+        for (var x in result) {
+          diss.add(x['disease_id']);
+        }
+      });
+    }
+  }
+
+  Future<Null> count() async {
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/countSym.php?isAdd=true';
+    Response response = await Dio().get(url);
+    print('res=$response');
+    if (response.toString() == 'null') {
+      setState(() {
+        d = 0;
+        print("d null=$d");
+        if (d == 0) {
+          getDis2();
+        }
+      });
+    } else {
+      var result = json.decode(response.data);
+      var dd = new List();
+      setState(() {
+        for (var x in result) {
+          dd.add(x);
+        }
+        print(dd);
+
+        d = dd.length;
+        print("d=$d");
       });
     }
   }
@@ -111,8 +161,12 @@ class _NewShowSymState extends State<NewShowSym> {
     });
     print("dis=$diss");
     print("des=$dess");
-
-    updateYN();
+    await count();
+    if (d <= 1) {
+      getDis();
+    } else {
+      updateYN();
+    }
   }
 
   Future<Null> updateYN() async {
@@ -174,6 +228,29 @@ class _NewShowSymState extends State<NewShowSym> {
     findId2();
   }
 
+  Future<Null> delsym2() async {
+    String del = "";
+    int cnum = diss.length;
+    int i = 1;
+    for (var x in diss) {
+      if (i == cnum) {
+        del = del + x;
+      } else {
+        del = del + x + ",";
+      }
+      i++;
+    }
+    print("del=$del");
+
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/delsym2.php?&del=$del&isAdd=true';
+    await Dio().get(url).then((value) => {print('del2 = $value')});
+    Response response = await Dio().get(url);
+    // var result = json.decode(response.data);
+    await count();
+    findId2();
+  }
+
   Future<Null> findId2() async {
     setState(() {
       symptomName = '';
@@ -223,7 +300,7 @@ class _NewShowSymState extends State<NewShowSym> {
           snn = snn + s;
         }
 
-        print(snn);
+        print(snnn);
         print(sn);
         symptomName = sn;
         symptomId = snn;
@@ -231,6 +308,20 @@ class _NewShowSymState extends State<NewShowSym> {
       });
       showNext();
     }
+  }
+
+  Future<Null> getDis() async {
+    Navigator.pop(context);
+    MaterialPageRoute route =
+        MaterialPageRoute(builder: (context) => ShowResult());
+    Navigator.push(context, route);
+  }
+
+  Future<Null> getDis2() async {
+    Navigator.pop(context);
+    MaterialPageRoute route =
+        MaterialPageRoute(builder: (context) => ShowResult2());
+    Navigator.push(context, route);
   }
 
   @override
@@ -247,6 +338,7 @@ class _NewShowSymState extends State<NewShowSym> {
       body: new Column(
         children: <Widget>[
           sym(),
+          nono(),
           new Expanded(
             child: new ListView.builder(
               itemCount: groupDes.length,
@@ -322,7 +414,8 @@ class _NewShowSymState extends State<NewShowSym> {
                       Padding(
                         padding: const EdgeInsets.all(20),
                         child: Text(
-                            ('$symptomName$idname') ?? MyStyle().showProgress(),
+                            ('$symptomName$groupName') ??
+                                MyStyle().showProgress(),
                             style: TextStyle(
                               fontSize: 18.0,
                               color: Colors.black,
@@ -333,4 +426,42 @@ class _NewShowSymState extends State<NewShowSym> {
               ),
             ),
           )));
+  Widget nono() => Container(
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+            child: SizedBox(
+              height: 70,
+              child: InkWell(
+                splashColor: Colors.white,
+                onTap: () {
+                  delsym2();
+                },
+                child: Card(
+                  elevation: 1.5,
+                  color: Colors.white,
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15, top: 17),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "ไม่มีอาการดังกล่าว/ไม่แน่ใจ",
+                              style: TextStyle(
+                                  color: Colors.black, fontFamily: 'Prompt'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
 }

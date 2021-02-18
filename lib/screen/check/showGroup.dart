@@ -83,7 +83,7 @@ class _ShowGroupState extends State<ShowGroup> {
   }
 
   Future<Null> apisym4() async {
-    // print(id);
+    print("id=$id");
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/apiSym4.php?group_id=$id&isAdd=true';
     await Dio().get(url).then((value) => {print('valueSymId = $value')});
@@ -131,74 +131,44 @@ class _ShowGroupState extends State<ShowGroup> {
       groupp.add(x['group_id']);
     }
 
-    await insertToDB();
+    await addToDB2();
   }
 
-  Future<Null> insertToDB() async {
-    String text1 = "";
-    int cnum = diss.length;
-    int i = 1;
+  Future<Null> addToDB2() async {
+    var url = 'http://student.crru.ac.th/601463046/apidoctor/add.php';
+    var map = new Map<String, dynamic>();
+    String a = "";
     int n = 0;
     for (var x in diss) {
-      if (i == cnum) {
-        text1 = text1 + "diss[" + '$n' + "]=" + x;
-      } else {
-        text1 = text1 + "diss[" + '$n' + "]=" + x + "&";
-      }
+      a = x;
+      map["diss[$n]"] = a;
       n++;
-      i++;
     }
-
-    String text2 = "";
-    int cnum2 = symm.length;
-    int i2 = 1;
+    String b = "";
     int n2 = 0;
-    for (var x2 in symm) {
-      if (i2 == cnum2) {
-        text2 = text2 + "symm[" + '$n2' + "]=" + x2;
-      } else {
-        text2 = text2 + "symm[" + '$n2' + "]=" + x2 + "&";
-      }
+    for (var x in symm) {
+      b = x;
+      map["symm[$n2]"] = b;
       n2++;
-      i2++;
     }
-
-    String text3 = "";
-    int cnum3 = dess.length;
-    int i3 = 1;
+    String c = "";
     int n3 = 0;
-    for (var x3 in dess) {
-      if (i3 == cnum3) {
-        text3 = text3 + "dess[" + '$n3' + "]=" + x3;
-      } else {
-        text3 = text3 + "dess[" + '$n3' + "]=" + x3 + "&";
-      }
+    for (var x in dess) {
+      c = x;
+      map["dess[$n3]"] = c;
       n3++;
-      i3++;
     }
-    String text4 = "";
-    int cnum4 = groupp.length;
-    int i4 = 1;
+    String g = "";
     int n4 = 0;
-    for (var x4 in groupp) {
-      if (i4 == cnum4) {
-        text4 = text4 + "groupp[" + '$n4' + "]=" + x4;
-      } else {
-        text4 = text4 + "groupp[" + '$n4' + "]=" + x4 + "&";
-      }
+    for (var x in groupp) {
+      g = x;
+      map["groupp[$n4]"] = g;
       n4++;
-      i4++;
     }
-    print("$text1&$text2&$text3&$text4");
-
-    String url =
-        'http://student.crru.ac.th/601463046/apidoctor/addToDB.php?isAdd=true&$text1&$text2&$text3&$text4';
-
-    try {
-      Response response = await Dio().get(url);
-      print('res=$response');
-    } catch (e) {}
-
+    final response = await http.post(url, body: map);
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+    print("id=$id");
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => NewShowSym()));
     SharedPreferences preferences = await SharedPreferences.getInstance();

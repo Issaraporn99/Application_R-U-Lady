@@ -16,6 +16,23 @@ class _ShowResultState extends State<ShowResult> {
   String expertiseId;
   String text = "";
   String id = "";
+
+  String desId;
+
+  String groupId;
+  String yn;
+  String groupName;
+  String organId;
+  String symptomName;
+  String desName;
+  String diseaseDetail;
+  String diseaseCause;
+  String diseaseRisk;
+  String diseaseChance;
+  String diseaseTreatment;
+  String diseaseDefence;
+  String diseaseAbout;
+  String expertiseName;
   List<Getdissym> groupSym = List();
   var diseaseName = new List();
   var diseaseId = new List();
@@ -32,6 +49,7 @@ class _ShowResultState extends State<ShowResult> {
     await Dio().get(url).then((value) => {print('show = $value')});
     Response response = await Dio().get(url);
     var result = json.decode(response.data);
+    print("$result");
     setState(() {
       for (var x in result) {
         diseaseName.add(x['disease_name']);
@@ -213,7 +231,10 @@ class _ShowResultState extends State<ShowResult> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "- " + groupSym[index].symptomName,
+                "- " +
+                    groupSym[index].symptomName +
+                    groupSym[index].groupName +
+                    groupSym[index].desName,
                 style: TextStyle(color: Colors.black, fontFamily: 'Prompt'),
               ),
             ],
