@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:doctorpurin/screen/check/newShowSym.dart';
+import 'package:doctorpurin/screen/check/newShowSym2.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 import 'package:doctorpurin/modal/group_modal.dart';
@@ -238,7 +239,7 @@ class _ShowGroupState extends State<ShowGroup> {
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
     MaterialPageRoute route =
-        MaterialPageRoute(builder: (context) => ShowSym2());
+        MaterialPageRoute(builder: (context) => NewShowSym2());
     Navigator.push(context, route);
   }
 

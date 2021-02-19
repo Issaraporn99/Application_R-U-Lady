@@ -145,12 +145,15 @@ class _ShowResultState extends State<ShowResult> {
               children: [
                 Align(
                   alignment: Alignment.center,
-                  child: Text(
-                    "คุณมีแนวโน้มที่จะเป็นโรค",
-                    style: TextStyle(
-                      color: Colors.redAccent[100],
-                      fontFamily: 'Prompt',
-                      fontSize: 18.0,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Text(
+                      "คุณมีแนวโน้มที่จะเป็นโรค",
+                      style: TextStyle(
+                        color: Color(0xFF856c8b),
+                        fontFamily: 'Prompt',
+                        fontSize: 18.0,
+                      ),
                     ),
                   ),
                 ),
@@ -183,7 +186,7 @@ class _ShowResultState extends State<ShowResult> {
                     child: Text(
                       "อาการที่มี",
                       style: TextStyle(
-                        color: Colors.blueAccent[100],
+                        color: Color(0xFF856c8b),
                         fontFamily: 'Prompt',
                         fontSize: 15.0,
                       ),
@@ -220,8 +223,8 @@ class _ShowResultState extends State<ShowResult> {
               onPressed: () {
                 show2();
               },
-              color: Color(0xFF214151),
-              elevation: 8,
+              color: Color(0xFF8bcdcd),
+              elevation: 3,
               child: Text(
                 'อ่านข้อมูลเพิ่มเติม',
                 style: TextStyle(

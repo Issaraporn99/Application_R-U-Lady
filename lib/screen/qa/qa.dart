@@ -6,7 +6,6 @@ import 'package:doctorpurin/utility/normal_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:doctorpurin/utility/my_style.dart';
 
-
 class QandA extends StatefulWidget {
   @override
   _QandAState createState() => _QandAState();
@@ -63,6 +62,11 @@ class _QandAState extends State<QandA> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
+                Image.asset(
+                  './images/b.png',
+                  width: 200,
+                  height: 200,
+                ),
                 MyStyle().mySizeBox(),
                 MyStyle().showTitleH2('เลือกสาขาความเชี่ยวชาญ :'),
                 MyStyle().mySizeBox(),

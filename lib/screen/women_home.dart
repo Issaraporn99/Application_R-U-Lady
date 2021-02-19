@@ -115,7 +115,7 @@ class _WomenHomeState extends State<WomenHome> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Image.asset(
-                  './images/medical-record.png',
+                  './images/medical-book.png',
                   width: 65,
                   height: 65,
                 ),
@@ -151,7 +151,7 @@ class _WomenHomeState extends State<WomenHome> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Image.asset(
-                  './images/medical-book.png',
+                  './images/medical-record.png',
                   width: 65,
                   height: 65,
                 ),
@@ -187,7 +187,7 @@ class _WomenHomeState extends State<WomenHome> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Image.asset(
-                  './images/question.png',
+                  './images/b.png',
                   width: 65,
                   height: 65,
                 ),

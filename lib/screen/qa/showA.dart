@@ -167,7 +167,7 @@ class _ShowAState extends State<ShowA> {
                     child: Text(
                       answerName == null ? '* ยังไม่มีคำตอบ' : 'คำตอบ',
                       style: TextStyle(
-                          color: Colors.red[200],
+                          color: Color(0xFFff5e78),
                           fontSize: 16.0,
                           fontFamily: 'Prompt'),
                     ))),
@@ -185,7 +185,7 @@ class _ShowAState extends State<ShowA> {
             child: Text(
               'คำถามที่ $questionId',
               style: TextStyle(
-                  color: Colors.black, fontSize: 16.0, fontFamily: 'Prompt'),
+                  color: Color(0xFFff5e78), fontSize: 16.0, fontFamily: 'Prompt'),
             ),
           ),
         ),
@@ -209,7 +209,7 @@ class _ShowAState extends State<ShowA> {
           child: Padding(
             padding: const EdgeInsets.all(10),
             child: Card(
-              color: Colors.amber[50],
+              color: Color(0xFFffe8e8),
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(
