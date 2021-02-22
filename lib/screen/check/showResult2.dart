@@ -31,7 +31,7 @@ class _ShowResult2State extends State<ShowResult2> {
                   child: Text(
                     "คุณยังไม่มีแนวโน้มที่จะเป็นโรค",
                     style: TextStyle(
-                      color: Colors.lightBlueAccent[700],
+                      color: Colors.pink[300],
                       fontFamily: 'Prompt',
                       fontSize: 20.0,
                     ),
@@ -72,21 +72,24 @@ class _ShowResult2State extends State<ShowResult2> {
           child: SizedBox(
             width: 200,
             height: 50,
-            child: RaisedButton(
-              onPressed: () {
-                Navigator.pop(context);
-                MaterialPageRoute route =
-                    MaterialPageRoute(builder: (context) => MyApp());
-                Navigator.push(context, route);
-              },
-              color: Color(0xFF214151),
-              elevation: 8,
-              child: Text(
-                'ดูข้อมูลอื่น ๆ',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15.0,
-                  fontFamily: 'Prompt',
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: RaisedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  MaterialPageRoute route =
+                      MaterialPageRoute(builder: (context) => MyApp());
+                  Navigator.push(context, route);
+                },
+                color: Color(0xFF6ddccf),
+                elevation: 8,
+                child: Text(
+                  'ดูข้อมูลอื่น ๆ',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15.0,
+                    fontFamily: 'Prompt',
+                  ),
                 ),
               ),
             ),

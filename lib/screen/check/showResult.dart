@@ -219,18 +219,21 @@ class _ShowResultState extends State<ShowResult> {
           child: SizedBox(
             width: 200,
             height: 50,
-            child: RaisedButton(
-              onPressed: () {
-                show2();
-              },
-              color: Color(0xFF8bcdcd),
-              elevation: 3,
-              child: Text(
-                'อ่านข้อมูลเพิ่มเติม',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15.0,
-                  fontFamily: 'Prompt',
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: RaisedButton(
+                onPressed: () {
+                  show2();
+                },
+                color: Color(0xFF6ddccf),
+                elevation: 3,
+                child: Text(
+                  'อ่านข้อมูลเพิ่มเติม',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15.0,
+                    fontFamily: 'Prompt',
+                  ),
                 ),
               ),
             ),
@@ -247,10 +250,7 @@ class _ShowResultState extends State<ShowResult> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "- " +
-                    groupSym[index].symptomName +
-                    groupSym[index].groupName +
-                    groupSym[index].desName,
+                "- " + groupSym[index].symptomName,
                 style: TextStyle(color: Colors.black, fontFamily: 'Prompt'),
               ),
             ],

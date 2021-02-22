@@ -78,7 +78,6 @@ class _ShowGroupState extends State<ShowGroup> {
     preferences.setString('symptom_id', sym.symptomId);
     preferences.setString('disease_id', sym.diseaseId);
     preferences.setString('group_name', sym.groupName);
-    preferences.setString('des_id', sym.desId);
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => myWidgett));
   }
@@ -125,13 +124,6 @@ class _ShowGroupState extends State<ShowGroup> {
       symm.add(x['symptom_id']);
     }
 
-    for (var x in result) {
-      dess.add(x['des_id']);
-    }
-    for (var x in result) {
-      groupp.add(x['group_id']);
-    }
-
     await addToDB2();
   }
 
@@ -152,29 +144,16 @@ class _ShowGroupState extends State<ShowGroup> {
       map["symm[$n2]"] = b;
       n2++;
     }
-    String c = "";
-    int n3 = 0;
-    for (var x in dess) {
-      c = x;
-      map["dess[$n3]"] = c;
-      n3++;
-    }
-    String g = "";
-    int n4 = 0;
-    for (var x in groupp) {
-      g = x;
-      map["groupp[$n4]"] = g;
-      n4++;
-    }
     final response = await http.post(url, body: map);
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
     print("id=$id");
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => NewShowSym()));
+        context, MaterialPageRoute(builder: (context) => ShowSym()));
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString('group_id', id);
     preferences.setString('group_name', idname);
+    preferences.setString('symptom_name',symptomName);
   }
 
   Future<Null> noname() async {
@@ -193,14 +172,6 @@ class _ShowGroupState extends State<ShowGroup> {
     for (var x in result) {
       s.add(x['symptom_id']);
     }
-
-    for (var x in result) {
-      de.add(x['des_id']);
-    }
-    for (var x in result) {
-      gr.add(x['group_id']);
-    }
-
     insertToDB2();
   }
 
@@ -221,25 +192,11 @@ class _ShowGroupState extends State<ShowGroup> {
       map["symm[$n2]"] = b;
       n2++;
     }
-    String c = "";
-    int n3 = 0;
-    for (var x in de) {
-      c = x;
-      map["dess[$n3]"] = c;
-      n3++;
-    }
-    String g = "";
-    int n4 = 0;
-    for (var x in gr) {
-      g = x;
-      map["groupp[$n4]"] = g;
-      n4++;
-    }
     final response = await http.post(url, body: map);
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
     MaterialPageRoute route =
-        MaterialPageRoute(builder: (context) => NewShowSym2());
+        MaterialPageRoute(builder: (context) => ShowSym2());
     Navigator.push(context, route);
   }
 

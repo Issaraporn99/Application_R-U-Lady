@@ -22,6 +22,8 @@ class _ShowSymState extends State<ShowSym> {
   String dis;
   String status;
   String yn;
+  int yyy = 0;
+  String yyyyyy = "";
   int limit = 0;
   var diss = new List();
   List<GroupSym> strArr = List();
@@ -44,19 +46,29 @@ class _ShowSymState extends State<ShowSym> {
 
   Future<Null> findId() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    symptomName = preferences.getString('symptom_name');
-    symptomId = preferences.getString('symptom_id');
-    diseaseId = preferences.getString('disease_id');
-
     String groupId = preferences.getString('group_id');
 
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/apiSym.php?group_id=$groupId&isAdd=true';
     await Dio().get(url).then((value) => {print('valueSSS = $value')});
+
+    Response response = await Dio().get(url);
+    var result = json.decode(response.data);
+    print("result=$result");
     setState(() {
-      symptomName = preferences.getString('symptom_name');
-      yn = preferences.getString('yn');
-      status = preferences.getString('status');
+      for (var x in result) {
+        symm.add(x['symptom_id']);
+      }
+      for (var x in symm) {
+        symptomId = x;
+      }
+      for (var x in result) {
+        symName.add(x['symptom_name']);
+      }
+      for (var x in symName) {
+        symptomName = x;
+      }
+      print(" symptomName=$symptomName");
     });
   }
 
@@ -431,69 +443,90 @@ class _ShowSymState extends State<ShowSym> {
   }
 
 ///////// ตอบไม่ //////////////////
+  Future<Null> countYY() async {
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/countDis.php?isAdd=true';
+    Response response = await Dio().get(url);
+    var result = json.decode(response.data);
+    var yy = new List();
+
+    setState(() {
+      for (var x in result) {
+        yy.add(x);
+      }
+      yyy = yy.length;
+      print("d=$yyy");
+    });
+  }
+
   Future<Null> idArray2() async {
-    limit = 0;
-    if (d > 1) {
-      count();
-    }
-    String text = "";
-    int cnum = diss.length;
-    int i = 1;
-    for (var x in diss) {
-      if (i == cnum) {
-        text = text + x;
-      } else {
-        text = text + x + ",";
-      }
-      i++;
-    }
-    print("ล่าสุด=$text");
-
-    String text2 = "";
-    int cnum2 = ynn.length;
-    int i2 = 1;
-    for (var x in ynn) {
-      if (i2 == cnum2) {
-        text2 = x;
-      }
-      i2++;
-    }
-    print("ล่าสุด=$text2");
-    print("Dd=$d");
-
-    if (d == 0) {
-      getDis2();
+    await countYY();
+    if (yyy >= 3) {
+      getDis();
     } else {
-      setState(() {
-        diss = [];
-        symm = [];
-        symName = [];
-        sym2 = [];
-        ynn = [];
-      });
+      limit = 0;
+      if (d > 1) {
+        count();
+      }
+      String text = "";
+      int cnum = diss.length;
+      int i = 1;
+      for (var x in diss) {
+        if (i == cnum) {
+          text = text + x;
+        } else {
+          text = text + x + ",";
+        }
+        i++;
+      }
+      print("ล่าสุด=$text");
 
-      String url =
-          'http://student.crru.ac.th/601463046/apidoctor/apiSym2.php?symptom_id=$symptomId&isAdd=true';
-      await Dio().get(url).then((value) => {print('idArray2 = $value')});
-      Response response = await Dio().get(url);
-      var result = json.decode(response.data);
-      print("$result");
-      setState(() {
-        for (var x in result) {
-          diss.add(x['disease_id']);
+      String text2 = "";
+      int cnum2 = ynn.length;
+      int i2 = 1;
+      for (var x in ynn) {
+        if (i2 == cnum2) {
+          text2 = x;
         }
-        print(diss);
-        for (var x in result) {
-          symm.add(x['symptom_id']);
-        }
-        for (var x in result) {
-          statuss.add(x['status']);
-        }
-        for (var x in result) {
-          ynn.add(x['yn']);
-        }
-      });
-      getno();
+        i2++;
+      }
+      print("ล่าสุด=$text2");
+      print("Dd=$d");
+
+      if (d == 0) {
+        getDis2();
+      } else {
+        setState(() {
+          diss = [];
+          symm = [];
+          symName = [];
+          sym2 = [];
+          ynn = [];
+        });
+
+        String url =
+            'http://student.crru.ac.th/601463046/apidoctor/apiSym2.php?symptom_id=$symptomId&isAdd=true';
+        await Dio().get(url).then((value) => {print('idArray2 = $value')});
+        Response response = await Dio().get(url);
+        var result = json.decode(response.data);
+        print("$result");
+        setState(() {
+          for (var x in result) {
+            diss.add(x['disease_id']);
+          }
+          print(diss);
+          for (var x in result) {
+            symm.add(x['symptom_id']);
+          }
+          for (var x in result) {
+            statuss.add(x['status']);
+          }
+          for (var x in result) {
+            ynn.add(x['yn']);
+          }
+        });
+        getno();
+      }
     }
   }
 
@@ -672,6 +705,7 @@ class _ShowSymState extends State<ShowSym> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFfcdada),
       appBar: AppBar(
         title: Text(
           'คุณมีอาการอะไรบ้าง?',
@@ -698,8 +732,7 @@ class _ShowSymState extends State<ShowSym> {
           child: SizedBox(
         width: 330,
         child: Card(
-          color: Colors.amber[50],
-          elevation: 8,
+          color: Colors.white,
           child: Container(
             constraints:
                 BoxConstraints(minHeight: 300, minWidth: double.infinity),
@@ -707,7 +740,8 @@ class _ShowSymState extends State<ShowSym> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.all(20),
+                    padding:
+                        const EdgeInsets.only(top: 30, left: 20, right: 20),
                     child: Text(('$symptomName') ?? MyStyle().showProgress(),
                         style: TextStyle(
                           fontSize: 18.0,
@@ -716,54 +750,63 @@ class _ShowSymState extends State<ShowSym> {
                         )),
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.only(top: 100, bottom: 20),
-                        child: RaisedButton(
-                          onPressed: () {
-                            idArray();
-                          },
-                          color: Color(0xFF70af85),
-                          padding: EdgeInsets.all(5),
-                          child: Text('ใช่',
-                              style: TextStyle(
-                                fontSize: 14.0,
-                                color: Colors.white,
-                                fontFamily: 'Prompt',
-                              )),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: RaisedButton(
+                            onPressed: () {
+                              idArray();
+                            },
+                            color: Color(0xFF00af91),
+                            padding: EdgeInsets.all(5),
+                            child: Text('ใช่',
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                  color: Colors.white,
+                                  fontFamily: 'Prompt',
+                                )),
+                          ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 100, bottom: 20),
-                        child: RaisedButton(
-                          onPressed: () {
-                            apiSym32();
-                          },
-                          color: Color(0xFFfdb827),
-                          padding: EdgeInsets.all(5),
-                          child: Text('ไม่แน่ใจ',
-                              style: TextStyle(
-                                fontSize: 14.0,
-                                color: Colors.white,
-                                fontFamily: 'Prompt',
-                              )),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: RaisedButton(
+                            onPressed: () {
+                              idArray2();
+                            },
+                            color: Color(0xFFff7171),
+                            padding: EdgeInsets.all(5),
+                            child: Text('ไม่ใช่',
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                  color: Colors.white,
+                                  fontFamily: 'Prompt',
+                                )),
+                          ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 100, bottom: 20),
-                        child: RaisedButton(
-                          onPressed: () {
-                            idArray2();
-                          },
-                          color: Color(0xFFdf7861),
-                          padding: EdgeInsets.all(5),
-                          child: Text('ไม่ใช่',
-                              style: TextStyle(
-                                fontSize: 14.0,
-                                color: Colors.white,
-                                fontFamily: 'Prompt',
-                              )),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: RaisedButton(
+                            onPressed: () {
+                              apiSym32();
+                            },
+                            color: Color(0xFFffc75f),
+                            padding: EdgeInsets.all(5),
+                            child: Text('ไม่แน่ใจ',
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                  color: Colors.white,
+                                  fontFamily: 'Prompt',
+                                )),
+                          ),
                         ),
                       ),
                     ],
