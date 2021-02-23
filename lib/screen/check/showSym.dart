@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:doctorpurin/modal/group_modal.dart';
 import 'package:doctorpurin/screen/check/showResult.dart';
 import 'package:doctorpurin/screen/check/showResult2.dart';
+import 'package:doctorpurin/screen/check/showResult3.dart';
 import 'package:doctorpurin/utility/my_style.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -358,6 +359,13 @@ class _ShowSymState extends State<ShowSym> {
     Navigator.push(context, route);
   }
 
+  Future<Null> getDis3() async {
+    Navigator.pop(context);
+    MaterialPageRoute route =
+        MaterialPageRoute(builder: (context) => ShowResult3());
+    Navigator.push(context, route);
+  }
+
   Future<Null> countyn() async {
     setState(() {
       ynn = [];
@@ -462,7 +470,7 @@ class _ShowSymState extends State<ShowSym> {
   Future<Null> idArray2() async {
     await countYY();
     if (yyy >= 3) {
-      getDis();
+      getDis3();
     } else {
       limit = 0;
       if (d > 1) {

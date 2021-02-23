@@ -53,7 +53,7 @@ class _ShowADState extends State<ShowAD> {
           'บทความ',
           style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
         ),
-        backgroundColor: Colors.red[200],
+         backgroundColor: Colors.pinkAccent[100],
       ),
       body: SingleChildScrollView(
         child: Container(

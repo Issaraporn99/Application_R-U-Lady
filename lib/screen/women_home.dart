@@ -19,6 +19,7 @@ class _WomenHomeState extends State<WomenHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
           ' รู้ทันปัญหาสุขภาพผู้หญิง',
@@ -89,7 +90,7 @@ class _WomenHomeState extends State<WomenHome> {
                   child: Text('ตรวจโรค',
                       style: TextStyle(
                         fontSize: 18.0,
-                        color: Colors.grey[600],
+                        color: Colors.black,
                         fontFamily: 'Prompt',
                       )),
                 ),
@@ -123,7 +124,7 @@ class _WomenHomeState extends State<WomenHome> {
                   child: Text(
                     'ข้อมูลโรค',
                     style: TextStyle(
-                      color: Colors.grey[600],
+                      color: Colors.black,
                       fontSize: 18.0,
                       fontFamily: 'Prompt',
                     ),
@@ -159,7 +160,7 @@ class _WomenHomeState extends State<WomenHome> {
                   child: Text(
                     'บทความ',
                     style: TextStyle(
-                      color: Colors.grey[600],
+                      color: Colors.black,
                       fontSize: 18.0,
                       fontFamily: 'Prompt',
                     ),
@@ -195,7 +196,7 @@ class _WomenHomeState extends State<WomenHome> {
                   child: Text(
                     'ถามตอบ',
                     style: TextStyle(
-                      color: Colors.grey[600],
+                      color: Colors.black,
                       fontSize: 18.0,
                       fontFamily: 'Prompt',
                     ),
