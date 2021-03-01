@@ -27,6 +27,7 @@ class _ShowGroupState extends State<ShowGroup> {
   var diss = new List();
   var diss2 = new List();
   var symm = new List();
+  var gg = new List();
   var dess = new List();
   var groupp = new List();
   var d = new List<String>();
@@ -123,6 +124,9 @@ class _ShowGroupState extends State<ShowGroup> {
     for (var x in result) {
       symm.add(x['symptom_id']);
     }
+    for (var x in result) {
+      gg.add(x['group_id']);
+    }
 
     await addToDB2();
   }
@@ -144,6 +148,13 @@ class _ShowGroupState extends State<ShowGroup> {
       map["symm[$n2]"] = b;
       n2++;
     }
+    String c = "";
+    int n3 = 0;
+    for (var x in gg) {
+      c = x;
+      map["gg[$n3]"] = c;
+      n3++;
+    }
     final response = await http.post(url, body: map);
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
@@ -153,7 +164,7 @@ class _ShowGroupState extends State<ShowGroup> {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString('group_id', id);
     preferences.setString('group_name', idname);
-    preferences.setString('symptom_name',symptomName);
+    preferences.setString('symptom_name', symptomName);
   }
 
   Future<Null> noname() async {
@@ -232,9 +243,9 @@ class _ShowGroupState extends State<ShowGroup> {
       child: Align(
           alignment: Alignment.topLeft,
           child: Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(1),
             child: SizedBox(
-              height: 70,
+              height: 63,
               child: InkWell(
                 splashColor: Colors.white,
                 onTap: () {
@@ -294,7 +305,7 @@ class _ShowGroupState extends State<ShowGroup> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "ไม่ทราบ",
+                              "ไม่ระบุ",
                               style: TextStyle(
                                   color: Colors.black, fontFamily: 'Prompt'),
                             ),

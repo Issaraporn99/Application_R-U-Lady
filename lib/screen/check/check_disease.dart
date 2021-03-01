@@ -76,13 +76,17 @@ class _CheckDiseaseState extends State<CheckDisease> {
       // print('res = $response');
 
       var result = json.decode(response.data);
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => ShowGroup()));
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      preferences.setString('organ_id', organId);
       // print('res = $result');
-      for (var map in result) {
-        GroupSym groupInfo = GroupSym.fromJson(map);
-        if (organId == groupInfo.organId) {
-          routeTS(ShowGroup(), groupInfo);
-        }
-      }
+      // for (var map in result) {
+      //   GroupSym groupInfo = GroupSym.fromJson(map);
+      //   if (organId == groupInfo.organId) {
+      //     routeTS(ShowGroup(), groupInfo);
+      //   }
+      // }
     } catch (e) {}
   }
 
@@ -101,12 +105,16 @@ class _CheckDiseaseState extends State<CheckDisease> {
 
       var result = json.decode(response.data);
       print('res = $result');
-      for (var map in result) {
-        GroupSym groupInfo = GroupSym.fromJson(map);
-        if (organId == groupInfo.organId) {
-          routeTS(ShowGroup(), groupInfo);
-        }
-      }
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => ShowGroup()));
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      preferences.setString('organ_id', organId);
+      // for (var map in result) {
+      //   GroupSym groupInfo = GroupSym.fromJson(map);
+      //   if (organId == groupInfo.organId) {
+      //     routeTS(ShowGroup(), groupInfo);
+      //   }
+      // }
     } catch (e) {}
   }
 
@@ -423,7 +431,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
     preferences.setString('group_id', groupInfo.groupId);
     preferences.setString('group_name', groupInfo.groupName);
     preferences.setString('organ_id', groupInfo.organId);
-    Navigator.pop(context);
+    // Navigator.pop(context);
     MaterialPageRoute route =
         MaterialPageRoute(builder: (context) => myWidgett);
     Navigator.push(context, route);
