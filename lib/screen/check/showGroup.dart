@@ -159,8 +159,7 @@ class _ShowGroupState extends State<ShowGroup> {
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
     print("id=$id");
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => ShowSym()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ShowSym()));
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString('group_id', id);
     preferences.setString('group_name', idname);
