@@ -74,6 +74,7 @@ flutter:
       fonts:
         - asset: Prompt/Prompt-Regular.ttf
         - asset: Prompt/Prompt-Italic.ttf
+        - asset: Prompt/Prompt-ExtraLightItalic.ttf
           style: italic
     # - family: RobotoMono
     #   fonts:

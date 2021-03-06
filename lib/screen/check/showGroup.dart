@@ -28,6 +28,7 @@ class _ShowGroupState extends State<ShowGroup> {
   var diss2 = new List();
   var symm = new List();
   var gg = new List();
+
   var dess = new List();
   var groupp = new List();
   var d = new List<String>();
@@ -182,6 +183,9 @@ class _ShowGroupState extends State<ShowGroup> {
     for (var x in result) {
       s.add(x['symptom_id']);
     }
+    for (var x in result) {
+      gr.add(x['group_id']);
+    }
     insertToDB2();
   }
 
@@ -202,12 +206,21 @@ class _ShowGroupState extends State<ShowGroup> {
       map["symm[$n2]"] = b;
       n2++;
     }
+    String c = "";
+    int n3 = 0;
+    for (var x in gr) {
+      c = x;
+      map["gg[$n3]"] = c;
+      n3++;
+    }
     final response = await http.post(url, body: map);
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
-    MaterialPageRoute route =
-        MaterialPageRoute(builder: (context) => ShowSym2());
-    Navigator.push(context, route);
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ShowSym2()));
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString('group_id', id);
+    preferences.setString('group_name', idname);
+    preferences.setString('symptom_name', symptomName);
   }
 
   @override
@@ -285,9 +298,9 @@ class _ShowGroupState extends State<ShowGroup> {
         child: Align(
           alignment: Alignment.topLeft,
           child: Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+            padding: const EdgeInsets.all(1),
             child: SizedBox(
-              height: 70,
+              height: 63,
               child: InkWell(
                 splashColor: Colors.white,
                 onTap: () {
@@ -299,7 +312,8 @@ class _ShowGroupState extends State<ShowGroup> {
                   child: Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 15, top: 17),
+                        padding:
+                            const EdgeInsets.only(left: 15, top: 17, right: 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

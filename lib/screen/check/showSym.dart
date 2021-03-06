@@ -6,6 +6,7 @@ import 'package:doctorpurin/modal/result_modal.dart';
 import 'package:doctorpurin/screen/check/showResult.dart';
 import 'package:doctorpurin/screen/check/showResult2.dart';
 import 'package:doctorpurin/screen/check/showResult3.dart';
+import 'package:doctorpurin/utility/my_style.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -1020,6 +1021,7 @@ class _ShowSymState extends State<ShowSym> {
   }
 
   Future<Null> apiSym32() async {
+    await getCountDis();
     await count();
     setState(() {
       symName = [];
@@ -1095,7 +1097,7 @@ class _ShowSymState extends State<ShowSym> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               sym(),
-              iimage(),
+              // iimage(),
               symList(),
             ],
           ),
@@ -1125,11 +1127,12 @@ class _ShowSymState extends State<ShowSym> {
                           fontFamily: 'Prompt',
                         )),
                   ),
+                  iimage(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.only(top: 100, bottom: 20),
+                        padding: const EdgeInsets.only(bottom: 20),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20),
                           child: RaisedButton(
@@ -1148,7 +1151,7 @@ class _ShowSymState extends State<ShowSym> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 100, bottom: 20),
+                        padding: const EdgeInsets.only(bottom: 20),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20),
                           child: RaisedButton(
@@ -1167,7 +1170,7 @@ class _ShowSymState extends State<ShowSym> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 100, bottom: 20),
+                        padding: const EdgeInsets.only(bottom: 20),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20),
                           child: RaisedButton(
@@ -1192,32 +1195,49 @@ class _ShowSymState extends State<ShowSym> {
         ),
       ));
   Widget symList() => Container(
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(
-                    top: 10, left: 20, right: 20, bottom: 20),
-                child: Text(('อาการที่คุณตอบ = $symYname ' ?? '...'),
-                    style: TextStyle(
-                      fontSize: 15.0,
-                      color: Colors.black,
-                      fontFamily: 'Prompt',
-                    )),
+        child: SizedBox(
+          width: 330,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 15),
+            child: Card(
+              color: Colors.white,
+              child: Container(
+                constraints:
+                    BoxConstraints(minHeight: 100, minWidth: double.infinity),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Text(('อาการที่คุณตอบ'),
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              color: Colors.pink[700],
+                              fontFamily: 'Prompt',
+                            )),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            right: 20, left: 20, bottom: 20),
+                        child: Text(('$symYname ' ?? '...'),
+                            style: TextStyle(
+                              fontSize: 15.0,
+                              color: Colors.black,
+                              fontFamily: 'Prompt',
+                            )),
+                      ),
+                    ]),
               ),
-            ]),
+            ),
+          ),
+        ),
       );
   Widget iimage() => Container(
         child: SizedBox(
           width: 200,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Image.network('$iii'),
-              ),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Image.network('$iii' ?? MyStyle().showProgress()),
           ),
         ),
       );
