@@ -18,6 +18,7 @@ class _ShowGroupState extends State<ShowGroup> {
   String groupId;
   String groupName;
   String organId;
+  String organName="...";
   String symptomName;
   String symptomId;
   String diseaseId;
@@ -58,6 +59,7 @@ class _ShowGroupState extends State<ShowGroup> {
   Future<Null> findId() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     organId = preferences.getString('organ_id');
+    organName = preferences.getString('organ_name');
     symptomName = preferences.getString('symptom_name');
     symptomId = preferences.getString('symptom_id');
     String url =
@@ -85,6 +87,7 @@ class _ShowGroupState extends State<ShowGroup> {
   }
 
   Future<Null> apisym4() async {
+    diss2 = [];
     print("id=$id");
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/apiSym4.php?group_id=$id&isAdd=true';
@@ -100,6 +103,11 @@ class _ShowGroupState extends State<ShowGroup> {
   }
 
   Future<Null> apisym41() async {
+    await del();
+    diss = [];
+    symm = [];
+    gg = [];
+
     String text = "";
     int cnum = diss2.length;
     int i = 1;
@@ -168,6 +176,10 @@ class _ShowGroupState extends State<ShowGroup> {
   }
 
   Future<Null> noname() async {
+    await del();
+    d = [];
+    s = [];
+    gr = [];
     SharedPreferences preferences = await SharedPreferences.getInstance();
     organId = preferences.getString('organ_id');
     String url =
@@ -216,7 +228,8 @@ class _ShowGroupState extends State<ShowGroup> {
     final response = await http.post(url, body: map);
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
-    Navigator.push(context, MaterialPageRoute(builder: (context) => ShowSym2()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ShowSym2()));
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString('group_id', id);
     preferences.setString('group_name', idname);
@@ -236,6 +249,13 @@ class _ShowGroupState extends State<ShowGroup> {
       ),
       body: new Column(
         children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Text(
+              "คุณมีความผิดปกติเกี่ยวกับส่วนใดของ $organName" ?? "...",
+              style: TextStyle(color: Colors.black, fontFamily: 'Prompt'),
+            ),
+          ),
           nono(),
           new Expanded(
             child: new ListView.builder(

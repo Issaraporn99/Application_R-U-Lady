@@ -1120,7 +1120,7 @@ class _ShowSymState extends State<ShowSym> {
                   Padding(
                     padding:
                         const EdgeInsets.only(top: 30, left: 20, right: 20),
-                    child: Text(('$symptomName' ?? '...'),
+                    child: Text(('$symptomName' ?? MyStyle().showProgress()),
                         style: TextStyle(
                           fontSize: 18.0,
                           color: Colors.black,

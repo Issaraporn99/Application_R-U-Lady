@@ -119,17 +119,3 @@ class ServicesQA {
     return parsed.map<Question>((json) => Question.fromJson(json)).toList();
   }
 }
-
-// Future<Null> readDis() async {
-//   SharedPreferences preferences = await SharedPreferences.getInstance();
-//   String idDisease = preferences.getString('idDisease');
-
-//   String url =
-//       'http://192.168.43.187/issaafood/ArticleInfo.php?isAdd=true&idDisease=$idDisease';
-//   // await Dio().get(url).then((value) => {print('value = $value')});
-//   Response response = await Dio().get(url);
-//   print('dis = $response');
-//   var result = json.decode(response.data);
-//   dis = result;
-//   // print(dis);
-// }

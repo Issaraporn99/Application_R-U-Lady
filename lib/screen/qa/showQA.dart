@@ -39,7 +39,7 @@ class Debouncer {
 class _ShowQAState extends State<ShowQA> {
   List<Question> _filterqa;
   List<Question> _qa;
- List<Question> articleD = List();
+  List<Question> articleD = List();
   String ida;
   final _debouncer = Debouncer(milliseconds: 500);
 
@@ -109,7 +109,7 @@ class _ShowQAState extends State<ShowQA> {
                   .where((u) => (u.question
                           .toLowerCase()
                           .contains(string.toLowerCase()) ||
-                      u.questionDate
+                      u.expertiseName
                           .toLowerCase()
                           .contains(string.toLowerCase())))
                   .toList();
@@ -159,7 +159,7 @@ class _ShowQAState extends State<ShowQA> {
                     ),
                     DataCell(
                       Text(
-                        qa.questionDate,
+                        qa.questionDate+' น.',
                         style: TextStyle(
                             fontFamily: 'Prompt',
                             fontSize: 10.0,
@@ -188,15 +188,14 @@ class _ShowQAState extends State<ShowQA> {
 
       var result = json.decode(response.data);
       print('res = $result');
-           for (var map in result) {
-       Question qaInfo = Question.fromJson(map);
+      for (var map in result) {
+        Question qaInfo = Question.fromJson(map);
 
         setState(() {
           articleD.add(qaInfo);
           routeTS(ShowA(), qaInfo);
         });
       }
-
     } catch (e) {}
   }
 
@@ -207,6 +206,7 @@ class _ShowQAState extends State<ShowQA> {
     preferences.setString('question_date', qaInfo.questionDate);
     preferences.setString('question_name', qaInfo.questionName);
     preferences.setString('expertise_id', qaInfo.expertiseId);
+     preferences.setString('expertise_name', qaInfo.expertiseName);
     preferences.setString('answer_id', qaInfo.answerId);
     preferences.setString('answer_name', qaInfo.answerName);
     preferences.setString('answer_date', qaInfo.answerDate);
@@ -264,14 +264,6 @@ class _ShowQAState extends State<ShowQA> {
           ],
         ),
       ),
-      //       floatingActionButton: FloatingActionButton(
-      //   backgroundColor: const Color(0xff03dac6),
-      //   onPressed: () {
-      //     Navigator.pushReplacement(
-      //         context, MaterialPageRoute(builder: (context) => QandA()));
-      //   },
-      //   child: Icon(Icons.edit),
-      // ),
     );
   }
 }

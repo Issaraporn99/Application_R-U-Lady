@@ -44,7 +44,7 @@ class _QandAState extends State<QandA> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'ถาม-ตอบ กับผู้เชี่ยวชาญ',
+          'สอบถามผู้เชี่ยวชาญ',
           style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
         ),
         backgroundColor: Colors.pinkAccent[100],
@@ -108,17 +108,19 @@ class _QandAState extends State<QandA> {
   Widget registerButton() => Container(
       width: 250.0,
       height: 50,
-      child: RaisedButton(
-        color: Colors.teal[400],
-        onPressed: () {
-          print(
-              'question_id = $questionId,question = $question, question_name = $questionName, expertise_id = $expertiseId,question_date=$questionDate');
-          registerThread();
-        },
-        child: Text('ถาม',
-            style: TextStyle(
-                color: Colors.white, fontFamily: 'Prompt', fontSize: 15.0)),
-      ));
+      child: ClipRRect(
+          borderRadius: BorderRadius.circular(15),
+          child: RaisedButton(
+            color: Colors.teal[400],
+            onPressed: () {
+              print(
+                  'question_id = $questionId,question = $question, question_name = $questionName, expertise_id = $expertiseId,question_date=$questionDate');
+              registerThread();
+            },
+            child: Text('ถาม',
+                style: TextStyle(
+                    color: Colors.white, fontFamily: 'Prompt', fontSize: 15.0)),
+          )));
 
   Future<Null> registerThread() async {
     String url =

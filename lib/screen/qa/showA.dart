@@ -30,6 +30,7 @@ class _ShowAState extends State<ShowA> {
     super.initState();
     findId();
     showGetArticle();
+
     Intl.defaultLocale = "th";
     initializeDateFormatting();
   }
@@ -87,6 +88,19 @@ class _ShowAState extends State<ShowA> {
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   children: [
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 5),
+                        child: Text(
+                          'วันที่ ' + groupInfo[index].answerDate + ' น.',
+                          style: TextStyle(
+                              color: Colors.black54,
+                              fontSize: 11.0,
+                              fontFamily: 'Prompt'),
+                        ),
+                      ),
+                    ),
                     Container(
                       constraints: BoxConstraints(minWidth: double.infinity),
                       child: Text(
@@ -185,7 +199,9 @@ class _ShowAState extends State<ShowA> {
             child: Text(
               'คำถามที่ $questionId',
               style: TextStyle(
-                  color: Color(0xFFff5e78), fontSize: 16.0, fontFamily: 'Prompt'),
+                  color: Color(0xFFff5e78),
+                  fontSize: 16.0,
+                  fontFamily: 'Prompt'),
             ),
           ),
         ),
@@ -194,11 +210,11 @@ class _ShowAState extends State<ShowA> {
         child: Align(
           alignment: Alignment.topRight,
           child: Padding(
-            padding: const EdgeInsets.only(left: 120, top: 20),
+            padding: const EdgeInsets.only(left: 95, top: 20),
             child: Text(
-              'วันที่ $questionDate',
+              'วันที่ $questionDate น.',
               style: TextStyle(
-                  color: Colors.black54, fontSize: 13.0, fontFamily: 'Prompt'),
+                  color: Colors.black54, fontSize: 11.0, fontFamily: 'Prompt'),
             ),
           ),
         ),

@@ -65,8 +65,10 @@ class _CheckDiseaseState extends State<CheckDisease> {
   Future<Null> showG() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String organId = preferences.getString('organ_id');
+    String organName = preferences.getString('organ_name');
     setState(() {
       organId = ('1');
+      organName = ('เต้านม');
     });
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
@@ -80,6 +82,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
           context, MaterialPageRoute(builder: (context) => ShowGroup()));
       SharedPreferences preferences = await SharedPreferences.getInstance();
       preferences.setString('organ_id', organId);
+      preferences.setString('organ_name', organName);
       // print('res = $result');
       // for (var map in result) {
       //   GroupSym groupInfo = GroupSym.fromJson(map);
@@ -93,8 +96,10 @@ class _CheckDiseaseState extends State<CheckDisease> {
   Future<Null> showG2() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String organId = preferences.getString('organ_id');
+    String organName = preferences.getString('organ_name');
     setState(() {
       organId = ('2');
+      organName = ('อวัยวะสืบพันธุ์');
     });
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
@@ -109,12 +114,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
           context, MaterialPageRoute(builder: (context) => ShowGroup()));
       SharedPreferences preferences = await SharedPreferences.getInstance();
       preferences.setString('organ_id', organId);
-      // for (var map in result) {
-      //   GroupSym groupInfo = GroupSym.fromJson(map);
-      //   if (organId == groupInfo.organId) {
-      //     routeTS(ShowGroup(), groupInfo);
-      //   }
-      // }
+      preferences.setString('organ_name', organName);
     } catch (e) {}
   }
 
@@ -431,6 +431,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
     preferences.setString('group_id', groupInfo.groupId);
     preferences.setString('group_name', groupInfo.groupName);
     preferences.setString('organ_id', groupInfo.organId);
+    preferences.setString('organ_name', groupInfo.organName);
     // Navigator.pop(context);
     MaterialPageRoute route =
         MaterialPageRoute(builder: (context) => myWidgett);

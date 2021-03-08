@@ -6,6 +6,7 @@ import 'package:doctorpurin/screen/disease/service.dart';
 import 'package:doctorpurin/screen/disease/showdis.dart';
 import 'package:flutter/material.dart';
 import 'package:doctorpurin/modal/disinfo_model.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DisInformation extends StatefulWidget {
@@ -38,7 +39,18 @@ class _DisInformationState extends State<DisInformation> {
   List<DisInfo> _filterdisease;
   // DisInfo _selectedDisInfo;
   String id;
+
   final _debouncer = Debouncer(milliseconds: 500);
+
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+  void _onRefresh() async {
+    await Future.delayed(Duration(milliseconds: 500));
+    setState(() {
+      _getDisease();
+    });
+    _refreshController.refreshCompleted();
+  }
 
   @override
   void initState() {
@@ -184,21 +196,29 @@ class _DisInformationState extends State<DisInformation> {
         ),
         backgroundColor: Colors.pinkAccent[100],
       ),
-      body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(10.0),
-              child: searchField(),
-            ),
-            Expanded(
-              child: _dataBody(),
-            ),
-          ],
+      body: SmartRefresher(
+        enablePullDown: true,
+        enablePullUp: true,
+        header: WaterDropMaterialHeader(
+          backgroundColor: Colors.pinkAccent[100],
+        ),
+        controller: _refreshController,
+        onRefresh: _onRefresh,
+     
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.all(10.0),
+                child: searchField(),
+              ),
+              Expanded(
+                child: _dataBody(),
+              ),
+            ],
+          
         ),
       ),
     );
   }
 }
-

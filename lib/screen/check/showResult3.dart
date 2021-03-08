@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:doctorpurin/main.dart';
 import 'package:doctorpurin/modal/result_modal.dart';
 import 'package:doctorpurin/screen/disease/showdis.dart';
+import 'package:doctorpurin/screen/qa/qa.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -73,17 +75,21 @@ class _ShowResult3State extends State<ShowResult3> {
   }
 
   Future<Null> show2() async {
+    id = "";
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/getrs2.php?isAdd=true';
     await Dio().get(url).then((value) => {print('show2 = $value')});
     Response response = await Dio().get(url);
     var result = json.decode(response.data);
-    for (var map in result) {
-      Getdissym disInfo = Getdissym.fromJson(map);
-      if (id == disInfo.diseaseId) {
-        routeTS(ShowDis(), disInfo);
+    setState(() {
+      for (var map in result) {
+        Getdissym disInfo = Getdissym.fromJson(map);
+        if (id == disInfo.diseaseId) {
+          routeTS(ShowDis(), disInfo);
+        }
       }
-    }
+    });
+
     saveToDig();
   }
 
@@ -142,7 +148,7 @@ class _ShowResult3State extends State<ShowResult3> {
                     child: Text(
                       "คุณมีแนวโน้มปานกลางที่จะเป็นโรค",
                       style: TextStyle(
-                        color: Colors.blueGrey[400],
+                        color: Color(0xFF1687a7),
                         fontFamily: 'Prompt',
                         fontSize: 18.0,
                       ),
@@ -167,7 +173,7 @@ class _ShowResult3State extends State<ShowResult3> {
                     style: TextStyle(
                       color: Colors.red,
                       fontFamily: 'Prompt',
-                      fontSize: 16.0,
+                      fontSize: 14.0,
                     ),
                   ),
                 ),
@@ -178,7 +184,7 @@ class _ShowResult3State extends State<ShowResult3> {
                     child: Text(
                       "อาการที่คุณมี",
                       style: TextStyle(
-                        color: Colors.blueGrey[400],
+                        color: Color(0xFF1687a7),
                         fontFamily: 'Prompt',
                         fontSize: 15.0,
                       ),
@@ -188,7 +194,7 @@ class _ShowResult3State extends State<ShowResult3> {
                 Padding(
                   padding: const EdgeInsets.all(5),
                   child: SizedBox(
-                    height: 300,
+                    height: 200,
                     child: new ListView.builder(
                       itemCount: groupSym.length,
                       itemBuilder: (context, index) {
@@ -197,14 +203,53 @@ class _ShowResult3State extends State<ShowResult3> {
                     ),
                   ),
                 ),
+                button2(),
               ],
             ),
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.pinkAccent[100],
+        onPressed: () {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => MyApp()));
+        },
+        child: Icon(Icons.home),
+      ),
     );
   }
 
+  Widget button2() => Container(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: SizedBox(
+            width: 200,
+            height: 50,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: RaisedButton(
+                onPressed: () {
+                  saveToDig();
+                  MaterialPageRoute route =
+                      MaterialPageRoute(builder: (context) => QandA());
+                  Navigator.push(context, route);
+                },
+                color: Color(0xFF6ddccf),
+                elevation: 8,
+                child: Text(
+                  'สอบถามผู้เชี่ยวชาญ',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15.0,
+                    fontFamily: 'Prompt',
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
   Widget button() => Container(
         child: Padding(
           padding: const EdgeInsets.all(20),
@@ -217,7 +262,7 @@ class _ShowResult3State extends State<ShowResult3> {
                 onPressed: () {
                   show2();
                 },
-                color: Color(0xFF6ddccf),
+                color: Color(0xFF1687a7),
                 elevation: 3,
                 child: Text(
                   'อ่านข้อมูลเพิ่มเติม',

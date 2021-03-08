@@ -70,10 +70,10 @@ class _ArticleState extends State<Article> {
         decoration: InputDecoration(
           prefixIcon: Icon(
             Icons.search,
-            color:Colors.grey,
+            color: Colors.grey,
           ),
           contentPadding: EdgeInsets.all(1.0),
-          labelStyle: TextStyle(color:Colors.grey,fontFamily: 'Prompt'),
+          labelStyle: TextStyle(color: Colors.grey, fontFamily: 'Prompt'),
           labelText: 'ค้นหาบทความ :',
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red[200])),
@@ -87,11 +87,10 @@ class _ArticleState extends State<Article> {
             // Filter the original List and update the Filter list
             setState(() {
               _filterarticle = _article
-                  .where((u) =>
-                      (u.topic.toLowerCase().contains(string.toLowerCase()) ||
-                          u.articlesid
-                              .toLowerCase()
-                              .contains(string.toLowerCase())))
+                  .where((u) => (u.topic
+                          .toLowerCase()
+                          .contains(string.toLowerCase()) ||
+                      u.detail.toLowerCase().contains(string.toLowerCase())))
                   .toList();
             });
           });

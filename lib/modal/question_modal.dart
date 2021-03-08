@@ -6,6 +6,7 @@ class Question {
   String questionDate;
   String questionName;
   String expertiseId;
+  String expertiseName;
   String answerId;
   String answerName;
   String answerDate;
@@ -23,6 +24,7 @@ class Question {
       this.questionDate,
       this.questionName,
       this.expertiseId,
+      this.expertiseName,
       this.answerId,
       this.answerName,
       this.answerDate,
@@ -37,14 +39,20 @@ class Question {
   Question.fromJson(Map<String, dynamic> json) {
     questionId = json['question_id'];
     question = json['question'];
+    // questionDate = json['question_date'];
     questionDate = json['question_date'] == null
-         ? null
-         : DateFormat('d/MM/y').format(DateTime.parse(json['question_date']));
+        ? null
+        : DateFormat("dd/MM/yyyy HH:mm")
+            .format(DateTime.parse(json['question_date']));
     questionName = json['question_name'];
     expertiseId = json['expertise_id'];
+    expertiseName = json['expertise_name'];
     answerId = json['answer_id'];
     answerName = json['answer_name'];
-    answerDate = json['answer_date'];
+    answerDate = json['answer_date'] == null
+        ? null
+        : DateFormat("dd/MM/yyyy HH:mm")
+            .format(DateTime.parse(json['answer_date']));
     id = json['id'];
     username = json['username'];
     password = json['password'];
@@ -61,6 +69,7 @@ class Question {
     data['question_date'] = this.questionDate;
     data['question_name'] = this.questionName;
     data['expertise_id'] = this.expertiseId;
+    data['expertise_name'] = this.expertiseName;
     data['answer_id'] = this.answerId;
     data['answer_name'] = this.answerName;
     data['answer_date'] = this.answerDate;

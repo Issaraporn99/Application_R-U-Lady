@@ -81,9 +81,7 @@ class _ShowArticleState extends State<ShowArticle> {
               Align(
                 alignment: Alignment.topLeft,
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 20,top: 20
-                  ),
+                  padding: const EdgeInsets.only(left: 20, top: 20),
                   child: Text(
                     '$issuedate',
                     style: TextStyle(
@@ -96,9 +94,7 @@ class _ShowArticleState extends State<ShowArticle> {
               Align(
                 alignment: Alignment.topLeft,
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 20,bottom: 40
-                  ),
+                  padding: const EdgeInsets.only(left: 20, bottom: 40),
                   child: Text(
                     'ผู้เขียน $doctorname',
                     style: TextStyle(

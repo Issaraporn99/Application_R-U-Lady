@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:doctorpurin/main.dart';
+import 'package:doctorpurin/modal/question_modal.dart';
+import 'package:doctorpurin/screen/qa/qa.dart';
 import 'package:doctorpurin/utility/my_style.dart';
 import 'package:flutter/material.dart';
 
@@ -31,7 +33,7 @@ class _ShowResult2State extends State<ShowResult2> {
                   child: Text(
                     "คุณยังไม่มีแนวโน้มที่จะเป็นโรค",
                     style: TextStyle(
-                      color: Colors.pink[300],
+                      color: Colors.teal[300],
                       fontFamily: 'Prompt',
                       fontSize: 20.0,
                     ),
@@ -50,11 +52,19 @@ class _ShowResult2State extends State<ShowResult2> {
                     ),
                   ),
                 ),
-                button(),
+                 button(),
               ],
             ),
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.pinkAccent[100],
+        onPressed: () {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => MyApp()));
+        },
+        child: Icon(Icons.home),
       ),
     );
   }
@@ -78,13 +88,13 @@ class _ShowResult2State extends State<ShowResult2> {
                 onPressed: () {
                   Navigator.pop(context);
                   MaterialPageRoute route =
-                      MaterialPageRoute(builder: (context) => MyApp());
+                      MaterialPageRoute(builder: (context) => QandA());
                   Navigator.push(context, route);
                 },
                 color: Color(0xFF6ddccf),
                 elevation: 8,
                 child: Text(
-                  'ดูข้อมูลอื่น ๆ',
+                  'สอบถามผู้เชี่ยวชาญ',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 15.0,
