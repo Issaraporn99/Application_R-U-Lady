@@ -1237,7 +1237,7 @@ class _ShowSymState extends State<ShowSym> {
           width: 200,
           child: Padding(
             padding: const EdgeInsets.all(20),
-            child: Image.network('$iii' ?? MyStyle().showProgress()),
+            child: iii == null ? Container() : Image.network('$iii'),
           ),
         ),
       );

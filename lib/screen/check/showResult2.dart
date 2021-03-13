@@ -52,7 +52,7 @@ class _ShowResult2State extends State<ShowResult2> {
                     ),
                   ),
                 ),
-                 button(),
+                button(),
               ],
             ),
           ),
@@ -86,7 +86,6 @@ class _ShowResult2State extends State<ShowResult2> {
               borderRadius: BorderRadius.circular(15),
               child: RaisedButton(
                 onPressed: () {
-                  Navigator.pop(context);
                   MaterialPageRoute route =
                       MaterialPageRoute(builder: (context) => QandA());
                   Navigator.push(context, route);

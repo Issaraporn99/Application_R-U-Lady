@@ -6,7 +6,6 @@ import 'package:doctorpurin/modal/question_modal.dart';
 import 'package:doctorpurin/screen/disease/service.dart';
 import 'package:doctorpurin/screen/qa/qa.dart';
 import 'package:doctorpurin/screen/qa/showA.dart';
-import 'package:doctorpurin/screen/qa/showQA2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -14,10 +13,10 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class ShowQA extends StatefulWidget {
-  ShowQA() : super();
+class ShowQA2 extends StatefulWidget {
+  ShowQA2() : super();
   @override
-  _ShowQAState createState() => _ShowQAState();
+  _ShowQA2State createState() => _ShowQA2State();
 }
 
 class Debouncer {
@@ -37,7 +36,7 @@ class Debouncer {
   }
 }
 
-class _ShowQAState extends State<ShowQA> {
+class _ShowQA2State extends State<ShowQA2> {
   List<Question> _filterqa;
   List<Question> _qa;
   List<Question> articleD = List();
@@ -54,6 +53,14 @@ class _ShowQAState extends State<ShowQA> {
     _refreshController.refreshCompleted();
   }
 
+  void _onLoading() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    // if failed,use loadFailed(),if no data return,use LoadNodata()
+    setState(() {});
+    _refreshController.loadComplete();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -65,7 +72,7 @@ class _ShowQAState extends State<ShowQA> {
   }
 
   _getQa() {
-    ServicesQA.getQ().then((qa) {
+    ServicesQA2.getQ().then((qa) {
       setState(() {
         _qa = qa;
         _filterqa = qa;
@@ -229,6 +236,7 @@ class _ShowQAState extends State<ShowQA> {
         ),
         controller: _refreshController,
         onRefresh: _onRefresh,
+        onLoading: _onLoading,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -239,46 +247,16 @@ class _ShowQAState extends State<ShowQA> {
             Expanded(
               child: _dataBody(),
             ),
-            Align(
-              alignment: Alignment.topRight,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: FloatingActionButton(
-                  backgroundColor: const Color(0xff03dac6),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => QandA()));
-                  },
-                  child: Icon(Icons.edit),
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 70),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: RaisedButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => ShowQA2()));
-                    },
-                    color: Color(0xFFffc75f),
-                    padding:
-                        EdgeInsets.only(top: 5, bottom: 5, right: 15, left: 15),
-                    child: Text('ดูคำถามทั้งหมด',
-                        style: TextStyle(
-                          fontSize: 14.0,
-                          color: Colors.white,
-                          fontFamily: 'Prompt',
-                        )),
-                  ),
-                ),
-              ),
-            ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Color(0xff03dac6),
+        onPressed: () {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => QandA()));
+        },
+        child: Icon(Icons.edit),
       ),
     );
   }

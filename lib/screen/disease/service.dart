@@ -94,7 +94,36 @@ class ServicesArticle2 {
 }
 
 class ServicesQA {
-  static const ROOT = 'http://student.crru.ac.th/601463046/apidoctor/getQ.php?isAdd=true';
+  static const ROOT =
+      'http://student.crru.ac.th/601463046/apidoctor/getQ.php?isAdd=true';
+  static const String _GET_ACTION = 'true';
+
+  static Future<List<Question>> getQ() async {
+    try {
+      var map = new Map<String, dynamic>();
+      map["isAdd"] = _GET_ACTION;
+      final response = await http.post(ROOT, body: map);
+      print("getDisease >> Response:: ${response.body}");
+      if (response.statusCode == 200) {
+        List<Question> list = parsePhotos(response.body);
+        return list;
+      } else {
+        throw List<Question>();
+      }
+    } catch (e) {
+      return List<Question>();
+    }
+  }
+
+  static List<Question> parsePhotos(String responseBody) {
+    final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+    return parsed.map<Question>((json) => Question.fromJson(json)).toList();
+  }
+}
+
+class ServicesQA2 {
+  static const ROOT =
+      'http://student.crru.ac.th/601463046/apidoctor/getQ2.php?isAdd=true';
   static const String _GET_ACTION = 'true';
 
   static Future<List<Question>> getQ() async {

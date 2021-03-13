@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:doctorpurin/main.dart';
 import 'package:doctorpurin/screen/check/newShowSym.dart';
 import 'package:doctorpurin/screen/check/newShowSym2.dart';
 import 'package:http/http.dart' as http;
@@ -18,7 +19,7 @@ class _ShowGroupState extends State<ShowGroup> {
   String groupId;
   String groupName;
   String organId;
-  String organName="...";
+  String organName = "...";
   String symptomName;
   String symptomId;
   String diseaseId;
@@ -266,6 +267,14 @@ class _ShowGroupState extends State<ShowGroup> {
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.pinkAccent[100],
+        onPressed: () {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => MyApp()));
+        },
+        child: Icon(Icons.home),
       ),
     );
   }

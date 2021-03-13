@@ -76,7 +76,6 @@ class _ShowResultState extends State<ShowResult> {
   }
 
   Future<Null> show2() async {
-     id = "";
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/getrs2.php?isAdd=true';
     await Dio().get(url).then((value) => {print('show2 = $value')});

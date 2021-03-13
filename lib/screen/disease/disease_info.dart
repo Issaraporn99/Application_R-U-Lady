@@ -204,19 +204,20 @@ class _DisInformationState extends State<DisInformation> {
         ),
         controller: _refreshController,
         onRefresh: _onRefresh,
-     
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.all(10.0),
-                child: searchField(),
-              ),
-              Expanded(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(10.0),
+              child: searchField(),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 60),
                 child: _dataBody(),
               ),
-            ],
-          
+            ),
+          ],
         ),
       ),
     );

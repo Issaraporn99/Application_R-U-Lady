@@ -75,7 +75,7 @@ class _ShowResult3State extends State<ShowResult3> {
   }
 
   Future<Null> show2() async {
-    id = "";
+    print("$id");
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/getrs2.php?isAdd=true';
     await Dio().get(url).then((value) => {print('show2 = $value')});
@@ -107,10 +107,10 @@ class _ShowResult3State extends State<ShowResult3> {
     preferences.setString('expertise_id', disInfo.expertiseId);
     preferences.setString('expertise_name', disInfo.expertiseName);
 
-    Navigator.push(context, MaterialPageRoute(builder: (context) => myWidgett));
-    // MaterialPageRoute route =
-    //     MaterialPageRoute(builder: (context) => myWidgett);
-    // Navigator.push(context, route);
+    // Navigator.push(context, MaterialPageRoute(builder: (context) => myWidgett));
+    MaterialPageRoute route =
+        MaterialPageRoute(builder: (context) => myWidgett);
+    Navigator.push(context, route);
     // Navigator.pushReplacement(
     //     context, MaterialPageRoute(builder: (context) => myWidgett));
   }

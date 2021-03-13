@@ -49,65 +49,75 @@ class _ShowArticleState extends State<ShowArticle> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'บทความ',
-          style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+          '$topic',
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: 'Prompt',
+            fontSize: 14.0,
+          ),
         ),
         backgroundColor: Colors.pinkAccent[100],
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 20, right: 20, top: 15, bottom: 5),
-                child: Text(
-                  '$topic',
-                  style: TextStyle(
-                      color: Colors.red[900],
-                      fontSize: 18.0,
-                      fontFamily: 'Prompt'),
-                ),
-              ),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 50),
-                    child: Html(
-                      data: ('$detail'),
-                    )),
-              ),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20, top: 20),
-                  child: Text(
-                    '$issuedate',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 13.0,
+      body: Stack(children: [
+        SingleChildScrollView(
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 20, right: 20, top: 15, bottom: 5),
+                    child: Text(
+                      '$topic',
+                      style: TextStyle(
+                          color: Colors.red[900],
+                          fontSize: 18.0,
+                          fontFamily: 'Prompt'),
                     ),
                   ),
                 ),
-              ),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20, bottom: 40),
-                  child: Text(
-                    'ผู้เขียน $doctorname',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 13.0,
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 50),
+                      child: Html(
+                        data: ('$detail'),
+                      )),
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20, top: 20),
+                    child: Text(
+                      '$issuedate',
+                      style: TextStyle(
+                        color: Colors.black54,
+                        fontSize: 13.0,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20, bottom: 40),
+                    child: Text(
+                      'ผู้เขียน $doctorname',
+                      style: TextStyle(
+                        color: Colors.black54,
+                        fontSize: 13.0,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
-      ),
+      ]),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.pinkAccent[100],
         onPressed: () {
