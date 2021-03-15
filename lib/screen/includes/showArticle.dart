@@ -49,11 +49,11 @@ class _ShowArticleState extends State<ShowArticle> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          '$topic',
+          'บทความ',
           style: TextStyle(
             color: Colors.white,
             fontFamily: 'Prompt',
-            fontSize: 14.0,
+            fontSize: 16.0,
           ),
         ),
         backgroundColor: Colors.pinkAccent[100],

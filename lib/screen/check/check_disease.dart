@@ -121,22 +121,25 @@ class _CheckDiseaseState extends State<CheckDisease> {
   Future<Null> showG3() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String organId = preferences.getString('organ_id');
+    String organName = preferences.getString('organ_name');
     setState(() {
       organId = ('3');
+      organName = ('ศีรษะ');
     });
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
     await Dio().get(url).then((value) => {print('valueaa = $value')});
     try {
       Response response = await Dio().get(url);
-      var result = json.decode(response.data);
+      print('res = $response');
 
-      for (var map in result) {
-        GroupSym groupInfo = GroupSym.fromJson(map);
-        if (organId == groupInfo.organId) {
-          routeTS(ShowGroup(), groupInfo);
-        }
-      }
+      var result = json.decode(response.data);
+      print('res = $result');
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => ShowGroup()));
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      preferences.setString('organ_id', organId);
+      preferences.setString('organ_name', organName);
     } catch (e) {}
   }
 
@@ -231,22 +234,25 @@ class _CheckDiseaseState extends State<CheckDisease> {
   Future<Null> showG8() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String organId = preferences.getString('organ_id');
+    String organName = preferences.getString('organ_name');
     setState(() {
       organId = ('8');
+      organName = ('คอ');
     });
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
     await Dio().get(url).then((value) => {print('valueaa = $value')});
     try {
       Response response = await Dio().get(url);
-      var result = json.decode(response.data);
+      print('res = $response');
 
-      for (var map in result) {
-        GroupSym groupInfo = GroupSym.fromJson(map);
-        if (organId == groupInfo.organId) {
-          routeTS(ShowGroup(), groupInfo);
-        }
-      }
+      var result = json.decode(response.data);
+      print('res = $result');
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => ShowGroup()));
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      preferences.setString('organ_id', organId);
+      preferences.setString('organ_name', organName);
     } catch (e) {}
   }
 
@@ -729,14 +735,14 @@ class _CheckDiseaseState extends State<CheckDisease> {
                     splashColor: Colors.lime[200],
                     // splash color
                     onTap: () {
-                      showG12();
+                      showG8();
                     },
                     // button pressed
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          "อก",
+                          "คอ",
                           style: TextStyle(
                               fontSize: 15,
                               color: Colors.white,

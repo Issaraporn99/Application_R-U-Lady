@@ -38,13 +38,15 @@ class _ShowSym2State extends State<ShowSym2> {
   var statuss = new List();
   var symName = new List();
   var ggg = new List();
-
+  String cDis3 = "";
   var dis2 = new List();
   var sym2 = new List();
   var status2 = new List();
   var yn2 = new List();
   int d = 2;
   int cDis = 0;
+  var did = new List();
+  String did2 = "";
   int cDis2 = 0;
   String ym = "";
   var symmYN = new List();
@@ -121,6 +123,13 @@ class _ShowSym2State extends State<ShowSym2> {
         for (var x in result) {
           cdd.add(x);
         }
+        for (var x in result) {
+          did.add(x['disease_id']);
+        }
+        for (var x in did) {
+          did2 = x;
+        }
+        print("did2=$did2");
         cDis = cdd.length;
         print("d=$cDis");
         if (cDis == 1) {
@@ -143,13 +152,20 @@ class _ShowSym2State extends State<ShowSym2> {
     } else {
       var result = json.decode(response.data);
       var cdd2 = new List();
+      var no = new List();
       setState(() {
         for (var x in result) {
-          cdd2.add(x);
+          cdd2.add(x['disease_id']);
+        }
+        for (var x in result) {
+          no.add(x['no']);
+        }
+        for (var x in no) {
+          cDis3 = x;
         }
         cDis2 = cdd2.length;
         print("d=$cDis2");
-        if (cDis2 >= 3) {
+        if (cDis2 >= int.parse(cDis3)) {
           getDis3();
         }
       });

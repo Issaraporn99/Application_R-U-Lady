@@ -47,11 +47,14 @@ class _ShowSymState extends State<ShowSym> {
   int d = 2;
   int cDis = 0;
   int cDis2 = 0;
+  String cDis3 = "";
   String ym = "";
   var symmYN = new List();
   String symmYNId;
   var symYNname = new List();
   String symYname = "";
+  var did = new List();
+  String did2 = "";
   @override
   void initState() {
     super.initState();
@@ -135,6 +138,13 @@ class _ShowSymState extends State<ShowSym> {
         for (var x in result) {
           cdd.add(x);
         }
+        for (var x in result) {
+          did.add(x['disease_id']);
+        }
+        for (var x in did) {
+          did2 = x;
+        }
+        print("did2=$did2");
         cDis = cdd.length;
         print("d=$cDis");
         if (cDis == 1) {
@@ -157,13 +167,20 @@ class _ShowSymState extends State<ShowSym> {
     } else {
       var result = json.decode(response.data);
       var cdd2 = new List();
+      var no = new List();
       setState(() {
         for (var x in result) {
-          cdd2.add(x);
+          cdd2.add(x['disease_id']);
+        }
+        for (var x in result) {
+          no.add(x['no']);
+        }
+        for (var x in no) {
+          cDis3 = x;
         }
         cDis2 = cdd2.length;
         print("d=$cDis2");
-        if (cDis2 >= 3) {
+        if (cDis2 >= int.parse(cDis3)) {
           getDis3();
         }
       });

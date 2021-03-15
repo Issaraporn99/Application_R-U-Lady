@@ -107,10 +107,10 @@ class _ShowResult3State extends State<ShowResult3> {
     preferences.setString('expertise_id', disInfo.expertiseId);
     preferences.setString('expertise_name', disInfo.expertiseName);
 
-    // Navigator.push(context, MaterialPageRoute(builder: (context) => myWidgett));
-    MaterialPageRoute route =
-        MaterialPageRoute(builder: (context) => myWidgett);
-    Navigator.push(context, route);
+    Navigator.push(context, MaterialPageRoute(builder: (context) => myWidgett));
+    // MaterialPageRoute route =
+    //     MaterialPageRoute(builder: (context) => myWidgett);
+    // Navigator.push(context, route);
     // Navigator.pushReplacement(
     //     context, MaterialPageRoute(builder: (context) => myWidgett));
   }
