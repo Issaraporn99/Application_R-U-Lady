@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ShowQA2 extends StatefulWidget {
   ShowQA2() : super();
@@ -42,24 +41,6 @@ class _ShowQA2State extends State<ShowQA2> {
   List<Question> articleD = List();
   String ida;
   final _debouncer = Debouncer(milliseconds: 500);
-
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
-  void _onRefresh() async {
-    await Future.delayed(Duration(milliseconds: 500));
-    setState(() {
-      _getQa();
-    });
-    _refreshController.refreshCompleted();
-  }
-
-  void _onLoading() async {
-    // monitor network fetch
-    await Future.delayed(Duration(milliseconds: 1000));
-    // if failed,use loadFailed(),if no data return,use LoadNodata()
-    setState(() {});
-    _refreshController.loadComplete();
-  }
 
   @override
   void initState() {
@@ -228,27 +209,17 @@ class _ShowQA2State extends State<ShowQA2> {
         ),
         backgroundColor: Colors.pinkAccent[100],
       ),
-      body: SmartRefresher(
-        enablePullDown: true,
-        enablePullUp: true,
-        header: WaterDropMaterialHeader(
-          backgroundColor: Colors.pinkAccent[100],
-        ),
-        controller: _refreshController,
-        onRefresh: _onRefresh,
-        onLoading: _onLoading,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(10.0),
-              child: searchField(),
-            ),
-            Expanded(
-              child: _dataBody(),
-            ),
-          ],
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(10.0),
+            child: searchField(),
+          ),
+          Expanded(
+            child: _dataBody(),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xff03dac6),

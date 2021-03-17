@@ -289,13 +289,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.13"
-  pull_to_refresh:
-    dependency: "direct main"
-    description:
-      name: pull_to_refresh
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.6.3"
   screen:
     dependency: transitive
     description:
@@ -357,13 +350,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.7.0"
-  speech_recognition:
-    dependency: "direct main"
-    description:
-      name: speech_recognition
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.0+1"
   stack_trace:
     dependency: transitive
     description:

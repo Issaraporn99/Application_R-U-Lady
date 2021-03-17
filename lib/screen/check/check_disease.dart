@@ -614,8 +614,8 @@ class _CheckDiseaseState extends State<CheckDisease> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 100, left: 280),
-            alignment: Alignment.centerLeft,
+            margin: EdgeInsets.only(top: 100),
+            alignment: Alignment.centerRight,
             height: 70.0,
             child: SizedBox.fromSize(
               size: Size(70, 70), // button width and height
@@ -648,7 +648,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
           ),
           Container(
             margin: EdgeInsets.only(top: 180, left: 280),
-            alignment: Alignment.centerLeft,
+            alignment: Alignment.centerRight,
             height: 70.0,
             child: SizedBox.fromSize(
               size: Size(70, 70), // button width and height

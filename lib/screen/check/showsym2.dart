@@ -1022,8 +1022,89 @@ class _ShowSym2State extends State<ShowSym2> {
     }
   }
 
-  Future<Null> apiSym32() async {
+  Future<Null> idArray32() async {
     await getCountDis();
+    if (d > 1) {
+      count();
+    }
+    String text = "";
+    int cnum = diss.length;
+    int i = 1;
+    for (var x in diss) {
+      if (i == cnum) {
+        text = text + x;
+      } else {
+        text = text + x + ",";
+      }
+      i++;
+    }
+    print("ล่าสุด=$text");
+
+    String text2 = "";
+    int cnum2 = ynn.length;
+    int i2 = 1;
+    for (var x in ynn) {
+      if (i2 == cnum2) {
+        text2 = x;
+      }
+      i2++;
+    }
+    print("ล่าสุด=$text2");
+    print("Dd=$d");
+
+    if (d == 0) {
+      getDis2();
+    } else {
+      setState(() {
+        diss = [];
+        symm = [];
+        symName = [];
+        sym2 = [];
+        ynn = [];
+        imgs = [];
+      });
+
+      String url =
+          'http://student.crru.ac.th/601463046/apidoctor/apiSym2.php?symptom_id=$symptomId&isAdd=true';
+      await Dio().get(url).then((value) => {print('idArray = $value')});
+      Response response = await Dio().get(url);
+      var result = json.decode(response.data);
+      print("$result");
+      setState(() {
+        for (var x in result) {
+          diss.add(x['disease_id']);
+        }
+        for (var x in result) {
+          symm.add(x['symptom_id']);
+        }
+        for (var x in result) {
+          statuss.add(x['status']);
+        }
+        for (var x in result) {
+          ynn.add(x['yn']);
+        }
+        for (var x in result) {
+          ggg.add(x['group_id']);
+        }
+        for (var x in ggg) {
+          grgr = grgr + x;
+        }
+        print("$grgr");
+
+        for (var x in result) {
+          imgs.add(x['img']);
+        }
+        for (var x in imgs) {
+          img = x;
+        }
+        print(img);
+      });
+
+      apiSym32();
+    }
+  }
+
+  Future<Null> apiSym32() async {
     await count();
     setState(() {
       symName = [];
@@ -1037,6 +1118,8 @@ class _ShowSym2State extends State<ShowSym2> {
 
     Response response = await Dio().get(url);
     var result = json.decode(response.data);
+    print("$result");
+    print("$limit");
     if (response.toString() == 'null') {
       getDis2();
     } else {
@@ -1077,7 +1160,70 @@ class _ShowSym2State extends State<ShowSym2> {
         symptomId = snn;
         iii = img;
       });
+      updateU();
     }
+  }
+
+  Future<Null> updateU() async {
+    String tt1 = "";
+    int cnum = diss.length;
+    int i = 1;
+    int n = 0;
+    for (var x in diss) {
+      if (i == cnum) {
+        tt1 = tt1 + "diss[" + '$n' + "]=" + x;
+      } else {
+        tt1 = tt1 + "diss[" + '$n' + "]=" + x + "&";
+      }
+      n++;
+      i++;
+    }
+
+    String tt2 = "";
+    int cnum2 = symm.length;
+    int i2 = 1;
+    int n2 = 0;
+    for (var x2 in symm) {
+      if (i2 == cnum2) {
+        tt2 = tt2 + "symm[" + '$n2' + "]=" + x2;
+      } else {
+        tt2 = tt2 + "symm[" + '$n2' + "]=" + x2 + "&";
+      }
+      n2++;
+      i2++;
+    }
+
+    String tt3 = "";
+    int cnum3 = statuss.length;
+    int i3 = 1;
+    int n3 = 0;
+    for (var x3 in statuss) {
+      if (i3 == cnum3) {
+        tt3 = tt3 + "statuss[" + '$n3' + "]=" + x3;
+      } else {
+        tt3 = tt3 + "statuss[" + '$n3' + "]=" + x3 + "&";
+      }
+      n3++;
+      i3++;
+    }
+
+    String tt4 = "";
+    int cnum4 = ynn.length;
+    int i4 = 1;
+    int n4 = 0;
+    for (var x4 in ynn) {
+      if (i4 == cnum4) {
+        tt4 = tt4 + "ynn[" + '$n4' + "]=y";
+      } else {
+        tt4 = tt4 + "ynn[" + '$n4' + "]=y&";
+      }
+      n4++;
+      i4++;
+    }
+
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/updateU.php?&$tt1&$tt2&$tt3&$tt4&isAdd=true';
+    await Dio().get(url).then((value) => {print('updateU = $value')});
   }
 
   @override
@@ -1177,7 +1323,7 @@ class _ShowSym2State extends State<ShowSym2> {
                           borderRadius: BorderRadius.circular(20),
                           child: RaisedButton(
                             onPressed: () {
-                              apiSym32();
+                              idArray32();
                             },
                             color: Color(0xFFffc75f),
                             padding: EdgeInsets.all(5),

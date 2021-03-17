@@ -208,12 +208,12 @@ class _ArticleState extends State<Article> {
             Expanded(
               child: RefreshIndicator(
                 onRefresh: refreshList,
-                backgroundColor: Colors.pinkAccent,
+                backgroundColor: Colors.pink[200],
                 child: DraggableScrollbar.arrows(
                   alwaysVisibleScrollThumb: true,
                   controller: _arrowsController,
                   padding: EdgeInsets.only(right: 4.0),
-                  backgroundColor: Colors.pinkAccent,
+                  backgroundColor: Colors.pink[200],
                   child: ListView.builder(
                     controller: _arrowsController,
                     physics: AlwaysScrollableScrollPhysics(),
@@ -226,7 +226,7 @@ class _ArticleState extends State<Article> {
                                 BorderRadius.all(Radius.circular(10.0)),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.amber.withOpacity(0.5),
+                                color: Colors.amber[100].withOpacity(0.5),
                                 spreadRadius: 1,
                                 blurRadius: 2,
                                 offset: Offset(0, 2),

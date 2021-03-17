@@ -4,9 +4,10 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:doctorpurin/screen/disease/service.dart';
 import 'package:doctorpurin/screen/disease/showdis.dart';
+import 'package:draggable_scrollbar_sliver/draggable_scrollbar_sliver.dart';
 import 'package:flutter/material.dart';
 import 'package:doctorpurin/modal/disinfo_model.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DisInformation extends StatefulWidget {
@@ -39,19 +40,8 @@ class _DisInformationState extends State<DisInformation> {
   List<DisInfo> _filterdisease;
   // DisInfo _selectedDisInfo;
   String id;
-
   final _debouncer = Debouncer(milliseconds: 500);
-
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
-  void _onRefresh() async {
-    await Future.delayed(Duration(milliseconds: 500));
-    setState(() {
-      _getDisease();
-    });
-    _refreshController.refreshCompleted();
-  }
-
+  ScrollController _arrowsController = ScrollController();
   @override
   void initState() {
     super.initState();
@@ -186,6 +176,15 @@ class _DisInformationState extends State<DisInformation> {
     Navigator.push(context, route);
   }
 
+  Future<Null> refreshList() async {
+    Services.getDisease().then((disease) {
+      setState(() {
+        _disease = disease;
+        _filterdisease = disease;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -196,29 +195,82 @@ class _DisInformationState extends State<DisInformation> {
         ),
         backgroundColor: Colors.pinkAccent[100],
       ),
-      body: SmartRefresher(
-        enablePullDown: true,
-        enablePullUp: true,
-        header: WaterDropMaterialHeader(
-          backgroundColor: Colors.pinkAccent[100],
-        ),
-        controller: _refreshController,
-        onRefresh: _onRefresh,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(10.0),
-              child: searchField(),
-            ),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.only(bottom: 60),
-                child: _dataBody(),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(10.0),
+            child: searchField(),
+          ),
+          Expanded(
+            child: RefreshIndicator(
+              onRefresh: refreshList,
+              backgroundColor: Colors.pink[200],
+              child: DraggableScrollbar.arrows(
+                alwaysVisibleScrollThumb: true,
+                controller: _arrowsController,
+                padding: EdgeInsets.only(right: 4.0),
+                backgroundColor: Colors.pink[200],
+                child: ListView.builder(
+                  controller: _arrowsController,
+                  physics: AlwaysScrollableScrollPhysics(),
+                  itemCount: _filterdisease.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      margin: EdgeInsets.fromLTRB(10, 3, 10, 3),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.purple[100].withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 2,
+                              offset: Offset(0, 2),
+                            ),
+                          ]),
+                      child: ButtonTheme(
+                        minWidth: 500.0,
+                        height: 50.0,
+                        child: FlatButton(
+                          color: Colors.white,
+                          onPressed: () {
+                            routeTS(ShowDis(), _filterdisease[index]);
+                          },
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      child: Text(
+                                          _filterdisease[index].diseasename,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                          softWrap: false,
+                                          style: TextStyle(
+                                            fontSize: 14.0,
+                                            fontFamily: 'Prompt',
+                                          )),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Icon(
+                                LineIcons.angle_right,
+                                color: Colors.black38,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
