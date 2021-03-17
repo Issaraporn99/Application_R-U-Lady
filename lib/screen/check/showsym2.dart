@@ -707,7 +707,7 @@ class _ShowSym2State extends State<ShowSym2> {
   }
 
   Future<Null> idArray2() async {
-    // await getCountDis();
+    await getCountDis();
     if (d > 1) {
       count();
     }

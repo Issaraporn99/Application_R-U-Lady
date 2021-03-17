@@ -95,7 +95,7 @@ class ServicesArticle2 {
 
 class ServicesQA {
   static const ROOT =
-      'http://student.crru.ac.th/601463046/apidoctor/getQ.php?isAdd=true';
+      'http://student.crru.ac.th/601463046/apidoctor/getQ2.php?isAdd=true';
   static const String _GET_ACTION = 'true';
 
   static Future<List<Question>> getQ() async {

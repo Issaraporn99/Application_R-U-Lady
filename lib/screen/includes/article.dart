@@ -5,9 +5,11 @@ import 'package:dio/dio.dart';
 import 'package:doctorpurin/modal/article_modal.dart';
 import 'package:doctorpurin/screen/disease/service.dart';
 import 'package:doctorpurin/screen/includes/showArticle.dart';
+import 'package:draggable_scrollbar_sliver/draggable_scrollbar_sliver.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Article extends StatefulWidget {
@@ -41,7 +43,7 @@ class _ArticleState extends State<Article> {
 
   String ida;
   final _debouncer = Debouncer(milliseconds: 500);
-
+  ScrollController _arrowsController = ScrollController();
   @override
   void initState() {
     super.initState();
@@ -173,6 +175,15 @@ class _ArticleState extends State<Article> {
     Navigator.push(context, route);
   }
 
+  Future<Null> refreshList() async {
+    ServicesArticle.getArticle().then((article) {
+      setState(() {
+        _article = article;
+        _filterarticle = article;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -191,8 +202,77 @@ class _ArticleState extends State<Article> {
               padding: EdgeInsets.all(10.0),
               child: searchField(),
             ),
+            // Expanded(
+            //   child: _dataBody(),
+            // ),
             Expanded(
-              child: _dataBody(),
+              child: RefreshIndicator(
+                onRefresh: refreshList,
+                backgroundColor: Colors.pinkAccent,
+                child: DraggableScrollbar.arrows(
+                  alwaysVisibleScrollThumb: true,
+                  controller: _arrowsController,
+                  padding: EdgeInsets.only(right: 4.0),
+                  backgroundColor: Colors.pinkAccent,
+                  child: ListView.builder(
+                    controller: _arrowsController,
+                    physics: AlwaysScrollableScrollPhysics(),
+                    itemCount: _filterarticle.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        margin: EdgeInsets.fromLTRB(10, 3, 10, 3),
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.amber.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 2,
+                                offset: Offset(0, 2),
+                              ),
+                            ]),
+                        child: ButtonTheme(
+                          minWidth: 500.0,
+                          height: 50.0,
+                          child: FlatButton(
+                            color: Colors.white,
+                            onPressed: () {
+                              routeTS(ShowArticle(), _filterarticle[index]);
+                            },
+                            child: Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Container(
+                                        child: Text(_filterarticle[index].topic,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            softWrap: false,
+                                            style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontFamily: 'Prompt',
+                                            )),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Icon(
+                                  LineIcons.angle_right,
+                                  color: Colors.black38,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
             ),
           ],
         ),

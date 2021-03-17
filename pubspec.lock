@@ -99,6 +99,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.10"
+  draggable_scrollbar_sliver:
+    dependency: "direct main"
+    description:
+      name: draggable_scrollbar_sliver
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.3"
   fake_async:
     dependency: transitive
     description:

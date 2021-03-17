@@ -6,13 +6,14 @@ import 'package:doctorpurin/modal/question_modal.dart';
 import 'package:doctorpurin/screen/disease/service.dart';
 import 'package:doctorpurin/screen/qa/qa.dart';
 import 'package:doctorpurin/screen/qa/showA.dart';
-import 'package:doctorpurin/screen/qa/showQA2.dart';
+import 'package:draggable_scrollbar_sliver/draggable_scrollbar_sliver.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+// import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ShowQA extends StatefulWidget {
   ShowQA() : super();
@@ -44,15 +45,17 @@ class _ShowQAState extends State<ShowQA> {
   String ida;
   final _debouncer = Debouncer(milliseconds: 500);
 
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
-  void _onRefresh() async {
-    await Future.delayed(Duration(milliseconds: 500));
-    setState(() {
-      _getQa();
-    });
-    _refreshController.refreshCompleted();
-  }
+  ScrollController _arrowsController = ScrollController();
+
+  // RefreshController _refreshController =
+  //     RefreshController(initialRefresh: false);
+  // void _onRefresh() async {
+  //   await Future.delayed(Duration(milliseconds: 500));
+  //   setState(() {
+  //     _getQa();
+  //   });
+  //   _refreshController.refreshCompleted();
+  // }
 
   @override
   void initState() {
@@ -211,6 +214,15 @@ class _ShowQAState extends State<ShowQA> {
     Navigator.push(context, route);
   }
 
+  Future<Null> refreshList() async {
+    ServicesQA.getQ().then((qa) {
+      setState(() {
+        _qa = qa;
+        _filterqa = qa;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -221,14 +233,7 @@ class _ShowQAState extends State<ShowQA> {
         ),
         backgroundColor: Colors.pinkAccent[100],
       ),
-      body: SmartRefresher(
-        enablePullDown: true,
-        enablePullUp: true,
-        header: WaterDropMaterialHeader(
-          backgroundColor: Colors.pinkAccent[100],
-        ),
-        controller: _refreshController,
-        onRefresh: _onRefresh,
+      body: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -237,12 +242,78 @@ class _ShowQAState extends State<ShowQA> {
               child: searchField(),
             ),
             Expanded(
-              child: _dataBody(),
+              child: RefreshIndicator(
+                onRefresh: refreshList,
+                backgroundColor: Colors.pinkAccent,
+                child: DraggableScrollbar.arrows(
+                  alwaysVisibleScrollThumb: true,
+                  controller: _arrowsController,
+                  padding: EdgeInsets.only(right: 4.0),
+                  backgroundColor: Colors.pinkAccent,
+                  child: ListView.builder(
+                    controller: _arrowsController,
+                    physics: AlwaysScrollableScrollPhysics(),
+                    itemCount: _filterqa.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        margin: EdgeInsets.fromLTRB(10, 3, 10, 3),
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.teal.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 2,
+                                offset: Offset(0, 2),
+                              ),
+                            ]),
+                        child: ButtonTheme(
+                          minWidth: 500.0,
+                          height: 50.0,
+                          child: FlatButton(
+                            color: Colors.white,
+                            onPressed: () {
+                              routeTS(ShowA(), _filterqa[index]);
+                            },
+                            child: Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Container(
+                                        child: Text(_filterqa[index].question,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            softWrap: false,
+                                            style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontFamily: 'Prompt',
+                                            )),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Icon(
+                                  LineIcons.angle_right,
+                                  color: Colors.black38,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
             ),
             Align(
               alignment: Alignment.topRight,
               child: Padding(
-                padding: const EdgeInsets.only(right: 10),
+                padding: const EdgeInsets.only(right: 10, bottom: 70),
                 child: FloatingActionButton(
                   backgroundColor: const Color(0xff03dac6),
                   onPressed: () {
@@ -253,30 +324,30 @@ class _ShowQAState extends State<ShowQA> {
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 70),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: RaisedButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => ShowQA2()));
-                    },
-                    color: Color(0xFFffc75f),
-                    padding:
-                        EdgeInsets.only(top: 5, bottom: 5, right: 15, left: 15),
-                    child: Text('ดูคำถามทั้งหมด',
-                        style: TextStyle(
-                          fontSize: 14.0,
-                          color: Colors.white,
-                          fontFamily: 'Prompt',
-                        )),
-                  ),
-                ),
-              ),
-            ),
+            // Align(
+            //   alignment: Alignment.center,
+            //   child: Padding(
+            //     padding: const EdgeInsets.only(bottom: 70),
+            //     child: ClipRRect(
+            //       borderRadius: BorderRadius.circular(20),
+            //       child: RaisedButton(
+            //         onPressed: () {
+            //           Navigator.push(context,
+            //               MaterialPageRoute(builder: (context) => ShowQA2()));
+            //         },
+            //         color: Color(0xFFffc75f),
+            //         padding:
+            //             EdgeInsets.only(top: 5, bottom: 5, right: 15, left: 15),
+            //         child: Text('ดูคำถามทั้งหมด',
+            //             style: TextStyle(
+            //               fontSize: 14.0,
+            //               color: Colors.white,
+            //               fontFamily: 'Prompt',
+            //             )),
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

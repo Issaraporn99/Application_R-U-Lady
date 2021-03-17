@@ -44,6 +44,7 @@ class _ShowResultState extends State<ShowResult> {
   void initState() {
     super.initState();
     show();
+    
   }
 
   Future<Null> show() async {
