@@ -146,88 +146,101 @@ class _CheckDiseaseState extends State<CheckDisease> {
   Future<Null> showG4() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String organId = preferences.getString('organ_id');
+    String organName = preferences.getString('organ_name');
     setState(() {
       organId = ('4');
+
+      organName = ('หู');
     });
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
     await Dio().get(url).then((value) => {print('valueaa = $value')});
     try {
       Response response = await Dio().get(url);
-      var result = json.decode(response.data);
+      print('res = $response');
 
-      for (var map in result) {
-        GroupSym groupInfo = GroupSym.fromJson(map);
-        if (organId == groupInfo.organId) {
-          routeTS(ShowGroup(), groupInfo);
-        }
-      }
+      var result = json.decode(response.data);
+      print('res = $result');
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => ShowGroup()));
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      preferences.setString('organ_id', organId);
+      preferences.setString('organ_name', organName);
     } catch (e) {}
   }
 
   Future<Null> showG5() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String organId = preferences.getString('organ_id');
+    String organName = preferences.getString('organ_name');
     setState(() {
       organId = ('5');
+      organName = ('ตา');
     });
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
     await Dio().get(url).then((value) => {print('valueaa = $value')});
     try {
       Response response = await Dio().get(url);
-      var result = json.decode(response.data);
+      print('res = $response');
 
-      for (var map in result) {
-        GroupSym groupInfo = GroupSym.fromJson(map);
-        if (organId == groupInfo.organId) {
-          routeTS(ShowGroup(), groupInfo);
-        }
-      }
+      var result = json.decode(response.data);
+      print('res = $result');
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => ShowGroup()));
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      preferences.setString('organ_id', organId);
+      preferences.setString('organ_name', organName);
     } catch (e) {}
   }
 
   Future<Null> showG6() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String organId = preferences.getString('organ_id');
+    String organName = preferences.getString('organ_name');
     setState(() {
       organId = ('6');
+      organName = ('จมูก');
     });
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
     await Dio().get(url).then((value) => {print('valueaa = $value')});
     try {
       Response response = await Dio().get(url);
-      var result = json.decode(response.data);
+      print('res = $response');
 
-      for (var map in result) {
-        GroupSym groupInfo = GroupSym.fromJson(map);
-        if (organId == groupInfo.organId) {
-          routeTS(ShowGroup(), groupInfo);
-        }
-      }
+      var result = json.decode(response.data);
+      print('res = $result');
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => ShowGroup()));
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      preferences.setString('organ_id', organId);
+      preferences.setString('organ_name', organName);
     } catch (e) {}
   }
 
   Future<Null> showG7() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String organId = preferences.getString('organ_id');
+    String organName = preferences.getString('organ_name');
     setState(() {
       organId = ('7');
+      organName = ('ปาก');
     });
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
     await Dio().get(url).then((value) => {print('valueaa = $value')});
     try {
       Response response = await Dio().get(url);
-      var result = json.decode(response.data);
+      print('res = $response');
 
-      for (var map in result) {
-        GroupSym groupInfo = GroupSym.fromJson(map);
-        if (organId == groupInfo.organId) {
-          routeTS(ShowGroup(), groupInfo);
-        }
-      }
+      var result = json.decode(response.data);
+      print('res = $result');
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => ShowGroup()));
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      preferences.setString('organ_id', organId);
+      preferences.setString('organ_name', organName);
     } catch (e) {}
   }
 
@@ -259,66 +272,75 @@ class _CheckDiseaseState extends State<CheckDisease> {
   Future<Null> showG9() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String organId = preferences.getString('organ_id');
+    String organName = preferences.getString('organ_name');
     setState(() {
       organId = ('9');
+      organName = ('ไหล่');
     });
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
     await Dio().get(url).then((value) => {print('valueaa = $value')});
     try {
       Response response = await Dio().get(url);
-      var result = json.decode(response.data);
+      print('res = $response');
 
-      for (var map in result) {
-        GroupSym groupInfo = GroupSym.fromJson(map);
-        if (organId == groupInfo.organId) {
-          routeTS(ShowGroup(), groupInfo);
-        }
-      }
+      var result = json.decode(response.data);
+      print('res = $result');
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => ShowGroup()));
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      preferences.setString('organ_id', organId);
+      preferences.setString('organ_name', organName);
     } catch (e) {}
   }
 
   Future<Null> showG10() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String organId = preferences.getString('organ_id');
+    String organName = preferences.getString('organ_name');
     setState(() {
       organId = ('10');
+      organName = ('เอว');
     });
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
     await Dio().get(url).then((value) => {print('valueaa = $value')});
     try {
       Response response = await Dio().get(url);
-      var result = json.decode(response.data);
+      print('res = $response');
 
-      for (var map in result) {
-        GroupSym groupInfo = GroupSym.fromJson(map);
-        if (organId == groupInfo.organId) {
-          routeTS(ShowGroup(), groupInfo);
-        }
-      }
+      var result = json.decode(response.data);
+      print('res = $result');
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => ShowGroup()));
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      preferences.setString('organ_id', organId);
+      preferences.setString('organ_name', organName);
     } catch (e) {}
   }
 
   Future<Null> showG11() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String organId = preferences.getString('organ_id');
+    String organName = preferences.getString('organ_name');
     setState(() {
       organId = ('11');
+      organName = ('กระเพาะ');
     });
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
     await Dio().get(url).then((value) => {print('valueaa = $value')});
     try {
       Response response = await Dio().get(url);
-      var result = json.decode(response.data);
+      print('res = $response');
 
-      for (var map in result) {
-        GroupSym groupInfo = GroupSym.fromJson(map);
-        if (organId == groupInfo.organId) {
-          routeTS(ShowGroup(), groupInfo);
-        }
-      }
+      var result = json.decode(response.data);
+      print('res = $result');
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => ShowGroup()));
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      preferences.setString('organ_id', organId);
+      preferences.setString('organ_name', organName);
     } catch (e) {}
   }
 
@@ -347,44 +369,50 @@ class _CheckDiseaseState extends State<CheckDisease> {
   Future<Null> showG13() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String organId = preferences.getString('organ_id');
+    String organName = preferences.getString('organ_name');
     setState(() {
       organId = ('13');
+      organName = ('ลำไส้');
     });
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
     await Dio().get(url).then((value) => {print('valueaa = $value')});
     try {
       Response response = await Dio().get(url);
-      var result = json.decode(response.data);
+      print('res = $response');
 
-      for (var map in result) {
-        GroupSym groupInfo = GroupSym.fromJson(map);
-        if (organId == groupInfo.organId) {
-          routeTS(ShowGroup(), groupInfo);
-        }
-      }
+      var result = json.decode(response.data);
+      print('res = $result');
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => ShowGroup()));
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      preferences.setString('organ_id', organId);
+      preferences.setString('organ_name', organName);
     } catch (e) {}
   }
 
   Future<Null> showG14() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String organId = preferences.getString('organ_id');
+    String organName = preferences.getString('organ_name');
     setState(() {
       organId = ('14');
+      organName = ('มือและขา');
     });
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
     await Dio().get(url).then((value) => {print('valueaa = $value')});
     try {
       Response response = await Dio().get(url);
-      var result = json.decode(response.data);
+      print('res = $response');
 
-      for (var map in result) {
-        GroupSym groupInfo = GroupSym.fromJson(map);
-        if (organId == groupInfo.organId) {
-          routeTS(ShowGroup(), groupInfo);
-        }
-      }
+      var result = json.decode(response.data);
+      print('res = $result');
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => ShowGroup()));
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      preferences.setString('organ_id', organId);
+      preferences.setString('organ_name', organName);
     } catch (e) {}
   }
 
@@ -413,22 +441,25 @@ class _CheckDiseaseState extends State<CheckDisease> {
   Future<Null> showG16() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String organId = preferences.getString('organ_id');
+    String organName = preferences.getString('organ_name');
     setState(() {
       organId = ('16');
+      organName = ('ผิว');
     });
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
     await Dio().get(url).then((value) => {print('valueaa = $value')});
     try {
       Response response = await Dio().get(url);
-      var result = json.decode(response.data);
+      print('res = $response');
 
-      for (var map in result) {
-        GroupSym groupInfo = GroupSym.fromJson(map);
-        if (organId == groupInfo.organId) {
-          routeTS(ShowGroup(), groupInfo);
-        }
-      }
+      var result = json.decode(response.data);
+      print('res = $result');
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => ShowGroup()));
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      preferences.setString('organ_id', organId);
+      preferences.setString('organ_name', organName);
     } catch (e) {}
   }
 
@@ -449,8 +480,9 @@ class _CheckDiseaseState extends State<CheckDisease> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'คุณไม่สบายตรงไหน?',
-          style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+          'กดเลือกอวัยวะที่ต้องการตรวจ',
+          style: TextStyle(
+              color: Colors.white, fontFamily: 'Prompt', fontSize: 18.0),
         ),
         backgroundColor: Colors.pinkAccent[100],
       ),
@@ -482,24 +514,40 @@ class _CheckDiseaseState extends State<CheckDisease> {
                     alignment: Alignment.center,
                     child: Container(
                       // color: Colors.green,
-                      height: 145,
+                      height: 130,
                       child: InkWell(
                         onTap: showToast2,
                       ),
                     ),
                   ),
-                  show2(),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 50),
+                      child: Stack(children: <Widget>[
+                        show2(),
+                      ]),
+                    ),
+                  ),
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
                       // color: Colors.green,
-                      height: 215,
+                      height: 190,
                       child: InkWell(
                         onTap: showToast3,
                       ),
                     ),
                   ),
-                  show3(),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: Stack(children: <Widget>[
+                        show3(),
+                      ]),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -690,7 +738,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
       child: Stack(
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(top: 280, left: 15),
+            margin: EdgeInsets.only(top: 255, left: 15),
             alignment: Alignment.topLeft,
             height: 70.0,
             child: SizedBox.fromSize(
@@ -723,7 +771,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 205, left: 15),
+            margin: EdgeInsets.only(top: 180, left: 15),
             alignment: Alignment.topLeft,
             height: 70.0,
             child: SizedBox.fromSize(
@@ -756,7 +804,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 280, right: 15),
+            margin: EdgeInsets.only(top: 255, right: 15),
             alignment: Alignment.centerRight,
             height: 70.0,
             child: SizedBox.fromSize(
@@ -789,7 +837,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 355, left: 15),
+            margin: EdgeInsets.only(top: 330, left: 15),
             alignment: Alignment.centerLeft,
             height: 70.0,
             child: SizedBox.fromSize(
@@ -822,7 +870,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 205, right: 15),
+            margin: EdgeInsets.only(top: 180, right: 15),
             alignment: Alignment.centerRight,
             height: 70.0,
             child: SizedBox.fromSize(
@@ -855,7 +903,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 355, right: 15),
+            margin: EdgeInsets.only(top: 330, right: 15),
             alignment: Alignment.centerRight,
             height: 70.0,
             child: SizedBox.fromSize(
@@ -898,7 +946,8 @@ class _CheckDiseaseState extends State<CheckDisease> {
       child: Stack(
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(top: 360, left: 250),
+            margin: EdgeInsets.only(top: 360, right: 20),
+            alignment: Alignment.bottomRight,
             height: 70.0,
             child: SizedBox.fromSize(
               size: Size(70, 70), // button width and height
@@ -938,7 +987,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
           ),
           Container(
             margin: EdgeInsets.only(top: 360, left: 20),
-            alignment: Alignment.centerLeft,
+            alignment: Alignment.bottomLeft,
             height: 70.0,
             child: SizedBox.fromSize(
               size: Size(70, 70), // button width and height
@@ -956,7 +1005,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          "มือ",
+                          "มือและขา",
                           style: TextStyle(
                               fontSize: 13,
                               color: Colors.white,
@@ -970,7 +1019,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 450, right: 55),
+            margin: EdgeInsets.only(top: 450, right: 20),
             alignment: Alignment.bottomRight,
             height: 70.0,
             child: SizedBox.fromSize(
@@ -1002,39 +1051,39 @@ class _CheckDiseaseState extends State<CheckDisease> {
               ),
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(top: 450, left: 50),
-            alignment: Alignment.centerLeft,
-            height: 70.0,
-            child: SizedBox.fromSize(
-              size: Size(70, 70), // button width and height
-              child: ClipOval(
-                child: Material(
-                  color: Colors.cyan[300], // button color
-                  child: InkWell(
-                    splashColor: Colors.lime[200],
-                    // splash color
-                    onTap: () {
-                      showG15();
-                    },
-                    // button pressed
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "ขา",
-                          style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.white,
-                              fontFamily: 'Prompt'),
-                        ), // text
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
+          // Container(
+          //   margin: EdgeInsets.only(top: 450, left: 20),
+          //   alignment: Alignment.centerLeft,
+          //   height: 70.0,
+          //   child: SizedBox.fromSize(
+          //     size: Size(70, 70), // button width and height
+          //     child: ClipOval(
+          //       child: Material(
+          //         color: Colors.cyan[300], // button color
+          //         child: InkWell(
+          //           splashColor: Colors.lime[200],
+          //           // splash color
+          //           onTap: () {
+          //             showG15();
+          //           },
+          //           // button pressed
+          //           child: Column(
+          //             mainAxisAlignment: MainAxisAlignment.center,
+          //             children: <Widget>[
+          //               Text(
+          //                 "ขา",
+          //                 style: TextStyle(
+          //                     fontSize: 13,
+          //                     color: Colors.white,
+          //                     fontFamily: 'Prompt'),
+          //               ), // text
+          //             ],
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

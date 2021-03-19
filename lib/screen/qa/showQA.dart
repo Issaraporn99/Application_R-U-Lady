@@ -251,6 +251,7 @@ class _ShowQAState extends State<ShowQA> {
                   padding: EdgeInsets.only(right: 4.0),
                   backgroundColor: Colors.pink[200],
                   child: ListView.builder(
+                     padding: EdgeInsets.only(bottom: 40),
                     controller: _arrowsController,
                     physics: AlwaysScrollableScrollPhysics(),
                     itemCount: _filterqa.length,
@@ -310,46 +311,16 @@ class _ShowQAState extends State<ShowQA> {
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.topRight,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 10, bottom: 70),
-                child: FloatingActionButton(
-                  backgroundColor: const Color(0xff03dac6),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => QandA()));
-                  },
-                  child: Icon(Icons.edit),
-                ),
-              ),
-            ),
-            // Align(
-            //   alignment: Alignment.center,
-            //   child: Padding(
-            //     padding: const EdgeInsets.only(bottom: 70),
-            //     child: ClipRRect(
-            //       borderRadius: BorderRadius.circular(20),
-            //       child: RaisedButton(
-            //         onPressed: () {
-            //           Navigator.push(context,
-            //               MaterialPageRoute(builder: (context) => ShowQA2()));
-            //         },
-            //         color: Color(0xFFffc75f),
-            //         padding:
-            //             EdgeInsets.only(top: 5, bottom: 5, right: 15, left: 15),
-            //         child: Text('ดูคำถามทั้งหมด',
-            //             style: TextStyle(
-            //               fontSize: 14.0,
-            //               color: Colors.white,
-            //               fontFamily: 'Prompt',
-            //             )),
-            //       ),
-            //     ),
-            //   ),
-            // ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: const Color(0xff03dac6),
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => QandA()));
+        },
+        child: Icon(Icons.edit),
       ),
     );
   }

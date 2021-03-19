@@ -166,7 +166,7 @@ class _ShowDisState extends State<ShowDis> {
 
   Widget articleDis() => Container(
         child: Align(
-          alignment: Alignment.topLeft,
+          alignment: Alignment.bottomLeft,
           child: FlatButton(
             onPressed: () {
               checkid();
@@ -185,8 +185,9 @@ class _ShowDisState extends State<ShowDis> {
   Widget showTreatment() => SingleChildScrollView(
         child: Card(
           child: Container(
-            constraints:
-                BoxConstraints(minHeight: 400, minWidth: double.infinity),
+            constraints: BoxConstraints(
+              minHeight: 400,
+            ),
             child: Column(
               children: <Widget>[
                 ListTile(
@@ -202,6 +203,7 @@ class _ShowDisState extends State<ShowDis> {
                     padding: const EdgeInsets.only(left: 20, right: 35),
                     child: Html(
                       data: ('$diseasetreatment'),
+                     
                     )),
                 // Padding(
                 //   padding: const EdgeInsets.only(bottom: 5),
@@ -226,8 +228,9 @@ class _ShowDisState extends State<ShowDis> {
   Widget showDefence() => SingleChildScrollView(
         child: Card(
             child: Container(
-          constraints:
-              BoxConstraints(minHeight: 400, minWidth: double.infinity),
+          constraints: BoxConstraints(
+            minHeight: 400,
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -267,8 +270,9 @@ class _ShowDisState extends State<ShowDis> {
   Widget showCause() => SingleChildScrollView(
         child: Card(
           child: Container(
-            constraints:
-                BoxConstraints(minHeight: 400, minWidth: double.infinity),
+            constraints: BoxConstraints(
+              minHeight: 400,
+            ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -311,8 +315,7 @@ class _ShowDisState extends State<ShowDis> {
   Widget showDetail() => SingleChildScrollView(
         child: Card(
           child: Container(
-            constraints:
-                BoxConstraints(minHeight: 400, minWidth: double.infinity),
+            constraints: BoxConstraints(minHeight: 400),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -356,8 +359,9 @@ class _ShowDisState extends State<ShowDis> {
   Widget showAbout() => SingleChildScrollView(
         child: Card(
           child: Container(
-            constraints:
-                BoxConstraints(minHeight: 400, minWidth: double.infinity),
+            constraints: BoxConstraints(
+              minHeight: 400,
+            ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -401,8 +405,9 @@ class _ShowDisState extends State<ShowDis> {
   Widget showData() => SingleChildScrollView(
         child: Card(
           child: Container(
-            constraints:
-                BoxConstraints(minHeight: 400, minWidth: double.infinity),
+            constraints: BoxConstraints(
+              minHeight: 400,
+            ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[

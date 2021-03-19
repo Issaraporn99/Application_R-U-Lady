@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:doctorpurin/utility/normal_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:doctorpurin/utility/my_style.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class QandA extends StatefulWidget {
   @override
@@ -21,6 +22,8 @@ class _QandAState extends State<QandA> {
   String questionId;
 
   Future getex() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    selectedValue = preferences.getString('expertise_id');
     var url =
         "http://student.crru.ac.th/601463046/apidoctor/getExType.php?isAdd=true";
     var response = await http.get(url);

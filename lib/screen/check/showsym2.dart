@@ -173,7 +173,8 @@ class _ShowSym2State extends State<ShowSym2> {
   }
 
   Future<Null> idArray() async {
-    symYname = symYname + symptomName + ', ';
+    symYNname.add(symptomName);
+    limit = 0;
     await count();
     if (d <= 1) {
       getDis();
@@ -707,6 +708,7 @@ class _ShowSym2State extends State<ShowSym2> {
   }
 
   Future<Null> idArray2() async {
+    limit = 0;
     await getCountDis();
     if (d > 1) {
       count();
@@ -1110,7 +1112,7 @@ class _ShowSym2State extends State<ShowSym2> {
       symName = [];
       sym2 = [];
       imgs = [];
-      limit = limit + 1;
+      limit = limit + 2;
     });
 
     String url =
@@ -1161,6 +1163,7 @@ class _ShowSym2State extends State<ShowSym2> {
         iii = img;
       });
       updateU();
+      limit = 0;
     }
   }
 
@@ -1238,15 +1241,59 @@ class _ShowSym2State extends State<ShowSym2> {
         backgroundColor: Colors.pinkAccent[100],
       ),
       body: Container(
-        alignment: Alignment.topCenter,
-        child: SingleChildScrollView(
-          padding: EdgeInsets.only(top: 20),
+          alignment: Alignment.topCenter,
+          child: SingleChildScrollView(
+              padding: EdgeInsets.only(top: 20),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    sym(),
+                    // iimage(),
+                    // symList(),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20, bottom: 10),
+                      child: Text(('อาการที่คุณตอบใช่'),
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            color: Colors.pink[700],
+                            fontFamily: 'Prompt',
+                          )),
+                    ),
+                    symYNname.length == 0
+                        ? MyStyle().ss()
+                        : Padding(
+                            padding: const EdgeInsets.all(15),
+                            child: SizedBox(
+                              height: 200,
+                              child: new ListView.builder(
+                                itemCount: symYNname.length,
+                                itemBuilder: (context, index) {
+                                  return an_builder(context, index);
+                                },
+                              ),
+                            ),
+                          )
+                  ]))),
+    );
+  }
+
+  Widget an_builder(context, index) {
+    return SingleChildScrollView(
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 10, top: 3),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              sym(),
-              // iimage(),
-              symList(),
+              Text(
+                "- " + symYNname[index],
+                style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: 'Prompt',
+                  fontSize: 18.0,
+                ),
+              ),
             ],
           ),
         ),
@@ -1255,8 +1302,8 @@ class _ShowSym2State extends State<ShowSym2> {
   }
 
   Widget sym() => Container(
-          child: SizedBox(
-        width: 330,
+      padding: const EdgeInsets.only(left: 20, right: 20),
+      child: SizedBox(
         child: Card(
           color: Colors.white,
           child: Container(
@@ -1268,7 +1315,10 @@ class _ShowSym2State extends State<ShowSym2> {
                   Padding(
                     padding:
                         const EdgeInsets.only(top: 30, left: 20, right: 20),
-                    child: Text(('$symptomName' ?? '...'),
+                    child: Text(
+                        (symptomName == null
+                            ? MyStyle().showProgress()
+                            : symptomName),
                         style: TextStyle(
                           fontSize: 18.0,
                           color: Colors.black,
@@ -1323,6 +1373,7 @@ class _ShowSym2State extends State<ShowSym2> {
                           borderRadius: BorderRadius.circular(20),
                           child: RaisedButton(
                             onPressed: () {
+                              // apiSym32();
                               idArray32();
                             },
                             color: Color(0xFFffc75f),
@@ -1357,7 +1408,7 @@ class _ShowSym2State extends State<ShowSym2> {
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.all(20),
-                        child: Text(('อาการที่คุณตอบ'),
+                        child: Text(('อาการที่คุณตอบใช่'),
                             style: TextStyle(
                               fontSize: 16.0,
                               color: Colors.pink[700],
@@ -1369,7 +1420,7 @@ class _ShowSym2State extends State<ShowSym2> {
                             right: 20, left: 20, bottom: 20),
                         child: Text(('$symYname ' ?? '...'),
                             style: TextStyle(
-                              fontSize: 15.0,
+                              fontSize: 18.0,
                               color: Colors.black,
                               fontFamily: 'Prompt',
                             )),
@@ -1385,7 +1436,7 @@ class _ShowSym2State extends State<ShowSym2> {
           width: 200,
           child: Padding(
             padding: const EdgeInsets.all(20),
-            child: Image.network('$iii' ?? MyStyle().showProgress()),
+            child: iii == null ? Container() : Image.network('$iii'),
           ),
         ),
       );

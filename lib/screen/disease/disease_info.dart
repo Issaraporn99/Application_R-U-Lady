@@ -212,6 +212,7 @@ class _DisInformationState extends State<DisInformation> {
                 padding: EdgeInsets.only(right: 4.0),
                 backgroundColor: Colors.pink[200],
                 child: ListView.builder(
+                  padding: EdgeInsets.only(bottom: 20),
                   controller: _arrowsController,
                   physics: AlwaysScrollableScrollPhysics(),
                   itemCount: _filterdisease.length,
@@ -222,7 +223,7 @@ class _DisInformationState extends State<DisInformation> {
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.purple[100].withOpacity(0.5),
+                              color: Colors.amber[100].withOpacity(0.5),
                               spreadRadius: 1,
                               blurRadius: 2,
                               offset: Offset(0, 2),

@@ -226,7 +226,7 @@ class _ArticleState extends State<Article> {
                                 BorderRadius.all(Radius.circular(10.0)),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.amber[100].withOpacity(0.5),
+                                 color: Colors.purple[100].withOpacity(0.5),
                                 spreadRadius: 1,
                                 blurRadius: 2,
                                 offset: Offset(0, 2),

@@ -132,7 +132,7 @@ class _ShowResultState extends State<ShowResult> {
       appBar: AppBar(
         title: Text(
           'ผลการตรวจโรค',
-          style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+          style: TextStyle(color: Colors.white, fontFamily: 'Prompt',fontSize: 18.0),
         ),
         backgroundColor: Colors.pinkAccent[100],
       ),
@@ -152,7 +152,7 @@ class _ShowResultState extends State<ShowResult> {
                       style: TextStyle(
                         color: Color(0xFF1687a7),
                         fontFamily: 'Prompt',
-                        fontSize: 18.0,
+                        fontSize: 20.0,
                       ),
                     ),
                   ),
@@ -164,6 +164,7 @@ class _ShowResultState extends State<ShowResult> {
                         fontSize: 18.0,
                         color: Colors.black,
                         fontFamily: 'Prompt',
+                       
                       )),
                 ),
                 button(),
@@ -175,7 +176,7 @@ class _ShowResultState extends State<ShowResult> {
                     style: TextStyle(
                       color: Colors.red,
                       fontFamily: 'Prompt',
-                      fontSize: 14.0,
+                      fontSize: 16.0,
                     ),
                   ),
                 ),
@@ -188,7 +189,7 @@ class _ShowResultState extends State<ShowResult> {
                       style: TextStyle(
                         color: Color(0xFF1687a7),
                         fontFamily: 'Prompt',
-                        fontSize: 15.0,
+                        fontSize: 20.0,
                       ),
                     ),
                   ),
@@ -243,7 +244,7 @@ class _ShowResultState extends State<ShowResult> {
                   'สอบถามผู้เชี่ยวชาญ',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 15.0,
+                    fontSize: 16.0,
                     fontFamily: 'Prompt',
                   ),
                 ),
@@ -270,7 +271,7 @@ class _ShowResultState extends State<ShowResult> {
                   'อ่านข้อมูลเพิ่มเติม',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 15.0,
+                    fontSize: 18.0,
                     fontFamily: 'Prompt',
                   ),
                 ),
@@ -290,7 +291,7 @@ class _ShowResultState extends State<ShowResult> {
             children: [
               Text(
                 "- " + groupSym[index].symptomName,
-                style: TextStyle(color: Colors.black, fontFamily: 'Prompt'),
+                style: TextStyle(color: Colors.black, fontFamily: 'Prompt',fontSize: 16.0),
               ),
             ],
           ),

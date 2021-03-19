@@ -52,7 +52,7 @@ class _ShowResult2State extends State<ShowResult2> {
                     ),
                   ),
                 ),
-                button(),
+                // button(),
               ],
             ),
           ),

@@ -34,6 +34,7 @@ class _ShowGroupState extends State<ShowGroup> {
   var dess = new List();
   var groupp = new List();
   var d = new List<String>();
+  var d2 = new List<String>();
   var s = new List<String>();
   var de = new List<String>();
   var gr = new List<String>();
@@ -137,8 +138,12 @@ class _ShowGroupState extends State<ShowGroup> {
     for (var x in result) {
       gg.add(x['group_id']);
     }
-
-    await addToDB2();
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ShowSym()));
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString('group_id', id);
+    preferences.setString('group_name', idname);
+    preferences.setString('symptom_name', symptomName);
+    addToDB2();
   }
 
   Future<Null> addToDB2() async {
@@ -169,11 +174,6 @@ class _ShowGroupState extends State<ShowGroup> {
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
     print("id=$id");
-    Navigator.push(context, MaterialPageRoute(builder: (context) => ShowSym()));
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setString('group_id', id);
-    preferences.setString('group_name', idname);
-    preferences.setString('symptom_name', symptomName);
   }
 
   Future<Null> noname() async {
@@ -181,10 +181,44 @@ class _ShowGroupState extends State<ShowGroup> {
     d = [];
     s = [];
     gr = [];
+
     SharedPreferences preferences = await SharedPreferences.getInstance();
     organId = preferences.getString('organ_id');
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/getGroupNoName.php?organ_id=$organId&isAdd=true';
+    await Dio().get(url).then((value) => {print('noname = $value')});
+    Response response = await Dio().get(url);
+    var result = json.decode(response.data);
+
+    setState(() {
+      for (var x in result) {
+        diss2.add(x['disease_id']);
+      }
+    });
+    noname2();
+  }
+
+  Future<Null> noname2() async {
+    await del();
+    d = [];
+    s = [];
+    gr = [];
+    String text = "";
+    int cnum = diss2.length;
+    int i = 1;
+    for (var x in diss2) {
+      if (i == cnum) {
+        text = text + x;
+      } else {
+        text = text + x + ",";
+      }
+      i++;
+    }
+    print("text1=$text");
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    organId = preferences.getString('organ_id');
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/apiSym41.php?&text=$text&isAdd=true';
     await Dio().get(url).then((value) => {print('noname = $value')});
     Response response = await Dio().get(url);
     var result = json.decode(response.data);
@@ -240,6 +274,7 @@ class _ShowGroupState extends State<ShowGroup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFFFFBFA),
       appBar: AppBar(
         title: Text(
           'คุณมีความผิดปกติเกี่ยวกับ ?',
@@ -254,10 +289,51 @@ class _ShowGroupState extends State<ShowGroup> {
             padding: const EdgeInsets.all(10),
             child: Text(
               "คุณมีความผิดปกติเกี่ยวกับส่วนใดของ $organName" ?? "...",
-              style: TextStyle(color: Colors.black, fontFamily: 'Prompt'),
+              style: TextStyle(
+                  color: Colors.black, fontFamily: 'Prompt', fontSize: 18),
             ),
           ),
-          nono(),
+          groupInfo.length == 1
+              ? Container()
+              : Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.all(1),
+                    child: SizedBox(
+                      height: 63,
+                      child: InkWell(
+                        splashColor: Colors.white,
+                        onTap: () {
+                          noname();
+                        },
+                        child: Card(
+                          elevation: 1.5,
+                          color: Colors.white,
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 15, top: 15, right: 10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "ไม่ระบุ",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontFamily: 'Prompt',
+                                          fontSize: 18),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
           new Expanded(
             child: new ListView.builder(
               itemCount: groupInfo.length,
@@ -301,15 +377,20 @@ class _ShowGroupState extends State<ShowGroup> {
                   child: Row(
                     children: [
                       Padding(
-                        padding:
-                            const EdgeInsets.only(left: 15, top: 17, right: 10),
+                        padding: const EdgeInsets.only(
+                          left: 15,
+                          top: 15,
+                          right: 10,
+                        ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               groupInfo[index].groupName,
                               style: TextStyle(
-                                  color: Colors.black, fontFamily: 'Prompt'),
+                                  color: Colors.black,
+                                  fontFamily: 'Prompt',
+                                  fontSize: 18),
                             ),
                           ],
                         ),
@@ -349,7 +430,9 @@ class _ShowGroupState extends State<ShowGroup> {
                             Text(
                               "ไม่ระบุ",
                               style: TextStyle(
-                                  color: Colors.black, fontFamily: 'Prompt'),
+                                  color: Colors.black,
+                                  fontFamily: 'Prompt',
+                                  fontSize: 18),
                             ),
                           ],
                         ),

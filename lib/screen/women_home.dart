@@ -19,7 +19,7 @@ class _WomenHomeState extends State<WomenHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xFFFFFBFA),
       appBar: AppBar(
         title: Text(
           ' รู้ทันปัญหาสุขภาพผู้หญิง',
@@ -51,25 +51,14 @@ class _WomenHomeState extends State<WomenHome> {
             ],
           ),
         ),
-        // decoration: BoxDecoration(
-        //   image: DecorationImage(
-        //       image: AssetImage('images/home.png'),
-        //       alignment: Alignment.bottomCenter,
-        //       scale: 2.5
-
-        //       //  width: 65,
-        //       //  height: 65,
-
-        //       ),
-        // ),
       ),
     );
   }
 
   Widget checkButton() => Container(
         child: SizedBox(
-          width: 140,
-          height: 139,
+          width: 150,
+          height: 150,
           child: RaisedButton(
             onPressed: () {
               Navigator.push(context,
@@ -87,12 +76,24 @@ class _WomenHomeState extends State<WomenHome> {
                   height: 65,
                 ),
                 Expanded(
-                  child: Text('ตรวจโรค',
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: Text(
+                      'ตรวจโรค',
                       style: TextStyle(
-                        fontSize: 18.0,
-                        color: Colors.black,
+                        fontSize: 22,
+                        color: Colors.white,
                         fontFamily: 'Prompt',
-                      )),
+                        shadows: [
+                          Shadow(
+                            color: Colors.red[900],
+                            blurRadius: 2.0,
+                            offset: Offset(1.0, 1.0),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -102,8 +103,8 @@ class _WomenHomeState extends State<WomenHome> {
 
   Widget diseaseButton() => Container(
         child: SizedBox(
-          width: 140,
-          height: 139,
+          width: 150,
+          height: 150,
           child: RaisedButton(
             onPressed: () {
               Navigator.push(context,
@@ -121,12 +122,22 @@ class _WomenHomeState extends State<WomenHome> {
                   height: 65,
                 ),
                 Expanded(
-                  child: Text(
-                    'ข้อมูลโรค',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18.0,
-                      fontFamily: 'Prompt',
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: Text(
+                      'ข้อมูลโรค',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontFamily: 'Prompt',
+                        shadows: [
+                          Shadow(
+                            color: Colors.yellow[900],
+                            blurRadius: 2.0,
+                            offset: Offset(1.0, 1.0),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -138,8 +149,8 @@ class _WomenHomeState extends State<WomenHome> {
 
   Widget articleButton() => Container(
         child: SizedBox(
-          width: 140,
-          height: 139,
+          width: 150,
+          height: 150,
           child: RaisedButton(
             onPressed: () {
               Navigator.push(
@@ -157,12 +168,22 @@ class _WomenHomeState extends State<WomenHome> {
                   height: 65,
                 ),
                 Expanded(
-                  child: Text(
-                    'บทความ',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18.0,
-                      fontFamily: 'Prompt',
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: Text(
+                      'บทความ',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontFamily: 'Prompt',
+                        shadows: [
+                          Shadow(
+                            color: Colors.purple[800],
+                            blurRadius: 2.0,
+                            offset: Offset(1.0, 1.0),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -174,8 +195,8 @@ class _WomenHomeState extends State<WomenHome> {
 
   Widget qaButton() => Container(
         child: SizedBox(
-          width: 140,
-          height: 139,
+          width: 150,
+          height: 150,
           child: RaisedButton(
             onPressed: () {
               Navigator.push(
@@ -193,12 +214,22 @@ class _WomenHomeState extends State<WomenHome> {
                   height: 65,
                 ),
                 Expanded(
-                  child: Text(
-                    'ถามตอบ',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18.0,
-                      fontFamily: 'Prompt',
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: Text(
+                      'ถามตอบ',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontFamily: 'Prompt',
+                        shadows: [
+                          Shadow(
+                            color: Colors.green[900],
+                            blurRadius: 2.0,
+                            offset: Offset(1.0, 1.0),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

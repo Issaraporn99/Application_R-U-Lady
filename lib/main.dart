@@ -19,6 +19,7 @@
 //   }
 // }
 
+import 'package:doctorpurin/screen/about.dart';
 import 'package:doctorpurin/screen/disease/disease_info.dart';
 import 'package:doctorpurin/screen/includes/article.dart';
 import 'package:doctorpurin/screen/qa/showQA.dart';
@@ -71,9 +72,10 @@ class _MyHomePageState extends State<MyHomePage> {
           },
           children: [
             WomenHome(),
-            DisInformation(),
-            Article(),
-            ShowQA(),
+            // DisInformation(),
+            // Article(),
+            // ShowQA(),
+            About(),
           ],
         ),
         bottomNavigationBar: SafeArea(
@@ -107,36 +109,36 @@ class _MyHomePageState extends State<MyHomePage> {
                     iconSize: 24,
                     padding: padding,
                   ),
-                  GButton(
-                    gap: gap,
-                    icon: LineIcons.hospital_o,
-                    iconColor: Colors.black,
-                    iconActiveColor: Colors.purpleAccent,
-                    text: 'โรค',
-                    textStyle:
-                        TextStyle(color: Colors.purpleAccent, fontFamily: 'Prompt'),
-                    backgroundColor: Colors.purpleAccent.withOpacity(0.2),
-                    iconSize: 24,
-                    padding: padding,
-                  ),
-                  GButton(
-                    gap: gap,
-                    icon: LineIcons.file,
-                    iconColor: Colors.black,
-                    iconActiveColor: Colors.amber,
-                    text: 'บทความ',
-                    textStyle:
-                        TextStyle(color: Colors.amber, fontFamily: 'Prompt'),
-                    backgroundColor: Colors.amber.withOpacity(0.2),
-                    iconSize: 24,
-                    padding: padding,
-                  ),
+                  // GButton(
+                  //   gap: gap,
+                  //   icon: LineIcons.hospital_o,
+                  //   iconColor: Colors.black,
+                  //   iconActiveColor: Colors.purpleAccent,
+                  //   text: 'โรค',
+                  //   textStyle:
+                  //       TextStyle(color: Colors.purpleAccent, fontFamily: 'Prompt'),
+                  //   backgroundColor: Colors.purpleAccent.withOpacity(0.2),
+                  //   iconSize: 24,
+                  //   padding: padding,
+                  // ),
+                  // GButton(
+                  //   gap: gap,
+                  //   icon: LineIcons.file,
+                  //   iconColor: Colors.black,
+                  //   iconActiveColor: Colors.amber,
+                  //   text: 'บทความ',
+                  //   textStyle:
+                  //       TextStyle(color: Colors.amber, fontFamily: 'Prompt'),
+                  //   backgroundColor: Colors.amber.withOpacity(0.2),
+                  //   iconSize: 24,
+                  //   padding: padding,
+                  // ),
                   GButton(
                     gap: gap,
                     icon: LineIcons.question,
                     iconColor: Colors.black,
                     iconActiveColor: Colors.teal,
-                    text: 'ถาม',
+                    text: 'เกี่ยวกับ',
                     textStyle:
                         TextStyle(color: Colors.teal, fontFamily: 'Prompt'),
                     backgroundColor: Colors.teal.withOpacity(0.2),

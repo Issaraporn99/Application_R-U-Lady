@@ -71,6 +71,13 @@ class MyStyle {
     );
   }
 
+  Container ss() {
+    return Container(
+      width: 200.0,
+      child: Image.asset('images/7.png'),
+    );
+  }
+
   Widget showProgress() {
     return Center(
       child: CircularProgressIndicator(),
