@@ -1,5 +1,6 @@
 import 'package:doctorpurin/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/style.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:flutter_html/flutter_html.dart';
@@ -53,7 +54,7 @@ class _ShowArticleState extends State<ShowArticle> {
           style: TextStyle(
             color: Colors.white,
             fontFamily: 'Prompt',
-            fontSize: 16.0,
+            fontSize: 18.0,
           ),
         ),
         backgroundColor: Colors.pinkAccent[100],
@@ -82,10 +83,15 @@ class _ShowArticleState extends State<ShowArticle> {
                 Align(
                   alignment: Alignment.topLeft,
                   child: Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 50),
-                      child: Html(
-                        data: ('$detail'),
-                      )),
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: Html(data: ('$detail'), style: {
+                        "html": Style(
+                          fontSize: FontSize(18.0),
+                          padding: EdgeInsets.all(2.0),
+                          // backgroundColor: Colors.white70,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      })),
                 ),
                 Align(
                   alignment: Alignment.topLeft,
@@ -95,7 +101,7 @@ class _ShowArticleState extends State<ShowArticle> {
                       '$issuedate',
                       style: TextStyle(
                         color: Colors.black54,
-                        fontSize: 13.0,
+                        fontSize: 18.0,
                       ),
                     ),
                   ),
@@ -108,7 +114,7 @@ class _ShowArticleState extends State<ShowArticle> {
                       'ผู้เขียน $doctorname',
                       style: TextStyle(
                         color: Colors.black54,
-                        fontSize: 13.0,
+                        fontSize: 18.0,
                       ),
                     ),
                   ),

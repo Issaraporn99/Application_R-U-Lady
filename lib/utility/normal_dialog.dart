@@ -7,22 +7,51 @@ Future<void> normalDialog(BuildContext context, String message) async {
   showDialog(
     context: context,
     builder: (context) => SimpleDialog(
-      title: Text(message,style: TextStyle(fontSize: 15.0,fontFamily: 'Prompt'),),
+      title: Text(
+        message,
+        style: TextStyle(fontSize: 15.0, fontFamily: 'Prompt'),
+      ),
       children: <Widget>[
-        Row(mainAxisAlignment: MainAxisAlignment.end,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             FlatButton(
-                onPressed: () =>  Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Article())),
+                onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Article())),
                 child: Text(
                   'ดูบทความอื่น ๆ',
-                  style: TextStyle(color: Colors.blue,fontFamily: 'Prompt'),
+                  style: TextStyle(color: Colors.blue, fontFamily: 'Prompt'),
                 )),
-                  FlatButton(
+            FlatButton(
                 onPressed: () => Navigator.pop(context),
                 child: Text(
                   'ปิด',
-                  style: TextStyle(color: Colors.red,fontFamily: 'Prompt'),
+                  style: TextStyle(color: Colors.red, fontFamily: 'Prompt'),
+                )),
+          ],
+        )
+      ],
+    ),
+  );
+}
+
+Future<void> normalDialog2(BuildContext context, String message) async {
+  showDialog(
+    context: context,
+    builder: (context) => SimpleDialog(
+      title: Text(
+        message,
+        style: TextStyle(fontSize: 15.0, fontFamily: 'Prompt'),
+      ),
+      children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            FlatButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text(
+                  'ปิด',
+                  style: TextStyle(color: Colors.red, fontFamily: 'Prompt'),
                 )),
           ],
         )

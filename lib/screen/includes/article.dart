@@ -253,7 +253,7 @@ class _ArticleState extends State<Article> {
                                             maxLines: 1,
                                             softWrap: false,
                                             style: TextStyle(
-                                              fontSize: 14.0,
+                                              fontSize: 18.0,
                                               fontFamily: 'Prompt',
                                             )),
                                       ),

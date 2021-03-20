@@ -96,7 +96,7 @@ class _ShowAState extends State<ShowA> {
                           'วันที่ ' + groupInfo[index].answerDate + ' น.',
                           style: TextStyle(
                               color: Colors.black54,
-                              fontSize: 11.0,
+                              fontSize: 15.0,
                               fontFamily: 'Prompt'),
                         ),
                       ),
@@ -110,7 +110,7 @@ class _ShowAState extends State<ShowA> {
                                 groupInfo[index].doctorname,
                         style: TextStyle(
                             color: Colors.black54,
-                            fontSize: 13.0,
+                            fontSize: 16.0,
                             fontFamily: 'Prompt'),
                       ),
                     ),
@@ -124,7 +124,7 @@ class _ShowAState extends State<ShowA> {
                               : groupInfo[index].answerName,
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 16.0,
+                              fontSize: 18.0,
                               fontFamily: 'Prompt'),
                         ),
                       ),
@@ -200,21 +200,21 @@ class _ShowAState extends State<ShowA> {
               'คำถามที่ $questionId',
               style: TextStyle(
                   color: Color(0xFFff5e78),
-                  fontSize: 16.0,
+                  fontSize: 18.0,
                   fontFamily: 'Prompt'),
             ),
           ),
         ),
       );
   Widget qdate() => Container(
-        child: Align(
-          alignment: Alignment.topRight,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 95, top: 20),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 20, left: 50),
+          child: Align(
+            alignment: Alignment.topRight,
             child: Text(
               'วันที่ $questionDate น.',
               style: TextStyle(
-                  color: Colors.black54, fontSize: 11.0, fontFamily: 'Prompt'),
+                  color: Colors.black54, fontSize: 14.0, fontFamily: 'Prompt'),
             ),
           ),
         ),
@@ -238,7 +238,7 @@ class _ShowAState extends State<ShowA> {
                             : 'จาก คุณ$questionName',
                         style: TextStyle(
                             color: Colors.black54,
-                            fontSize: 13.0,
+                            fontSize: 16.0,
                             fontFamily: 'Prompt'),
                       ),
                     ),
@@ -250,7 +250,7 @@ class _ShowAState extends State<ShowA> {
                           '$question',
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 15.0,
+                              fontSize: 18.0,
                               fontFamily: 'Prompt'),
                         ),
                       ),

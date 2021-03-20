@@ -290,7 +290,7 @@ class _ShowQAState extends State<ShowQA> {
                                             maxLines: 1,
                                             softWrap: false,
                                             style: TextStyle(
-                                              fontSize: 14.0,
+                                              fontSize: 18.0,
                                               fontFamily: 'Prompt',
                                             )),
                                       ),

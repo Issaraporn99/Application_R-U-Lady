@@ -288,7 +288,7 @@ class _ShowGroupState extends State<ShowGroup> {
           Padding(
             padding: const EdgeInsets.all(10),
             child: Text(
-              "คุณมีความผิดปกติเกี่ยวกับส่วนใดของ $organName" ?? "...",
+              "คุณมีความผิดปกติอย่างไรเกี่ยวกับ $organName" ?? "...",
               style: TextStyle(
                   color: Colors.black, fontFamily: 'Prompt', fontSize: 18),
             ),

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:doctorpurin/modal/group_modal.dart';
 import 'package:doctorpurin/screen/check/showGroup.dart';
+import 'package:doctorpurin/utility/normal_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -157,15 +158,17 @@ class _CheckDiseaseState extends State<CheckDisease> {
     await Dio().get(url).then((value) => {print('valueaa = $value')});
     try {
       Response response = await Dio().get(url);
-      print('res = $response');
-
-      var result = json.decode(response.data);
-      print('res = $result');
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ShowGroup()));
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-      preferences.setString('organ_id', organId);
-      preferences.setString('organ_name', organName);
+      if (response.toString() == 'null') {
+        normalDialog2(context, 'ยังไม่มีข้อมูล');
+      } else {
+        var result = json.decode(response.data);
+        print('res = $result');
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ShowGroup()));
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        preferences.setString('organ_id', organId);
+        preferences.setString('organ_name', organName);
+      }
     } catch (e) {}
   }
 
@@ -182,15 +185,17 @@ class _CheckDiseaseState extends State<CheckDisease> {
     await Dio().get(url).then((value) => {print('valueaa = $value')});
     try {
       Response response = await Dio().get(url);
-      print('res = $response');
-
-      var result = json.decode(response.data);
-      print('res = $result');
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ShowGroup()));
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-      preferences.setString('organ_id', organId);
-      preferences.setString('organ_name', organName);
+      if (response.toString() == 'null') {
+        normalDialog2(context, 'ยังไม่มีข้อมูล');
+      } else {
+        var result = json.decode(response.data);
+        print('res = $result');
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ShowGroup()));
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        preferences.setString('organ_id', organId);
+        preferences.setString('organ_name', organName);
+      }
     } catch (e) {}
   }
 
@@ -207,15 +212,17 @@ class _CheckDiseaseState extends State<CheckDisease> {
     await Dio().get(url).then((value) => {print('valueaa = $value')});
     try {
       Response response = await Dio().get(url);
-      print('res = $response');
-
-      var result = json.decode(response.data);
-      print('res = $result');
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ShowGroup()));
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-      preferences.setString('organ_id', organId);
-      preferences.setString('organ_name', organName);
+      if (response.toString() == 'null') {
+        normalDialog2(context, 'ยังไม่มีข้อมูล');
+      } else {
+        var result = json.decode(response.data);
+        print('res = $result');
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ShowGroup()));
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        preferences.setString('organ_id', organId);
+        preferences.setString('organ_name', organName);
+      }
     } catch (e) {}
   }
 
@@ -232,15 +239,17 @@ class _CheckDiseaseState extends State<CheckDisease> {
     await Dio().get(url).then((value) => {print('valueaa = $value')});
     try {
       Response response = await Dio().get(url);
-      print('res = $response');
-
-      var result = json.decode(response.data);
-      print('res = $result');
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ShowGroup()));
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-      preferences.setString('organ_id', organId);
-      preferences.setString('organ_name', organName);
+      if (response.toString() == 'null') {
+        normalDialog2(context, 'ยังไม่มีข้อมูล');
+      } else {
+        var result = json.decode(response.data);
+        print('res = $result');
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ShowGroup()));
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        preferences.setString('organ_id', organId);
+        preferences.setString('organ_name', organName);
+      }
     } catch (e) {}
   }
 
@@ -282,15 +291,17 @@ class _CheckDiseaseState extends State<CheckDisease> {
     await Dio().get(url).then((value) => {print('valueaa = $value')});
     try {
       Response response = await Dio().get(url);
-      print('res = $response');
-
-      var result = json.decode(response.data);
-      print('res = $result');
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ShowGroup()));
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-      preferences.setString('organ_id', organId);
-      preferences.setString('organ_name', organName);
+      if (response.toString() == 'null') {
+        normalDialog2(context, 'ยังไม่มีข้อมูล');
+      } else {
+        var result = json.decode(response.data);
+        print('res = $result');
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ShowGroup()));
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        preferences.setString('organ_id', organId);
+        preferences.setString('organ_name', organName);
+      }
     } catch (e) {}
   }
 
@@ -307,15 +318,17 @@ class _CheckDiseaseState extends State<CheckDisease> {
     await Dio().get(url).then((value) => {print('valueaa = $value')});
     try {
       Response response = await Dio().get(url);
-      print('res = $response');
-
-      var result = json.decode(response.data);
-      print('res = $result');
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ShowGroup()));
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-      preferences.setString('organ_id', organId);
-      preferences.setString('organ_name', organName);
+      if (response.toString() == 'null') {
+        normalDialog2(context, 'ยังไม่มีข้อมูล');
+      } else {
+        var result = json.decode(response.data);
+        print('res = $result');
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ShowGroup()));
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        preferences.setString('organ_id', organId);
+        preferences.setString('organ_name', organName);
+      }
     } catch (e) {}
   }
 
@@ -379,15 +392,17 @@ class _CheckDiseaseState extends State<CheckDisease> {
     await Dio().get(url).then((value) => {print('valueaa = $value')});
     try {
       Response response = await Dio().get(url);
-      print('res = $response');
-
-      var result = json.decode(response.data);
-      print('res = $result');
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ShowGroup()));
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-      preferences.setString('organ_id', organId);
-      preferences.setString('organ_name', organName);
+      if (response.toString() == 'null') {
+        normalDialog2(context, 'ยังไม่มีข้อมูล');
+      } else {
+        var result = json.decode(response.data);
+        print('res = $result');
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ShowGroup()));
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        preferences.setString('organ_id', organId);
+        preferences.setString('organ_name', organName);
+      }
     } catch (e) {}
   }
 
@@ -451,15 +466,17 @@ class _CheckDiseaseState extends State<CheckDisease> {
     await Dio().get(url).then((value) => {print('valueaa = $value')});
     try {
       Response response = await Dio().get(url);
-      print('res = $response');
-
-      var result = json.decode(response.data);
-      print('res = $result');
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ShowGroup()));
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-      preferences.setString('organ_id', organId);
-      preferences.setString('organ_name', organName);
+      if (response.toString() == 'null') {
+        normalDialog2(context, 'ยังไม่มีข้อมูล');
+      } else {
+        var result = json.decode(response.data);
+        print('res = $result');
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ShowGroup()));
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        preferences.setString('organ_id', organId);
+        preferences.setString('organ_name', organName);
+      }
     } catch (e) {}
   }
 
@@ -503,18 +520,22 @@ class _CheckDiseaseState extends State<CheckDisease> {
               padding: const EdgeInsets.only(left: 5, right: 5),
               child: Stack(
                 children: <Widget>[
-                  Container(
-                    height: 240,
-                    child: InkWell(
-                      onTap: showToast,
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      height: 240,
+                      width: 220,
+                      child: InkWell(
+                        onTap: showToast,
+                      ),
                     ),
                   ),
                   show1(),
                   Align(
                     alignment: Alignment.center,
                     child: Container(
-                      // color: Colors.green,
-                      height: 130,
+                      height: 160,
+                      width: 200,
                       child: InkWell(
                         onTap: showToast2,
                       ),
@@ -531,9 +552,9 @@ class _CheckDiseaseState extends State<CheckDisease> {
                   ),
                   Align(
                     alignment: Alignment.bottomCenter,
-                    child: Container(
-                      // color: Colors.green,
-                      height: 190,
+                    child: Container(                  
+                      height: 220,
+                      width: 200,
                       child: InkWell(
                         onTap: showToast3,
                       ),
@@ -738,7 +759,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
       child: Stack(
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(top: 255, left: 15),
+            margin: EdgeInsets.only(top: 225, left: 15),
             alignment: Alignment.topLeft,
             height: 70.0,
             child: SizedBox.fromSize(
@@ -771,7 +792,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 180, left: 15),
+            margin: EdgeInsets.only(top: 150, left: 15),
             alignment: Alignment.topLeft,
             height: 70.0,
             child: SizedBox.fromSize(
@@ -804,7 +825,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 255, right: 15),
+            margin: EdgeInsets.only(top: 225, right: 15),
             alignment: Alignment.centerRight,
             height: 70.0,
             child: SizedBox.fromSize(
@@ -837,7 +858,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 330, left: 15),
+            margin: EdgeInsets.only(top: 300, left: 15),
             alignment: Alignment.centerLeft,
             height: 70.0,
             child: SizedBox.fromSize(
@@ -870,7 +891,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 180, right: 15),
+            margin: EdgeInsets.only(top: 150, right: 15),
             alignment: Alignment.centerRight,
             height: 70.0,
             child: SizedBox.fromSize(
@@ -903,7 +924,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 330, right: 15),
+            margin: EdgeInsets.only(top: 300, right: 15),
             alignment: Alignment.centerRight,
             height: 70.0,
             child: SizedBox.fromSize(

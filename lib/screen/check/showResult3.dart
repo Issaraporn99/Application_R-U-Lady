@@ -150,7 +150,7 @@ class _ShowResult3State extends State<ShowResult3> {
                       style: TextStyle(
                         color: Color(0xFF1687a7),
                         fontFamily: 'Prompt',
-                        fontSize: 18.0,
+                        fontSize: 20.0,
                       ),
                     ),
                   ),
@@ -159,9 +159,10 @@ class _ShowResult3State extends State<ShowResult3> {
                   alignment: Alignment.center,
                   child: Text('" $text "',
                       style: TextStyle(
-                        fontSize: 18.0,
+                        fontSize: 20.0,
                         color: Colors.black,
                         fontFamily: 'Prompt',
+
                       )),
                 ),
                 button(),
@@ -173,7 +174,7 @@ class _ShowResult3State extends State<ShowResult3> {
                     style: TextStyle(
                       color: Colors.red,
                       fontFamily: 'Prompt',
-                      fontSize: 14.0,
+                      fontSize: 18.0,
                     ),
                   ),
                 ),
@@ -186,7 +187,7 @@ class _ShowResult3State extends State<ShowResult3> {
                       style: TextStyle(
                         color: Color(0xFF1687a7),
                         fontFamily: 'Prompt',
-                        fontSize: 15.0,
+                        fontSize: 20.0,
                       ),
                     ),
                   ),
@@ -241,7 +242,7 @@ class _ShowResult3State extends State<ShowResult3> {
                   'สอบถามผู้เชี่ยวชาญ',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 15.0,
+                    fontSize: 16.0,
                     fontFamily: 'Prompt',
                   ),
                 ),
@@ -268,7 +269,7 @@ class _ShowResult3State extends State<ShowResult3> {
                   'อ่านข้อมูลเพิ่มเติม',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 15.0,
+                    fontSize: 18.0,
                     fontFamily: 'Prompt',
                   ),
                 ),
@@ -288,7 +289,8 @@ class _ShowResult3State extends State<ShowResult3> {
             children: [
               Text(
                 "- " + groupSym[index].symptomName,
-                style: TextStyle(color: Colors.black, fontFamily: 'Prompt'),
+                style: TextStyle(
+                    color: Colors.black, fontFamily: 'Prompt', fontSize: 18),
               ),
             ],
           ),

@@ -3,10 +3,13 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:doctorpurin/modal/ad.dart';
+import 'package:doctorpurin/screen/includes/showArticle.dart';
 import 'package:doctorpurin/screen/includes/showad.dart';
+import 'package:draggable_scrollbar_sliver/draggable_scrollbar_sliver.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class NextPage extends StatefulWidget {
@@ -38,7 +41,7 @@ class _NextPageState extends State<NextPage> {
   String topic;
   String diseaseName;
   List<ArticleDisInfo> articleD = List();
-
+  ScrollController _arrowsController = ScrollController();
   @override
   void initState() {
     super.initState();
@@ -122,7 +125,7 @@ class _NextPageState extends State<NextPage> {
             DataColumn(
               label: Text(
                 "บทความเกี่ยวกับโรค " + '$diseaseName',
-                style: TextStyle(fontFamily: 'Prompt'),
+                style: TextStyle(fontFamily: 'Prompt', fontSize: 16),
               ),
             ),
           ],
@@ -151,55 +154,6 @@ class _NextPageState extends State<NextPage> {
     );
   }
 
-//   @override
-//   Widget build(BuildContext context) {
-//      return articleD.length == 0
-//         ? Center(
-//             child: CircularProgressIndicator(),
-//           )
-//         // body: new Text("${widget.value}"),
-//         : ListView.builder(
-//             itemBuilder: (ctx, index) {
-//               return GestureDetector(
-//                 child: Padding(
-//                   padding:
-//                       const EdgeInsets.only(top: 10.0, left: 10, right: 10),
-//                     child: Card(
-//                       elevation: 1.5,
-//                       color: Color(0xFFF7F7F9),
-//                       child: Row(
-//                         children: [
-//                           Padding(
-//                             padding: const EdgeInsets.only(left: 15),
-//                             child: Column(
-//                               crossAxisAlignment: CrossAxisAlignment.start,
-//                               children: [
-//                                 Text(
-//                                   '${articleD[index].diseaseId}',
-//                                   style: TextStyle(
-//                                     fontWeight: FontWeight.bold,
-//                                     fontSize: 16,
-//                                   ),
-//                                 ),
-//                                 Text(
-//                                   '${articleD[index].topic}',
-//                                   // DateFormat.yMMMMd()
-//                                   //     .format(myModels[index].detaMissing),
-//                                   style: TextStyle(color: Colors.grey[700]),
-//                                 ),
-//                               ],
-//                             ),
-//                           )
-//                         ],
-//                       ),
-//                   ),
-//                 ),
-//               );
-//             },
-//             itemCount: articleD.length,
-//           );
-//   }
-// }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -214,8 +168,78 @@ class _NextPageState extends State<NextPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Text(
+                "บทความเกี่ยวกับโรค " + '$diseaseName',
+                style: TextStyle(fontFamily: 'Prompt', fontSize: 16),
+              ),
+            ),
+            // Expanded(
+            //   child: _dataBody(),
+            // ),
             Expanded(
-              child: _dataBody(),
+              child: DraggableScrollbar.arrows(
+                alwaysVisibleScrollThumb: true,
+                controller: _arrowsController,
+                padding: EdgeInsets.only(right: 4.0),
+                backgroundColor: Colors.pink[200],
+                child: ListView.builder(
+                  controller: _arrowsController,
+                  physics: AlwaysScrollableScrollPhysics(),
+                  itemCount: articleD.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      margin: EdgeInsets.fromLTRB(10, 3, 10, 3),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.purple[100].withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 2,
+                              offset: Offset(0, 2),
+                            ),
+                          ]),
+                      child: ButtonTheme(
+                        minWidth: 500.0,
+                        height: 50.0,
+                        child: FlatButton(
+                          color: Colors.white,
+                          onPressed: () {
+                            routeTS(ShowArticle(), articleD[index]);
+                          },
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      child: Text(articleD[index].topic,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                          softWrap: false,
+                                          style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontFamily: 'Prompt',
+                                          )),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Icon(
+                                LineIcons.angle_right,
+                                color: Colors.black38,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
             ),
           ],
         ),
