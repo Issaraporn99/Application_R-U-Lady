@@ -21,7 +21,7 @@ class MyStyle {
   Text showTitleH2(String title) => Text(
         title,
         style: TextStyle(
-            fontSize: 16.0,
+            fontSize: 18.0,
             color: Colors.blueGrey[900],
             fontWeight: FontWeight.bold,
             fontFamily: 'Prompt'),
@@ -67,7 +67,7 @@ class MyStyle {
   Container rr() {
     return Container(
       width: 400.0,
-      child: Image.asset('images/rr.png'),
+      child: Image.asset('images/3828860.jpg'),
     );
   }
 

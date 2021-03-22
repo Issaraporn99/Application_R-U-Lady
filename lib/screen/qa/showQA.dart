@@ -251,7 +251,7 @@ class _ShowQAState extends State<ShowQA> {
                   padding: EdgeInsets.only(right: 4.0),
                   backgroundColor: Colors.pink[200],
                   child: ListView.builder(
-                     padding: EdgeInsets.only(bottom: 40),
+                    padding: EdgeInsets.only(bottom: 40),
                     controller: _arrowsController,
                     physics: AlwaysScrollableScrollPhysics(),
                     itemCount: _filterqa.length,
@@ -271,7 +271,7 @@ class _ShowQAState extends State<ShowQA> {
                             ]),
                         child: ButtonTheme(
                           minWidth: 500.0,
-                          height: 50.0,
+                          height: 70.0,
                           child: FlatButton(
                             color: Colors.white,
                             onPressed: () {
@@ -293,6 +293,23 @@ class _ShowQAState extends State<ShowQA> {
                                               fontSize: 18.0,
                                               fontFamily: 'Prompt',
                                             )),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(top: 5),
+                                        child: Container(
+                                          child: Text(
+                                              _filterqa[index].questionDate,
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              softWrap: false,
+                                              style: TextStyle(
+                                                fontSize: 15.0,
+                                                fontFamily: 'Prompt',
+                                                color: Colors.grey[700],
+                                                backgroundColor:
+                                                    Colors.teal[50],
+                                              )),
+                                        ),
                                       ),
                                     ],
                                   ),

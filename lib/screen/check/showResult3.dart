@@ -35,9 +35,11 @@ class _ShowResult3State extends State<ShowResult3> {
   String diseaseDefence;
   String diseaseAbout;
   String expertiseName;
+  String eid;
   List<Getdissym> groupSym = List();
   var diseaseName = new List();
   var diseaseId = new List();
+  var eId = new List();
 
   @override
   void initState() {
@@ -64,6 +66,12 @@ class _ShowResult3State extends State<ShowResult3> {
       }
       for (var x in diseaseId) {
         id = x;
+      }
+      for (var x in result) {
+        eId.add(x['expertise_id']);
+      }
+      for (var x in eId) {
+        eid = x;
       }
       for (var map in result) {
         Getdissym disInfo = Getdissym.fromJson(map);
@@ -123,6 +131,13 @@ class _ShowResult3State extends State<ShowResult3> {
     // Response response = await Dio().get(url);
   }
 
+  Future<Null> shear() async {
+    MaterialPageRoute route = MaterialPageRoute(builder: (context) => QandA());
+    Navigator.push(context, route);
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString('expertise_id', eid);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -162,7 +177,6 @@ class _ShowResult3State extends State<ShowResult3> {
                         fontSize: 20.0,
                         color: Colors.black,
                         fontFamily: 'Prompt',
-
                       )),
                 ),
                 button(),
@@ -232,9 +246,7 @@ class _ShowResult3State extends State<ShowResult3> {
               child: RaisedButton(
                 onPressed: () {
                   saveToDig();
-                  MaterialPageRoute route =
-                      MaterialPageRoute(builder: (context) => QandA());
-                  Navigator.push(context, route);
+                  shear();
                 },
                 color: Color(0xFF6ddccf),
                 elevation: 8,

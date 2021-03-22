@@ -226,7 +226,7 @@ class _ArticleState extends State<Article> {
                                 BorderRadius.all(Radius.circular(10.0)),
                             boxShadow: [
                               BoxShadow(
-                                 color: Colors.purple[100].withOpacity(0.5),
+                                color: Colors.purple[100].withOpacity(0.5),
                                 spreadRadius: 1,
                                 blurRadius: 2,
                                 offset: Offset(0, 2),
@@ -234,7 +234,7 @@ class _ArticleState extends State<Article> {
                             ]),
                         child: ButtonTheme(
                           minWidth: 500.0,
-                          height: 50.0,
+                          height: 70.0,
                           child: FlatButton(
                             color: Colors.white,
                             onPressed: () {
@@ -256,6 +256,23 @@ class _ArticleState extends State<Article> {
                                               fontSize: 18.0,
                                               fontFamily: 'Prompt',
                                             )),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(top: 5),
+                                        child: Container(
+                                          child: Text(
+                                              _filterarticle[index].issuedate,
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              softWrap: false,
+                                              style: TextStyle(
+                                                fontSize: 15.0,
+                                                fontFamily: 'Prompt',
+                                                color: Colors.grey[700],
+                                                backgroundColor:
+                                                    Colors.purple[50],
+                                              )),
+                                        ),
                                       ),
                                     ],
                                   ),

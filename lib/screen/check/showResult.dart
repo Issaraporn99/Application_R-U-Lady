@@ -36,15 +36,16 @@ class _ShowResultState extends State<ShowResult> {
   String diseaseDefence;
   String diseaseAbout;
   String expertiseName;
+  String eid;
   List<Getdissym> groupSym = List();
   var diseaseName = new List();
   var diseaseId = new List();
+  var eId = new List();
 
   @override
   void initState() {
     super.initState();
     show();
-    
   }
 
   Future<Null> show() async {
@@ -66,6 +67,12 @@ class _ShowResultState extends State<ShowResult> {
       }
       for (var x in diseaseId) {
         id = x;
+      }
+      for (var x in result) {
+        eId.add(x['expertise_id']);
+      }
+      for (var x in eId) {
+        eid = x;
       }
       for (var map in result) {
         Getdissym disInfo = Getdissym.fromJson(map);
@@ -116,6 +123,13 @@ class _ShowResultState extends State<ShowResult> {
     //     context, MaterialPageRoute(builder: (context) => myWidgett));
   }
 
+  Future<Null> shear() async {
+    MaterialPageRoute route = MaterialPageRoute(builder: (context) => QandA());
+    Navigator.push(context, route);
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString('expertise_id', eid);
+  }
+
   Future<Null> saveToDig() async {
     print("id=$id");
     String url =
@@ -132,7 +146,8 @@ class _ShowResultState extends State<ShowResult> {
       appBar: AppBar(
         title: Text(
           'ผลการตรวจโรค',
-          style: TextStyle(color: Colors.white, fontFamily: 'Prompt',fontSize: 18.0),
+          style: TextStyle(
+              color: Colors.white, fontFamily: 'Prompt', fontSize: 18.0),
         ),
         backgroundColor: Colors.pinkAccent[100],
       ),
@@ -164,7 +179,6 @@ class _ShowResultState extends State<ShowResult> {
                         fontSize: 18.0,
                         color: Colors.black,
                         fontFamily: 'Prompt',
-                       
                       )),
                 ),
                 button(),
@@ -234,9 +248,7 @@ class _ShowResultState extends State<ShowResult> {
               child: RaisedButton(
                 onPressed: () {
                   saveToDig();
-                  MaterialPageRoute route =
-                      MaterialPageRoute(builder: (context) => QandA());
-                  Navigator.push(context, route);
+                  shear();
                 },
                 color: Color(0xFF6ddccf),
                 elevation: 8,
@@ -291,7 +303,8 @@ class _ShowResultState extends State<ShowResult> {
             children: [
               Text(
                 "- " + groupSym[index].symptomName,
-                style: TextStyle(color: Colors.black, fontFamily: 'Prompt',fontSize: 16.0),
+                style: TextStyle(
+                    color: Colors.black, fontFamily: 'Prompt', fontSize: 16.0),
               ),
             ],
           ),

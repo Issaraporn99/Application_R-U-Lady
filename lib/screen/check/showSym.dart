@@ -183,6 +183,8 @@ class _ShowSymState extends State<ShowSym> {
         print("d=$cDis2");
         if (cDis2 >= int.parse(cDis3)) {
           getDis3();
+        } else if (cDis2 < int.parse(cDis3)) {
+          getDis2();
         }
       });
     }
@@ -190,7 +192,7 @@ class _ShowSymState extends State<ShowSym> {
 
   Future<Null> idArray() async {
     symYNname.add(symptomName);
-    limit = 0;
+    limit = limit - 1;
     await count();
     if (d <= 1) {
       getDis();
@@ -724,7 +726,7 @@ class _ShowSymState extends State<ShowSym> {
   }
 
   Future<Null> idArray2() async {
-    limit = 0;
+    limit = limit - 1;
     await getCountDis();
     if (d > 1) {
       count();
@@ -1041,7 +1043,8 @@ class _ShowSymState extends State<ShowSym> {
   }
 
   Future<Null> idArray32() async {
-    await getCountDis();
+    // await getCountDis();
+    limit = limit - 1;
     if (d > 1) {
       count();
     }
@@ -1128,7 +1131,11 @@ class _ShowSymState extends State<ShowSym> {
       symName = [];
       sym2 = [];
       imgs = [];
-      limit = limit + 2;
+      if (limit <= 1) {
+        limit = 2;
+      } else {
+        limit = limit + 2;
+      }
     });
 
     String url =
@@ -1139,7 +1146,7 @@ class _ShowSymState extends State<ShowSym> {
     print("$result");
     print("$limit");
     if (response.toString() == 'null') {
-      getDis2();
+      getCountDis();
     } else {
       setState(() {
         for (var x in result) {

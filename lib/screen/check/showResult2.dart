@@ -21,6 +21,7 @@ class _ShowResult2State extends State<ShowResult2> {
         ),
         backgroundColor: Colors.pinkAccent[100],
       ),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Container(
           child: Padding(

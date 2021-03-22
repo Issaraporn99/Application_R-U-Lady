@@ -208,7 +208,7 @@ class _ShowAState extends State<ShowA> {
       );
   Widget qdate() => Container(
         child: Padding(
-          padding: const EdgeInsets.only(top: 20, left: 50),
+          padding: const EdgeInsets.only(top: 20, left:20),
           child: Align(
             alignment: Alignment.topRight,
             child: Text(

@@ -59,3 +59,27 @@ Future<void> normalDialog2(BuildContext context, String message) async {
     ),
   );
 }
+Future<void> normalDialog3(BuildContext context, String message) async {
+  showDialog(
+    context: context,
+    builder: (context) => SimpleDialog(
+      title: Text(
+        message,
+        style: TextStyle(fontSize: 15.0, fontFamily: 'Prompt'),
+      ),
+      children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[        
+            FlatButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text(
+                  'ปิด',
+                  style: TextStyle(color: Colors.red, fontFamily: 'Prompt'),
+                )),
+          ],
+        )
+      ],
+    ),
+  );
+}

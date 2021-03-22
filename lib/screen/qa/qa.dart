@@ -22,8 +22,12 @@ class _QandAState extends State<QandA> {
   String questionId;
 
   Future getex() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    selectedValue = preferences.getString('expertise_id');
+    // SharedPreferences preferences = await SharedPreferences.getInstance();
+    // setState(() {
+    //   selectedValue = preferences.getString('expertise_id');
+    //   print("$selectedValue");
+    // });
+
     var url =
         "http://student.crru.ac.th/601463046/apidoctor/getExType.php?isAdd=true";
     var response = await http.get(url);
@@ -48,40 +52,46 @@ class _QandAState extends State<QandA> {
       appBar: AppBar(
         title: Text(
           'สอบถามผู้เชี่ยวชาญ',
-          style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: 'Prompt',
+            fontSize: 18,
+          ),
         ),
         backgroundColor: Colors.pinkAccent[100],
       ),
+      backgroundColor: Colors.white,
       body: Container(
-        decoration: BoxDecoration(
-          gradient: RadialGradient(
-            colors: <Color>[Colors.white, MyStyle().primaryColor],
-            center: Alignment(0, -0.3),
-            radius: 1.0,
-          ),
-        ),
+        // decoration: BoxDecoration(
+        //   gradient: RadialGradient(
+        //     colors: <Color>[Colors.white, MyStyle().primaryColor],
+        //     center: Alignment(0, -0.3),
+        //     radius: 1.0,
+        //   ),
+        // ),
         child: Center(
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Image.asset(
-                  './images/b.png',
-                  width: 200,
-                  height: 200,
+                  './images/3748550.jpg',
+                  width: 500,
+                  // height: 200,
                 ),
                 MyStyle().mySizeBox(),
                 MyStyle().showTitleH2('เลือกสาขาความเชี่ยวชาญ :'),
                 MyStyle().mySizeBox(),
                 DropdownButton(
-                  hint: Text('เลือก', style: TextStyle(fontFamily: 'Prompt')),
+                  hint: Text('เลือก',
+                      style: TextStyle(fontFamily: 'Prompt', fontSize: 18)),
                   value: selectedValue,
                   items: exItem.map((ex) {
                     return DropdownMenuItem(
                         value: ex['expertise_id'],
                         child: Text(
                           ex['expertise_name'],
-                          style: TextStyle(fontFamily: 'Prompt'),
+                          style: TextStyle(fontFamily: 'Prompt', fontSize: 18),
                         ));
                   }).toList(),
                   onChanged: (value) {
@@ -116,13 +126,19 @@ class _QandAState extends State<QandA> {
           child: RaisedButton(
             color: Colors.teal[400],
             onPressed: () {
-              print(
-                  'question_id = $questionId,question = $question, question_name = $questionName, expertise_id = $expertiseId,question_date=$questionDate');
-              registerThread();
+              if ('$question' == "null") {
+                normalDialog3(context, 'ยังไม่ได้ป้อนคำถาม');
+              } else if ('$expertiseId' == "null") {
+                normalDialog3(context, 'กรุณาเลือกสาขาความเชี่ยวชาญ');
+              } else {
+                print(
+                    'question_id = $questionId,question = $question, question_name = $questionName, expertise_id = $expertiseId,question_date=$questionDate');
+                registerThread();
+              }
             },
             child: Text('ถาม',
                 style: TextStyle(
-                    color: Colors.white, fontFamily: 'Prompt', fontSize: 15.0)),
+                    color: Colors.white, fontFamily: 'Prompt', fontSize: 18.0)),
           )));
 
   Future<Null> registerThread() async {
@@ -136,7 +152,7 @@ class _QandAState extends State<QandA> {
       if (response.toString() == 'true') {
         Navigator.pop(context);
       } else {
-        normalDialog(context, 'กรุณาลองใหม่');
+        normalDialog3(context, 'กรุณาเลือกสาขาความเชี่ยวชาญ');
       }
     } catch (e) {}
   }
@@ -154,7 +170,9 @@ class _QandAState extends State<QandA> {
                     color: MyStyle().darkColor,
                   ),
                   labelStyle: TextStyle(
-                      color: MyStyle().darkColor, fontFamily: 'Prompt'),
+                      color: MyStyle().darkColor,
+                      fontFamily: 'Prompt',
+                      fontSize: 18),
                   labelText: 'ถามคำถาม :',
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: MyStyle().darkColor)),
@@ -178,7 +196,9 @@ class _QandAState extends State<QandA> {
                     color: MyStyle().darkColor,
                   ),
                   labelStyle: TextStyle(
-                      color: MyStyle().darkColor, fontFamily: 'Prompt'),
+                      color: MyStyle().darkColor,
+                      fontFamily: 'Prompt',
+                      fontSize: 18),
                   labelText: 'ชื่อ :',
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: MyStyle().darkColor)),
