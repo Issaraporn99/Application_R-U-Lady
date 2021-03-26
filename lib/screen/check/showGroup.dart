@@ -113,7 +113,7 @@ class _ShowGroupState extends State<ShowGroup> {
 
   Future<Null> apisym41() async {
     await del();
-   await upSD();
+    await upSD();
     diss = [];
     symm = [];
     gg = [];
@@ -149,12 +149,13 @@ class _ShowGroupState extends State<ShowGroup> {
     for (var x in result) {
       bf.add(x['before_id']);
     }
+
+    addToDB2();
     Navigator.push(context, MaterialPageRoute(builder: (context) => ShowSym()));
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString('group_id', id);
     preferences.setString('group_name', idname);
     preferences.setString('symptom_name', symptomName);
-    addToDB2();
   }
 
   Future<Null> addToDB2() async {
