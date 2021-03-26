@@ -40,7 +40,7 @@ class _ShowResult3State extends State<ShowResult3> {
   var diseaseName = new List();
   var diseaseId = new List();
   var eId = new List();
-
+  var en = new List();
   @override
   void initState() {
     super.initState();
@@ -72,6 +72,12 @@ class _ShowResult3State extends State<ShowResult3> {
       }
       for (var x in eId) {
         eid = x;
+      }
+      for (var x in result) {
+        en.add(x['expertise_name']);
+      }
+      for (var x in en) {
+        expertiseName = x;
       }
       for (var map in result) {
         Getdissym disInfo = Getdissym.fromJson(map);
@@ -184,7 +190,7 @@ class _ShowResult3State extends State<ShowResult3> {
                   padding: const EdgeInsets.only(
                       top: 8, left: 10, right: 10, bottom: 10),
                   child: Text(
-                    "หมายเหตุ : หากคุณมีอาการผิดปกติ ควรปรึกษาแพทย์ผู้เชี่ยวชาญ",
+                    "หมายเหตุ : หากคุณมีอาการผิดปกติ ควรปรึกษาแพทย์ผู้เชี่ยวชาญ สาขา$expertiseName",
                     style: TextStyle(
                       color: Colors.red,
                       fontFamily: 'Prompt',

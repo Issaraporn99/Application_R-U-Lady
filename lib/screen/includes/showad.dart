@@ -1,6 +1,7 @@
 import 'package:doctorpurin/main.dart';
 import 'package:doctorpurin/screen/women_home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/style.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -53,7 +54,7 @@ class _ShowADState extends State<ShowAD> {
           'บทความ',
           style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
         ),
-         backgroundColor: Colors.pinkAccent[100],
+        backgroundColor: Colors.pinkAccent[100],
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -68,44 +69,49 @@ class _ShowADState extends State<ShowAD> {
                   style: TextStyle(
                       color: Colors.red[900],
                       fontSize: 18.0,
-                      fontFamily: 'Prompt'),
+                      fontFamily: 'Sarabun',
+                      fontWeight: FontWeight.w100),
                 ),
               ),
               Align(
                 alignment: Alignment.topLeft,
                 child: Padding(
                     padding: const EdgeInsets.only(left: 10, right: 50),
-                    child: Html(
-                      data: ('$detail'),
-                    )),
+                    child: Html(data: ('$detail'), style: {
+                      "html": Style(
+                        fontSize: FontSize(18.0),
+                        padding: EdgeInsets.all(2.0),
+                        // backgroundColor: Colors.white70,
+                        fontWeight: FontWeight.w100,
+                        fontFamily: 'Sarabun',
+                      ),
+                    })),
               ),
               Align(
                 alignment: Alignment.topLeft,
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 20,top: 20
-                  ),
+                  padding: const EdgeInsets.only(left: 20, top: 20),
                   child: Text(
                     '$issueDate',
                     style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 13.0,
-                    ),
+                        color: Colors.black54,
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w100,
+                        fontFamily: 'Sarabun'),
                   ),
                 ),
               ),
               Align(
                 alignment: Alignment.topLeft,
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 20,bottom: 40
-                  ),
+                  padding: const EdgeInsets.only(left: 20, bottom: 40),
                   child: Text(
                     'ผู้เขียน $doctorname',
                     style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 13.0,
-                    ),
+                        color: Colors.black54,
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w100,
+                        fontFamily: 'Sarabun'),
                   ),
                 ),
               ),

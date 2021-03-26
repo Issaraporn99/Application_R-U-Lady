@@ -80,7 +80,13 @@ flutter:
       fonts:
         - asset: Prompt/Prompt-Regular.ttf
         - asset: Prompt/Prompt-Italic.ttf
-        - asset: Prompt/Prompt-ExtraLightItalic.ttf     
+        - asset: Prompt/Prompt-ExtraLightItalic.ttf   
+    - family: 'Sarabun'  
+      fonts:
+        - asset: Sarabun/Sarabun-Regular.ttf
+    - family: 'Pridi'  
+      fonts:
+        - asset: Pridi/Pridi-Light.ttf
     # - family: RobotoMono
     #   fonts:
     #     - asset: fonts/RobotoMono-Regular.ttf

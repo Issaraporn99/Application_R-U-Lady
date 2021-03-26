@@ -110,6 +110,8 @@ class _QandAState extends State<QandA> {
                 MyStyle().mySizeBox(),
                 MyStyle().mySizeBox(),
                 registerButton(),
+                MyStyle().mySizeBox(),
+                MyStyle().mySizeBox(),
               ],
             ),
           ),

@@ -125,7 +125,8 @@ class _ShowAState extends State<ShowA> {
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 18.0,
-                              fontFamily: 'Prompt'),
+                              fontFamily: 'Sarabun',
+                              fontWeight: FontWeight.w200),
                         ),
                       ),
                     ),
@@ -208,7 +209,7 @@ class _ShowAState extends State<ShowA> {
       );
   Widget qdate() => Container(
         child: Padding(
-          padding: const EdgeInsets.only(top: 20, left:20),
+          padding: const EdgeInsets.only(top: 20, left: 20),
           child: Align(
             alignment: Alignment.topRight,
             child: Text(
@@ -251,7 +252,8 @@ class _ShowAState extends State<ShowA> {
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 18.0,
-                              fontFamily: 'Prompt'),
+                              fontFamily: 'Sarabun',
+                              fontWeight: FontWeight.w100),
                         ),
                       ),
                     ),

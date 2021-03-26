@@ -345,15 +345,17 @@ class _CheckDiseaseState extends State<CheckDisease> {
     await Dio().get(url).then((value) => {print('valueaa = $value')});
     try {
       Response response = await Dio().get(url);
-      print('res = $response');
-
-      var result = json.decode(response.data);
-      print('res = $result');
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ShowGroup()));
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-      preferences.setString('organ_id', organId);
-      preferences.setString('organ_name', organName);
+      if (response.toString() == 'null') {
+        normalDialog2(context, 'ยังไม่มีข้อมูล');
+      } else {
+        var result = json.decode(response.data);
+        print('res = $result');
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ShowGroup()));
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        preferences.setString('organ_id', organId);
+        preferences.setString('organ_name', organName);
+      }
     } catch (e) {}
   }
 
@@ -384,8 +386,8 @@ class _CheckDiseaseState extends State<CheckDisease> {
     String organId = preferences.getString('organ_id');
     String organName = preferences.getString('organ_name');
     setState(() {
-      organId = ('13');
-      organName = ('ลำไส้');
+      organId = ('12');
+      organName = ('อก');
     });
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';
@@ -552,7 +554,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
                   ),
                   Align(
                     alignment: Alignment.bottomCenter,
-                    child: Container(                  
+                    child: Container(
                       height: 220,
                       width: 200,
                       child: InkWell(
@@ -849,7 +851,14 @@ class _CheckDiseaseState extends State<CheckDisease> {
                               fontSize: 15,
                               color: Colors.white,
                               fontFamily: 'Prompt'),
-                        ), // text
+                        ),
+                        Text(
+                          "ลำไส้",
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.white,
+                              fontFamily: 'Prompt'),
+                        ),
                       ],
                     ),
                   ),
@@ -877,7 +886,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          "ลำไส้",
+                          "อก",
                           style: TextStyle(
                               fontSize: 15,
                               color: Colors.white,

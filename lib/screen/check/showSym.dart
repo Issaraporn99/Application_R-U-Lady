@@ -17,6 +17,7 @@ class ShowSym extends StatefulWidget {
 
 class _ShowSymState extends State<ShowSym> {
   String symptomId;
+  String before;
   String img = "";
   String iii;
   var imgs = new List();
@@ -39,6 +40,7 @@ class _ShowSymState extends State<ShowSym> {
   var statuss = new List();
   var symName = new List();
   var ggg = new List();
+  var bf = new List();
 
   var dis2 = new List();
   var sym2 = new List();
@@ -56,6 +58,14 @@ class _ShowSymState extends State<ShowSym> {
   var did = new List();
   String did2 = "";
   int no = 0;
+  String a = "";
+  var stt = new List();
+  var namebf = new List();
+  String namebef = "";
+  String idbf = "";
+  var ynnnnnn = List();
+  String ynnnn = "";
+
   @override
   void initState() {
     super.initState();
@@ -74,6 +84,15 @@ class _ShowSymState extends State<ShowSym> {
     var result = json.decode(response.data);
     print("result=$result");
     setState(() {
+      for (var x in result) {
+        ynnnnnn.add(x['yn']);
+      }
+      for (var x in ynnnnnn) {
+        ynnnn = x;
+      }
+      if (ynnnn == "y") {
+        idArray();
+      }
       for (var x in result) {
         symm.add(x['symptom_id']);
       }
@@ -94,6 +113,40 @@ class _ShowSymState extends State<ShowSym> {
       for (var x in imgs) {
         iii = x;
       }
+      for (var x in result) {
+        bf.add(x['before_id']);
+      }
+      for (var x in bf) {
+        before = x;
+      }
+      findbf();
+      print("a=$before");
+    });
+  }
+
+  Future<Null> findbf() async {
+    a = "";
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/findBf.php?before_id=$before&isAdd=true';
+    await Dio().get(url).then((value) => {print('findId = $value')});
+
+    Response response = await Dio().get(url);
+    var result = json.decode(response.data);
+    print("result=$result");
+    setState(() {
+      for (var x in result) {
+        stt.add(x['status']);
+      }
+      for (var x in stt) {
+        a = x;
+      }
+      for (var x in result) {
+        namebf.add(x['before_ques']);
+      }
+      for (var x in namebf) {
+        namebef = x;
+      }
+      print("a=$a");
     });
   }
 
@@ -233,6 +286,7 @@ class _ShowSymState extends State<ShowSym> {
           sym2 = [];
           ynn = [];
           imgs = [];
+          bf = [];
         });
 
         String url =
@@ -268,7 +322,13 @@ class _ShowSymState extends State<ShowSym> {
           for (var x in imgs) {
             img = x;
           }
-          print(img);
+
+          for (var x in result) {
+            bf.add(x['before_id']);
+          }
+          for (var x in bf) {
+            before = x;
+          }
         });
 
         updateYN();
@@ -464,7 +524,13 @@ class _ShowSymState extends State<ShowSym> {
             for (var x in imgs) {
               img = x;
             }
-
+            for (var x in result) {
+              bf.add(x['before_id']);
+            }
+            for (var x in bf) {
+              before = x;
+            }
+            findbf();
             print(sn);
             symptomName = sn;
             symptomId = snn;
@@ -569,6 +635,13 @@ class _ShowSymState extends State<ShowSym> {
           for (var x in imgs) {
             img = x;
           }
+          for (var x in result) {
+            bf.add(x['before_id']);
+          }
+          for (var x in bf) {
+            before = x;
+          }
+          findbf();
           print(img);
           symptomName = sn;
           symptomId = snn;
@@ -766,6 +839,7 @@ class _ShowSymState extends State<ShowSym> {
         sym2 = [];
         ynn = [];
         imgs = [];
+        bf = [];
       });
 
       String url =
@@ -801,7 +875,14 @@ class _ShowSymState extends State<ShowSym> {
         for (var x in imgs) {
           img = x;
         }
+        for (var x in result) {
+          bf.add(x['before_id']);
+        }
+        for (var x in bf) {
+          before = x;
+        }
         print(img);
+        findbf();
       });
       getno();
     }
@@ -920,7 +1001,13 @@ class _ShowSymState extends State<ShowSym> {
             for (var x in imgs) {
               img = x;
             }
-
+            for (var x in result) {
+              bf.add(x['before_id']);
+            }
+            for (var x in bf) {
+              before = x;
+            }
+            findbf();
             iii = img;
             print(img);
             print(sn);
@@ -1032,8 +1119,15 @@ class _ShowSymState extends State<ShowSym> {
           for (var x in imgs) {
             img = x;
           }
+          for (var x in result) {
+            bf.add(x['before_id']);
+          }
+          for (var x in bf) {
+            before = x;
+          }
           print(iii);
           print(sn);
+          findbf();
           symptomName = sn;
           symptomId = snn;
           iii = img;
@@ -1083,6 +1177,7 @@ class _ShowSymState extends State<ShowSym> {
         sym2 = [];
         ynn = [];
         imgs = [];
+        bf = [];
       });
 
       String url =
@@ -1118,7 +1213,12 @@ class _ShowSymState extends State<ShowSym> {
         for (var x in imgs) {
           img = x;
         }
-        print(img);
+        for (var x in result) {
+          bf.add(x['before_id']);
+        }
+        for (var x in bf) {
+          before = x;
+        }
       });
 
       apiSym32();
@@ -1131,6 +1231,7 @@ class _ShowSymState extends State<ShowSym> {
       symName = [];
       sym2 = [];
       imgs = [];
+      bf = [];
       if (limit <= 1) {
         limit = 2;
       } else {
@@ -1179,8 +1280,15 @@ class _ShowSymState extends State<ShowSym> {
         for (var x in imgs) {
           img = x;
         }
+        for (var x in result) {
+          bf.add(x['before_id']);
+        }
+        for (var x in bf) {
+          before = x;
+        }
         print(iii);
         print(sn);
+        findbf();
         symptomName = sn;
         symptomId = snn;
         iii = img;
@@ -1252,6 +1360,14 @@ class _ShowSymState extends State<ShowSym> {
     await Dio().get(url).then((value) => {print('updateU = $value')});
   }
 
+  Future<Null> updateStatusBf() async {
+    print("$before");
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/updateBf.php?&before_id=$before&idbf=$idbf&isAdd=true';
+    await Dio().get(url).then((value) => {print('updateStatusBf = $value')});
+    findId();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -1270,9 +1386,7 @@ class _ShowSymState extends State<ShowSym> {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    sym(),
-                    // iimage(),
-                    // symList(),
+                    a == "0" ? symFrist() : sym(),
                     Padding(
                       padding: const EdgeInsets.only(top: 20, bottom: 10),
                       child: Text(('อาการที่คุณตอบใช่'),
@@ -1324,6 +1438,76 @@ class _ShowSymState extends State<ShowSym> {
     );
   }
 
+  Widget symFrist() => Container(
+      padding: const EdgeInsets.only(left: 20, right: 20),
+      child: SizedBox(
+        child: Card(
+          color: Colors.white,
+          child: Container(
+            constraints:
+                BoxConstraints(minHeight: 100, minWidth: double.infinity),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 30, left: 20, right: 20, bottom: 20),
+                    child: Text(("$namebef"),
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          color: Colors.black,
+                          fontFamily: 'Prompt',
+                        )),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: RaisedButton(
+                            onPressed: () {
+                              idbf = '1';
+                              updateStatusBf();
+                            },
+                            color: Color(0xFF00af91),
+                            padding: EdgeInsets.all(5),
+                            child: Text('ใช่',
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                  color: Colors.white,
+                                  fontFamily: 'Prompt',
+                                )),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: RaisedButton(
+                            onPressed: () {
+                              idbf = '2';
+                              updateStatusBf();
+                            },
+                            color: Color(0xFFff7171),
+                            padding: EdgeInsets.all(5),
+                            child: Text('ไม่ใช่',
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                  color: Colors.white,
+                                  fontFamily: 'Prompt',
+                                )),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ]),
+          ),
+        ),
+      ));
   Widget sym() => Container(
       padding: const EdgeInsets.only(left: 20, right: 20),
       child: SizedBox(

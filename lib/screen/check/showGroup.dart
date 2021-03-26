@@ -30,7 +30,7 @@ class _ShowGroupState extends State<ShowGroup> {
   var diss2 = new List();
   var symm = new List();
   var gg = new List();
-
+  var bf = new List();
   var dess = new List();
   var groupp = new List();
   var d = new List<String>();
@@ -38,6 +38,7 @@ class _ShowGroupState extends State<ShowGroup> {
   var s = new List<String>();
   var de = new List<String>();
   var gr = new List<String>();
+  var bb = new List<String>();
 
   List<int> myModels = [];
   List<GroupSym> groupInfo = List();
@@ -88,6 +89,12 @@ class _ShowGroupState extends State<ShowGroup> {
         context, MaterialPageRoute(builder: (context) => myWidgett));
   }
 
+  Future<Null> upSD() async {
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/updateSD.php?isAdd=true';
+    await Dio().get(url);
+  }
+
   Future<Null> apisym4() async {
     diss2 = [];
     print("id=$id");
@@ -106,6 +113,7 @@ class _ShowGroupState extends State<ShowGroup> {
 
   Future<Null> apisym41() async {
     await del();
+   await upSD();
     diss = [];
     symm = [];
     gg = [];
@@ -137,6 +145,9 @@ class _ShowGroupState extends State<ShowGroup> {
     }
     for (var x in result) {
       gg.add(x['group_id']);
+    }
+    for (var x in result) {
+      bf.add(x['before_id']);
     }
     Navigator.push(context, MaterialPageRoute(builder: (context) => ShowSym()));
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -170,6 +181,13 @@ class _ShowGroupState extends State<ShowGroup> {
       map["gg[$n3]"] = c;
       n3++;
     }
+    String d = "";
+    int n4 = 0;
+    for (var x in bf) {
+      d = x;
+      map["bf[$n4]"] = d;
+      n4++;
+    }
     final response = await http.post(url, body: map);
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
@@ -178,6 +196,7 @@ class _ShowGroupState extends State<ShowGroup> {
 
   Future<Null> noname() async {
     await del();
+    await upSD();
     d = [];
     s = [];
     gr = [];
@@ -233,6 +252,9 @@ class _ShowGroupState extends State<ShowGroup> {
     for (var x in result) {
       gr.add(x['group_id']);
     }
+    for (var x in result) {
+      bb.add(x['before_id']);
+    }
     insertToDB2();
   }
 
@@ -259,6 +281,13 @@ class _ShowGroupState extends State<ShowGroup> {
       c = x;
       map["gg[$n3]"] = c;
       n3++;
+    }
+    String f = "";
+    int n4 = 0;
+    for (var x in bb) {
+      f = x;
+      map["bf[$n4]"] = f;
+      n4++;
     }
     final response = await http.post(url, body: map);
     print('Response status: ${response.statusCode}');
@@ -288,7 +317,7 @@ class _ShowGroupState extends State<ShowGroup> {
           Padding(
             padding: const EdgeInsets.all(10),
             child: Text(
-              "คุณมีความผิดปกติอย่างไรเกี่ยวกับ $organName" ?? "...",
+              "$organName" ?? "...",
               style: TextStyle(
                   color: Colors.black, fontFamily: 'Prompt', fontSize: 18),
             ),

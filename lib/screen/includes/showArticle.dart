@@ -76,7 +76,8 @@ class _ShowArticleState extends State<ShowArticle> {
                       style: TextStyle(
                           color: Colors.red[900],
                           fontSize: 18.0,
-                          fontFamily: 'Prompt'),
+                          fontFamily: 'Sarabun',
+                          fontWeight: FontWeight.w100),
                     ),
                   ),
                 ),
@@ -89,7 +90,8 @@ class _ShowArticleState extends State<ShowArticle> {
                           fontSize: FontSize(18.0),
                           padding: EdgeInsets.all(2.0),
                           // backgroundColor: Colors.white70,
-                          fontWeight: FontWeight.normal,
+                          fontWeight: FontWeight.w100,
+                          fontFamily: 'Sarabun',
                         ),
                       })),
                 ),
@@ -100,9 +102,10 @@ class _ShowArticleState extends State<ShowArticle> {
                     child: Text(
                       '$issuedate',
                       style: TextStyle(
-                        color: Colors.black54,
-                        fontSize: 18.0,
-                      ),
+                          color: Colors.black54,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w100,
+                          fontFamily: 'Sarabun'),
                     ),
                   ),
                 ),
@@ -113,9 +116,10 @@ class _ShowArticleState extends State<ShowArticle> {
                     child: Text(
                       'ผู้เขียน $doctorname',
                       style: TextStyle(
-                        color: Colors.black54,
-                        fontSize: 18.0,
-                      ),
+                          color: Colors.black54,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w100,
+                          fontFamily: 'Sarabun'),
                     ),
                   ),
                 ),
