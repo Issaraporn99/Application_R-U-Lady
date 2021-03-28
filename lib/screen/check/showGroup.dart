@@ -8,6 +8,7 @@ import 'package:doctorpurin/modal/group_modal.dart';
 import 'package:doctorpurin/screen/check/showSym.dart';
 import 'package:doctorpurin/screen/check/showsym2.dart';
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ShowGroup extends StatefulWidget {
@@ -135,7 +136,6 @@ class _ShowGroupState extends State<ShowGroup> {
     await Dio().get(url).then((value) => {print('apisym41 = $value')});
     Response response = await Dio().get(url);
     var result = json.decode(response.data);
-    print("reeee$result");
     for (var x in result) {
       diss.add(x['disease_id']);
     }
@@ -150,7 +150,7 @@ class _ShowGroupState extends State<ShowGroup> {
       bf.add(x['before_id']);
     }
 
-    addToDB2();
+    await addToDB2();
     Navigator.push(context, MaterialPageRoute(builder: (context) => ShowSym()));
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString('group_id', id);
@@ -256,7 +256,12 @@ class _ShowGroupState extends State<ShowGroup> {
     for (var x in result) {
       bb.add(x['before_id']);
     }
-    insertToDB2();
+    await insertToDB2();
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ShowSym2()));
+    preferences.setString('group_id', id);
+    preferences.setString('group_name', idname);
+    preferences.setString('symptom_name', symptomName);
   }
 
   Future<Null> insertToDB2() async {
@@ -293,12 +298,6 @@ class _ShowGroupState extends State<ShowGroup> {
     final response = await http.post(url, body: map);
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => ShowSym2()));
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setString('group_id', id);
-    preferences.setString('group_name', idname);
-    preferences.setString('symptom_name', symptomName);
   }
 
   @override
@@ -325,41 +324,50 @@ class _ShowGroupState extends State<ShowGroup> {
           ),
           groupInfo.length == 1
               ? Container()
-              : Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.all(1),
-                    child: SizedBox(
-                      height: 63,
-                      child: InkWell(
-                        splashColor: Colors.white,
-                        onTap: () {
-                          noname();
-                        },
-                        child: Card(
-                          elevation: 1.5,
-                          color: Colors.white,
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 15, top: 15, right: 10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "ไม่ระบุ",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontFamily: 'Prompt',
-                                          fontSize: 18),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
+              : Container(
+                  margin: EdgeInsets.fromLTRB(10, 3, 10, 3),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.purple[100].withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 2,
+                          offset: Offset(0, 2),
                         ),
+                      ]),
+                  child: ButtonTheme(
+                    minWidth: 500.0,
+                    height: 50.0,
+                    child: FlatButton(
+                      color: Colors.white,
+                      onPressed: () {
+                        noname();
+                      },
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Container(
+                                  child: Text("ไม่ระบุ/ไม่ทราบ",
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                      softWrap: false,
+                                      style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontFamily: 'Prompt',
+                                      )),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Icon(
+                            LineIcons.angle_right,
+                            color: Colors.black38,
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -368,7 +376,56 @@ class _ShowGroupState extends State<ShowGroup> {
             child: new ListView.builder(
               itemCount: groupInfo.length,
               itemBuilder: (context, index) {
-                return an_builder(context, index);
+                return Container(
+                  margin: EdgeInsets.fromLTRB(10, 3, 10, 3),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.purple[100].withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 2,
+                          offset: Offset(0, 2),
+                        ),
+                      ]),
+                  child: ButtonTheme(
+                    minWidth: 500.0,
+                    height: 50.0,
+                    child: FlatButton(
+                      color: Colors.white,
+                      onPressed: () {
+                        id = groupInfo[index].groupId;
+                        idname = groupInfo[index].groupName;
+                        apisym4();
+                      },
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Container(
+                                  child: Text(groupInfo[index].groupName,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                      softWrap: false,
+                                      style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontFamily: 'Prompt',
+                                      )),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Icon(
+                            LineIcons.angle_right,
+                            color: Colors.black38,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
               },
             ),
           ),

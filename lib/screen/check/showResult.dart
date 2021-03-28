@@ -181,12 +181,15 @@ class _ShowResultState extends State<ShowResult> {
                 ),
                 Align(
                   alignment: Alignment.center,
-                  child: Text('" $text "',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        color: Colors.black,
-                        fontFamily: 'Prompt',
-                      )),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    child: Text('" $text "',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          color: Colors.black,
+                          fontFamily: 'Prompt',
+                        )),
+                  ),
                 ),
                 button(),
                 Padding(

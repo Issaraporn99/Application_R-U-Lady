@@ -65,7 +65,7 @@ class _ShowSymState extends State<ShowSym> {
   String idbf = "";
   var ynnnnnn = List();
   String ynnnn = "";
-
+  var disNoBf = List();
   @override
   void initState() {
     super.initState();
@@ -73,12 +73,15 @@ class _ShowSymState extends State<ShowSym> {
   }
 
   Future<Null> findId() async {
+    symptomName = "...";
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String groupId = preferences.getString('group_id');
 
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/apiSym.php?group_id=$groupId&isAdd=true';
-    await Dio().get(url).then((value) => {print('findId = $value')});
+    await Dio().get(url).then((value) => {
+          if ("$value" == "null") {MyStyle().showProgress()}
+        });
 
     Response response = await Dio().get(url);
     var result = json.decode(response.data);
@@ -117,11 +120,13 @@ class _ShowSymState extends State<ShowSym> {
       for (var x in bf) {
         before = x;
       }
+      print(" before=$before");
       if (before == "0") {
         for (var x in symName) {
           symptomName = x; //findId()
         }
       } else {
+        symptomName = "...";
         findbf();
       }
     });
@@ -148,6 +153,10 @@ class _ShowSymState extends State<ShowSym> {
         for (var x in stt) {
           a = x;
         }
+        if (a == "2") {
+          symptomName = "...";
+          noBf();
+        }
         for (var x in result) {
           namebf.add(x['before_ques']);
         }
@@ -160,6 +169,71 @@ class _ShowSymState extends State<ShowSym> {
         print("a=$a");
       });
     }
+  }
+
+  Future<Null> noBf() async {
+    a = "";
+    disNoBf = [];
+    print("before=$before");
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/noBf.php?before_id=$before&isAdd=true';
+    await Dio().get(url).then((value) => {print('findbf = $value')});
+
+    Response response = await Dio().get(url);
+    var result = json.decode(response.data);
+    print("result=$result");
+    if (result.toString() == "null") {
+      print("resultnull");
+    } else {
+      setState(() {
+        for (var x in result) {
+          disNoBf.add(x['disease_id']);
+        }
+
+        String text = "";
+        int cnum = disNoBf.length;
+        int i = 1;
+        for (var x in disNoBf) {
+          if (i == cnum) {
+            text = text + x;
+          } else {
+            text = text + x + ",";
+          }
+          i++;
+        }
+      });
+      if (disNoBf.length <= 1) {
+        await getCountDis();
+      } else {
+        nodel();
+      }
+    }
+  }
+
+  Future<Null> nodel() async {
+    if (d > 1) {
+      count();
+    }
+    String del = "";
+    int cnum = disNoBf.length;
+    int i = 1;
+    for (var x in disNoBf) {
+      if (i == cnum) {
+        del = del + x;
+      } else {
+        del = del + x + ",";
+      }
+      i++;
+    }
+    print("del=$del");
+
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/delsym2.php?&del=$del&isAdd=true';
+    await Dio().get(url).then((value) => {print('nodel = $value')});
+    Response response = await Dio().get(url);
+    // var result = json.decode(response.data);
+
+    coutsym22();
   }
 
   Future<Null> count() async {
@@ -227,7 +301,7 @@ class _ShowSymState extends State<ShowSym> {
     print('res=$response');
     if (response.toString() == 'null') {
       setState(() {
-        cDis2 = 0;
+        // cDis2 = 0;
         print("cDis null=$cDis");
       });
     } else {
@@ -959,8 +1033,8 @@ class _ShowSymState extends State<ShowSym> {
         for (var x in bf) {
           before = x;
         }
-        print(img);
-        findbf();
+
+        // findbf();
       });
       getno();
     }
@@ -1092,7 +1166,7 @@ class _ShowSymState extends State<ShowSym> {
             // symptomName = sn;
             symptomId = snn;
           });
-          await findbf();
+          // await findbf();
           setState(() {
             symptomName = sn;
           });
@@ -1108,6 +1182,7 @@ class _ShowSymState extends State<ShowSym> {
     Response response = await Dio().get(url);
     var result = json.decode(response.data);
     if (result.toString() == "null") {
+      print("null");
     } else {
       var dis2 = new List();
 
@@ -1212,15 +1287,12 @@ class _ShowSymState extends State<ShowSym> {
             before = x;
           }
           print(iii);
-          print(sn);
-
+          print(symptomName);
+          symptomName = sn;
           symptomId = snn;
           iii = img;
         });
-        await findbf();
-        setState(() {
-          symptomName = sn;
-        });
+        // await findbf();
       }
     }
   }
@@ -1316,13 +1388,18 @@ class _ShowSymState extends State<ShowSym> {
 
   Future<Null> apiSym32_2() async {
     await count();
+
     setState(() {
       symName = [];
       sym2 = [];
       imgs = [];
       bf = [];
 
-      limit = 1;
+      if (limit <= 1) {
+        limit = 2;
+      } else {
+        limit = limit + 2;
+      }
     });
 
     String url =
@@ -1375,11 +1452,17 @@ class _ShowSymState extends State<ShowSym> {
         }
         print(iii);
         print(sn);
+
         symptomName = sn;
         symptomId = snn;
         iii = img;
       });
-      updateU();
+      await findbf();
+      await updateU();
+      setState(() {
+        symptomName = sn; //apiSym32
+      });
+
       limit = 0;
     }
   }
@@ -1452,8 +1535,9 @@ class _ShowSymState extends State<ShowSym> {
         symptomId = snn;
         iii = img;
       });
-      await updateU();
+
       await findbf();
+      await updateU();
       setState(() {
         symptomName = sn; //apiSym32
       });
