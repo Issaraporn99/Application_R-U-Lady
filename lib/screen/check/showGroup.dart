@@ -151,6 +151,7 @@ class _ShowGroupState extends State<ShowGroup> {
     }
 
     await addToDB2();
+    Navigator.pop(context);
     Navigator.push(context, MaterialPageRoute(builder: (context) => ShowSym()));
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString('group_id', id);
@@ -257,6 +258,7 @@ class _ShowGroupState extends State<ShowGroup> {
       bb.add(x['before_id']);
     }
     await insertToDB2();
+    Navigator.pop(context);
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => ShowSym2()));
     preferences.setString('group_id', id);
