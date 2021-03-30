@@ -338,7 +338,7 @@ class _CheckDiseaseState extends State<CheckDisease> {
     String organName = preferences.getString('organ_name');
     setState(() {
       organId = ('11');
-      organName = ('กระเพาะ');
+      organName = ('กระเพาะและลำไส้');
     });
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/getGroup.php?isAdd=true&organ_id=$organId';

@@ -308,7 +308,7 @@ class _ShowGroupState extends State<ShowGroup> {
       backgroundColor: Color(0xFFFFFBFA),
       appBar: AppBar(
         title: Text(
-          'คุณมีความผิดปกติเกี่ยวกับ ?',
+          "$organName" ?? "...",
           style: TextStyle(
               color: Colors.white, fontFamily: 'Prompt', fontSize: 18.0),
         ),
@@ -319,7 +319,7 @@ class _ShowGroupState extends State<ShowGroup> {
           Padding(
             padding: const EdgeInsets.all(10),
             child: Text(
-              "$organName" ?? "...",
+              'คุณมีความผิดปกติอย่างไร',
               style: TextStyle(
                   color: Colors.black, fontFamily: 'Prompt', fontSize: 18),
             ),

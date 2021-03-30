@@ -19,7 +19,9 @@ class _QandAState extends State<QandA> {
   String questionDate;
   String questionName;
   String expertiseId;
+  String expertiseName;
   String questionId;
+  var exname = new List();
 
   Future getex() async {
     // SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -135,7 +137,7 @@ class _QandAState extends State<QandA> {
               } else {
                 print(
                     'question_id = $questionId,question = $question, question_name = $questionName, expertise_id = $expertiseId,question_date=$questionDate');
-                registerThread();
+                check();
               }
             },
             child: Text('ถาม',
@@ -144,8 +146,9 @@ class _QandAState extends State<QandA> {
           )));
 
   Future<Null> registerThread() async {
+    print("$expertiseName");
     String url =
-        'http://student.crru.ac.th/601463046/apidoctor/addQustion.php?isAdd=true&question=$question&question_name=$questionName&expertise_id=$expertiseId';
+        'http://student.crru.ac.th/601463046/apidoctor/addQustion.php?isAdd=true&question=$question&question_name=$questionName&expertise_id=$expertiseId&expertise_name=$expertiseName';
 
     try {
       Response response = await Dio().get(url);
@@ -157,6 +160,24 @@ class _QandAState extends State<QandA> {
         normalDialog3(context, 'กรุณาเลือกสาขาความเชี่ยวชาญ');
       }
     } catch (e) {}
+  }
+
+  Future<Null> check() async {
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/lineQ.php?isAdd=true&expertise_id=$expertiseId';
+    await Dio().get(url).then((value) => {print('check = $value')});
+    Response response = await Dio().get(url);
+    var result = json.decode(response.data);
+    print("$result");
+
+    for (var x in result) {
+      exname.add(x['expertise_name']);
+    }
+    for (var x in exname) {
+      expertiseName = x;
+    }
+    print("$expertiseName");
+    registerThread();
   }
 
   Widget qustion() => Row(

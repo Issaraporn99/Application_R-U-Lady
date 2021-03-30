@@ -64,14 +64,14 @@ class _WomenHomeState extends State<WomenHome> {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => CheckDisease()));
             },
-            color: Color(0xFFf9c0c0),
+            color: Color(0xFFFDDBD1),
             padding: EdgeInsets.all(20),
             elevation: 5,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Image.asset(
-                  './images/stethoscope.png',
+                  './images/stethoscope (1).png',
                   width: 65,
                   height: 65,
                 ),
@@ -82,15 +82,15 @@ class _WomenHomeState extends State<WomenHome> {
                       'ตรวจโรค',
                       style: TextStyle(
                         fontSize: 22,
-                        color: Colors.white,
+                        color: Color(0xFF442B2E),
                         fontFamily: 'Prompt',
-                        shadows: [
-                          Shadow(
-                            color: Colors.red[900],
-                            blurRadius: 2.0,
-                            offset: Offset(1.0, 1.0),
-                          ),
-                        ],
+                        // shadows: [
+                        //   Shadow(
+                        //     color: Colors.red[900],
+                        //     blurRadius: 2.0,
+                        //     offset: Offset(1.0, 1.0),
+                        //   ),
+                        // ],
                       ),
                     ),
                   ),
@@ -110,14 +110,14 @@ class _WomenHomeState extends State<WomenHome> {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => DisInformation()));
             },
-            color: Color(0xFFf6d6ad),
+            color: Color(0xFFFDDBD1),
             padding: EdgeInsets.all(20),
             elevation: 5,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Image.asset(
-                  './images/medical-book.png',
+                  './images/medical-record (1).png',
                   width: 65,
                   height: 65,
                 ),
@@ -127,16 +127,16 @@ class _WomenHomeState extends State<WomenHome> {
                     child: Text(
                       'ข้อมูลโรค',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Color(0xFF442B2E),
                         fontSize: 22,
                         fontFamily: 'Prompt',
-                        shadows: [
-                          Shadow(
-                            color: Colors.yellow[900],
-                            blurRadius: 2.0,
-                            offset: Offset(1.0, 1.0),
-                          ),
-                        ],
+                        // shadows: [
+                        //   Shadow(
+                        //     color: Colors.yellow[900],
+                        //     blurRadius: 2.0,
+                        //     offset: Offset(1.0, 1.0),
+                        //   ),
+                        // ],
                       ),
                     ),
                   ),
@@ -156,7 +156,7 @@ class _WomenHomeState extends State<WomenHome> {
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => Article()));
             },
-            color: Color(0xFFd3dbff),
+            color: Color(0xFFFDDBD1),
             padding: EdgeInsets.all(20),
             elevation: 5,
             child: Column(
@@ -173,16 +173,16 @@ class _WomenHomeState extends State<WomenHome> {
                     child: Text(
                       'บทความ',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Color(0xFF442B2E),
                         fontSize: 22,
                         fontFamily: 'Prompt',
-                        shadows: [
-                          Shadow(
-                            color: Colors.purple[800],
-                            blurRadius: 2.0,
-                            offset: Offset(1.0, 1.0),
-                          ),
-                        ],
+                        // shadows: [
+                        //   Shadow(
+                        //     color: Colors.purple[800],
+                        //     blurRadius: 2.0,
+                        //     offset: Offset(1.0, 1.0),
+                        //   ),
+                        // ],
                       ),
                     ),
                   ),
@@ -202,14 +202,14 @@ class _WomenHomeState extends State<WomenHome> {
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => ShowQA()));
             },
-            color: Color(0xFFccf0e1),
+            color: Color(0xFFFDDBD1),
             padding: EdgeInsets.all(20),
             elevation: 5,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Image.asset(
-                  './images/b.png',
+                  './images/speech-bubbles.png',
                   width: 65,
                   height: 65,
                 ),
@@ -219,16 +219,16 @@ class _WomenHomeState extends State<WomenHome> {
                     child: Text(
                       'ถามตอบ',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Color(0xFF442B2E),
                         fontSize: 22,
                         fontFamily: 'Prompt',
-                        shadows: [
-                          Shadow(
-                            color: Colors.green[900],
-                            blurRadius: 2.0,
-                            offset: Offset(1.0, 1.0),
-                          ),
-                        ],
+                        // shadows: [
+                        //   Shadow(
+                        //     color: Colors.green[900],
+                        //     blurRadius: 2.0,
+                        //     offset: Offset(1.0, 1.0),
+                        //   ),
+                        // ],
                       ),
                     ),
                   ),

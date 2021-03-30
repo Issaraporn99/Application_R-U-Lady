@@ -153,20 +153,24 @@ class _ShowSymState extends State<ShowSym> {
         for (var x in stt) {
           a = x;
         }
-        if (a == "2") {
-          symptomName = "...";
-          noBf();
-        }
-        for (var x in result) {
-          namebf.add(x['before_ques']);
-        }
-        for (var x in namebf) {
-          namebef = x;
-        }
-        for (var x in symName) {
-          symptomName = x; //findbf()
-        }
         print("a=$a");
+
+        if (a == "2") {
+          setState(() {
+            symptomName = "...";
+          });
+          noBf();
+        } else {
+          for (var x in result) {
+            namebf.add(x['before_ques']);
+          }
+          for (var x in namebf) {
+            namebef = x;
+          }
+          for (var x in symName) {
+            symptomName = x; //findbf()
+          }
+        }
       });
     }
   }
