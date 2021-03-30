@@ -50,6 +50,13 @@ class MyStyle {
     );
   }
 
+  Container simg() {
+    return Container(
+      width: 250.0,
+      child: Image.asset('images/chat.png'),
+    );
+  }
+
   Container showImgHome() {
     return Container(
       width: 180,

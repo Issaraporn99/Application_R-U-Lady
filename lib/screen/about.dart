@@ -53,7 +53,7 @@ class _AboutState extends State<About> {
                       color: Colors.red,
                     ),
                     title: Text(
-                      'ข้อมูลในแอปพลิเคชั่นนี้อ้างอิงจาก หนังสือสุขภาพผู้หญิงตรวจเองได้ง่ายนิดเดียว',
+                      'ข้อมูลในแอปพลิเคชั่นนี้อ้างอิงจาก หนังสือสุขภาพผู้หญิงตรวจเองได้ง่ายนิดเดียว (ผู้เขียน Akiyoshi Uchiyama, 2560)',
                       style: TextStyle(
                         fontSize: 15.0,
                         color: Colors.black,

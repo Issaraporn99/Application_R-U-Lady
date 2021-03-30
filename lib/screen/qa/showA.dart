@@ -88,36 +88,10 @@ class _ShowAState extends State<ShowA> {
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   children: [
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 5),
-                        child: Text(
-                          'วันที่ ' + groupInfo[index].answerDate + ' น.',
-                          style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 15.0,
-                              fontFamily: 'Prompt'),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      constraints: BoxConstraints(minWidth: double.infinity),
-                      child: Text(
-                        doctorname == null
-                            ? ''
-                            : 'ตอบโดยผู้เชี่ยวชาญ ' +
-                                groupInfo[index].doctorname,
-                        style: TextStyle(
-                            color: Colors.black54,
-                            fontSize: 16.0,
-                            fontFamily: 'Prompt'),
-                      ),
-                    ),
                     Container(
                       constraints: BoxConstraints(minWidth: double.infinity),
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 10, top: 10),
+                        padding: const EdgeInsets.only(top: 5),
                         child: Text(
                           answerName == null
                               ? '* ยังไม่มีคำตอบ'
@@ -128,6 +102,31 @@ class _ShowAState extends State<ShowA> {
                               fontFamily: 'Sarabun',
                               fontWeight: FontWeight.w200),
                         ),
+                      ),
+                    ),
+                    Container(
+                      constraints: BoxConstraints(minWidth: double.infinity),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: Text(
+                          doctorname == null
+                              ? ''
+                              : 'ผู้เขียน ' + groupInfo[index].doctorname,
+                          style: TextStyle(
+                              color: Colors.black54,
+                              fontSize: 16.0,
+                              fontFamily: 'Prompt'),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Text(
+                        'วันที่ ' + groupInfo[index].answerDate + ' น.',
+                        style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 14.0,
+                            fontFamily: 'Prompt'),
                       ),
                     ),
                   ],
@@ -148,6 +147,7 @@ class _ShowAState extends State<ShowA> {
         ),
         backgroundColor: Colors.pinkAccent[100],
       ),
+      backgroundColor: Colors.white,
       body: new Column(
         children: <Widget>[
           _dataBody(),
@@ -172,7 +172,6 @@ class _ShowAState extends State<ShowA> {
           children: <Widget>[
             Row(children: <Widget>[
               qId(),
-              qdate(),
             ]),
             qq(),
             Align(
@@ -182,7 +181,7 @@ class _ShowAState extends State<ShowA> {
                     child: Text(
                       answerName == null ? '* ยังไม่มีคำตอบ' : 'คำตอบ',
                       style: TextStyle(
-                          color: Color(0xFFff5e78),
+                          color: Color(0xFFa9294f),
                           fontSize: 16.0,
                           fontFamily: 'Prompt'),
                     ))),
@@ -200,7 +199,7 @@ class _ShowAState extends State<ShowA> {
             child: Text(
               'คำถามที่ $questionId',
               style: TextStyle(
-                  color: Color(0xFFff5e78),
+                  color: Color(0xFFa9294f),
                   fontSize: 18.0,
                   fontFamily: 'Prompt'),
             ),
@@ -226,27 +225,15 @@ class _ShowAState extends State<ShowA> {
           child: Padding(
             padding: const EdgeInsets.all(10),
             child: Card(
-              color: Color(0xFFffe8e8),
+              color: Colors.teal[50],
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   children: [
                     Container(
                       constraints: BoxConstraints(minWidth: double.infinity),
-                      child: Text(
-                        questionName == 'null'
-                            ? 'ไม่ระบุชื่อ'
-                            : 'จาก คุณ$questionName',
-                        style: TextStyle(
-                            color: Colors.black54,
-                            fontSize: 16.0,
-                            fontFamily: 'Prompt'),
-                      ),
-                    ),
-                    Container(
-                      constraints: BoxConstraints(minWidth: double.infinity),
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 10, top: 10),
+                        padding: const EdgeInsets.only(bottom: 10),
                         child: Text(
                           '$question',
                           style: TextStyle(
@@ -255,6 +242,28 @@ class _ShowAState extends State<ShowA> {
                               fontFamily: 'Sarabun',
                               fontWeight: FontWeight.w100),
                         ),
+                      ),
+                    ),
+                    Container(
+                      constraints: BoxConstraints(minWidth: double.infinity),
+                      child: Text(
+                        questionName == 'null'
+                            ? 'ไม่ระบุชื่อ'
+                            : 'จาก คุณ$questionName',
+                        style: TextStyle(
+                            color: Color(0xFF5f939a),
+                            fontSize: 16.0,
+                            fontFamily: 'Prompt'),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Text(
+                        'วันที่ $questionDate น.',
+                        style: TextStyle(
+                            color: Color(0xFF5f939a),
+                            fontSize: 14.0,
+                            fontFamily: 'Prompt'),
                       ),
                     ),
                   ],

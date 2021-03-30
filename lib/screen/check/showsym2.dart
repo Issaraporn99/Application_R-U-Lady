@@ -162,13 +162,11 @@ class _ShowSym2State extends State<ShowSym2> {
             symptomName = x; //findbf()
           }
         }
-        
       });
     }
   }
 
   Future<Null> noBf() async {
-    a = "";
     disNoBf = [];
     print("before=$before");
     String url =
@@ -875,7 +873,11 @@ class _ShowSym2State extends State<ShowSym2> {
           });
           await findbf();
           setState(() {
-            symptomName = sn; //coutsymmmm()
+            if (a == "2") {
+              symptomName = "...";
+            } else {
+              symptomName = sn;
+            } //coutsymmmm()
           });
         }
       }

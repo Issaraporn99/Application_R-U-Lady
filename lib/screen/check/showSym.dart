@@ -176,9 +176,9 @@ class _ShowSymState extends State<ShowSym> {
   }
 
   Future<Null> noBf() async {
-    a = "";
     disNoBf = [];
     print("before=$before");
+    print("a=$a");
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/noBf.php?before_id=$before&isAdd=true';
     await Dio().get(url).then((value) => {print('findbf = $value')});
@@ -883,7 +883,11 @@ class _ShowSymState extends State<ShowSym> {
           });
           await findbf();
           setState(() {
-            symptomName = sn; //coutsymmmm()
+            if (a == "2") {
+              symptomName = "...";
+            } else {
+              symptomName = sn;
+            } //coutsymmmm()
           });
         }
       }

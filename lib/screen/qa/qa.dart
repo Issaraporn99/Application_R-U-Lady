@@ -156,6 +156,7 @@ class _QandAState extends State<QandA> {
 
       if (response.toString() == 'true') {
         Navigator.pop(context);
+        normalDialog4(context, 'คำถามส่งไปยังผู้เชี่ยวชาญเรียบร้อยแล้ว');
       } else {
         normalDialog3(context, 'กรุณาเลือกสาขาความเชี่ยวชาญ');
       }
