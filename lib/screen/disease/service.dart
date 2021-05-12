@@ -103,7 +103,7 @@ class ServicesQA {
       var map = new Map<String, dynamic>();
       map["isAdd"] = _GET_ACTION;
       final response = await http.post(ROOT, body: map);
-      print("getDisease >> Response:: ${response.body}");
+      print("ServicesQA >> Response:: ${response.body}");
       if (response.statusCode == 200) {
         List<Question> list = parsePhotos(response.body);
         return list;

@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:doctorpurin/main.dart';
-import 'package:doctorpurin/screen/check/newShowSym.dart';
-import 'package:doctorpurin/screen/check/newShowSym2.dart';
+import 'package:doctorpurin/screen/disease/disease_info.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 import 'package:doctorpurin/modal/group_modal.dart';
@@ -40,9 +39,10 @@ class _ShowGroupState extends State<ShowGroup> {
   var de = new List<String>();
   var gr = new List<String>();
   var bb = new List<String>();
-
+  final _debouncer = Debouncer(milliseconds: 500);
   List<int> myModels = [];
   List<GroupSym> groupInfo = List();
+  List<GroupSym> groupInfo2 = List();
   List<GroupSym> symInfo = List();
   @override
   void initState() {
@@ -58,7 +58,41 @@ class _ShowGroupState extends State<ShowGroup> {
     await Dio().get(url).then((value) => {print('del = $value')});
     Response response = await Dio().get(url);
   }
-  // ลบข้อมูลใน ตาราง get_dis
+
+  searchField() {
+    return Padding(
+      padding: EdgeInsets.only(left: 10.0, right: 10.0),
+      child: TextField(
+        decoration: InputDecoration(
+          prefixIcon: Icon(
+            Icons.search,
+            color: Colors.grey,
+          ),
+          contentPadding: EdgeInsets.all(1.0),
+          labelStyle: TextStyle(color: Colors.grey, fontFamily: 'Prompt'),
+          labelText: 'ค้นหาอาการ :',
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red[200])),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red[200])),
+        ),
+        onChanged: (string) {
+          // We will start filtering when the user types in the textfield.
+          // Run the debouncer and start searching
+          _debouncer.run(() {
+            // Filter the original List and update the Filter list
+            setState(() {
+              groupInfo = groupInfo2
+                  .where((u) => (u.groupName
+                      .toLowerCase()
+                      .contains(string.toLowerCase())))
+                  .toList();
+            });
+          });
+        },
+      ),
+    );
+  }
 
   Future<Null> findId() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -75,6 +109,7 @@ class _ShowGroupState extends State<ShowGroup> {
       GroupSym model = GroupSym.fromJson(map);
       setState(() {
         groupInfo.add(model);
+        groupInfo2.add(model);
       });
     }
   }
@@ -118,7 +153,7 @@ class _ShowGroupState extends State<ShowGroup> {
     diss = [];
     symm = [];
     gg = [];
-
+    print("$diss2");
     String text = "";
     int cnum = diss2.length;
     int i = 1;
@@ -307,10 +342,21 @@ class _ShowGroupState extends State<ShowGroup> {
     return Scaffold(
       backgroundColor: Color(0xFFFFFBFA),
       appBar: AppBar(
-        title: Text(
-          "$organName" ?? "...",
-          style: TextStyle(
-              color: Colors.white, fontFamily: 'Prompt', fontSize: 18.0),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+                padding: const EdgeInsets.only(left: 10),
+                child: Text(
+                  "$organName" ?? "...",
+                  style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+                )),
+            Image.asset(
+              './images/Untitled-1.png',
+              fit: BoxFit.contain,
+              height: 40,
+            )
+          ],
         ),
         backgroundColor: Colors.pinkAccent[100],
       ),
@@ -323,6 +369,10 @@ class _ShowGroupState extends State<ShowGroup> {
               style: TextStyle(
                   color: Colors.black, fontFamily: 'Prompt', fontSize: 18),
             ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(10.0),
+            child: searchField(),
           ),
           groupInfo.length == 1
               ? Container()

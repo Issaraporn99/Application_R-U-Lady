@@ -15,9 +15,21 @@ class _ShowResult2State extends State<ShowResult2> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'ผลการตรวจโรค',
-          style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+           title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+                padding: const EdgeInsets.only(left: 10),
+                child: Text(
+                  'ผลการตรวจโรค',
+                  style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+                )),
+            Image.asset(
+              './images/Untitled-1.png',
+              fit: BoxFit.contain,
+              height: 40,
+            )
+          ],
         ),
         backgroundColor: Colors.pinkAccent[100],
       ),

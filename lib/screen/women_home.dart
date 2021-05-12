@@ -21,9 +21,21 @@ class _WomenHomeState extends State<WomenHome> {
     return Scaffold(
       backgroundColor: Color(0xFFFFFBFA),
       appBar: AppBar(
-        title: Text(
-          ' รู้ทันปัญหาสุขภาพผู้หญิง',
-          style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+                padding: const EdgeInsets.only(left: 10),
+                child: Text(
+                  'รู้ทันปัญหาสุขภาพผู้หญิง',
+                  style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+                )),
+            Image.asset(
+              './images/Untitled-1.png',
+              fit: BoxFit.contain,
+              height: 40,
+            )
+          ],
         ),
         backgroundColor: Colors.pinkAccent[100],
       ),

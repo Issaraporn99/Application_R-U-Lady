@@ -146,6 +146,7 @@ class _ShowSym2State extends State<ShowSym2> {
           a = x;
         }
         print("a=$a");
+
         if (a == "2") {
           setState(() {
             symptomName = "...";
@@ -169,6 +170,7 @@ class _ShowSym2State extends State<ShowSym2> {
   Future<Null> noBf() async {
     disNoBf = [];
     print("before=$before");
+    print("a=$a");
     String url =
         'http://student.crru.ac.th/601463046/apidoctor/noBf.php?before_id=$before&isAdd=true';
     await Dio().get(url).then((value) => {print('findbf = $value')});
@@ -572,7 +574,7 @@ class _ShowSym2State extends State<ShowSym2> {
         before = x;
       }
     });
-    updateYN();
+    coutsymmmm();
   }
 
   Future<Null> idArray() async {
@@ -893,7 +895,7 @@ class _ShowSym2State extends State<ShowSym2> {
       if (ym == "y") {
         getDis();
       } else {
-        getDis2();
+        getCountDis();
       }
     } else {
       String text = "";
@@ -1174,7 +1176,7 @@ class _ShowSym2State extends State<ShowSym2> {
     print("Dd=$d");
 
     if (d == 0) {
-      getDis2();
+      getCountDis();
     } else {
       setState(() {
         diss = [];
@@ -1813,9 +1815,19 @@ class _ShowSym2State extends State<ShowSym2> {
     return Scaffold(
       backgroundColor: Color(0xFFfcdada),
       appBar: AppBar(
-        title: Text(
-          'คุณมีอาการอะไรบ้าง?',
-          style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+                child: Text(
+              'คุณมีอาการอะไรบ้าง',
+              style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+            )),
+            Image.asset(
+              './images/Untitled-1.png',
+              height: 40,
+            ),
+          ],
         ),
         backgroundColor: Colors.pinkAccent[100],
       ),

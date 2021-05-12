@@ -39,7 +39,7 @@ class Debouncer {
 }
 
 class _ShowQAState extends State<ShowQA> {
-  List<Question> _filterqa;
+  List<Question> _filterqa = List();
   List<Question> _qa;
   List<Question> articleD = List();
   String ida;
@@ -60,22 +60,23 @@ class _ShowQAState extends State<ShowQA> {
   @override
   void initState() {
     super.initState();
-    _filterqa = [];
-    _qa = [];
-    _getQa();
+    findId();
     Intl.defaultLocale = "th";
     initializeDateFormatting();
   }
 
-  _getQa() {
-    ServicesQA.getQ().then((qa) {
+  Future<Null> findId() async {
+    String url =
+        'http://student.crru.ac.th/601463046/apidoctor/getQ2.php?isAdd=true';
+    // await Dio().get(url).then((value) => {print('value = $value')});
+    Response response = await Dio().get(url);
+    var result = json.decode(response.data);
+    for (var map in result) {
+      Question model = Question.fromJson(map);
       setState(() {
-        _qa = qa;
-        _filterqa = qa;
+        _filterqa.add(model);
       });
-
-      print("Length: ${qa.length}");
-    });
+    }
   }
 
   searchField() {
@@ -112,61 +113,6 @@ class _ShowQAState extends State<ShowQA> {
             });
           });
         },
-      ),
-    );
-  }
-
-  SingleChildScrollView _dataBody() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: DataTable(
-          columns: [
-            DataColumn(
-              label: Text(
-                "คำถาม",
-                style: TextStyle(fontFamily: 'Prompt'),
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                "วันที่",
-                style: TextStyle(
-                  fontFamily: 'Prompt',
-                  fontSize: 12.0,
-                ),
-              ),
-            ),
-          ],
-          rows: _filterqa
-              .map(
-                (qa) => DataRow(
-                  cells: [
-                    DataCell(
-                      Text(
-                        qa.question,
-                        style: TextStyle(fontFamily: 'Prompt'),
-                      ),
-                      onTap: () {
-                        print(qa.questionId);
-                        routeTS(ShowA(), qa);
-                      },
-                    ),
-                    DataCell(
-                      Text(
-                        qa.questionDate + ' น.',
-                        style: TextStyle(
-                            fontFamily: 'Prompt',
-                            fontSize: 10.0,
-                            color: Colors.black45),
-                      ),
-                    ),
-                  ],
-                ),
-              )
-              .toList(),
-        ),
       ),
     );
   }
@@ -217,8 +163,7 @@ class _ShowQAState extends State<ShowQA> {
   Future<Null> refreshList() async {
     ServicesQA.getQ().then((qa) {
       setState(() {
-        _qa = qa;
-        _filterqa = qa;
+        findId();
       });
     });
   }
@@ -227,9 +172,19 @@ class _ShowQAState extends State<ShowQA> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'คำถาม',
-          style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+                child: Text(
+              'คำถาม',
+              style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+            )),
+            Image.asset(
+              './images/Untitled-1.png',
+              height: 40,
+            ),
+          ],
         ),
         backgroundColor: Colors.pinkAccent[100],
       ),
@@ -297,18 +252,49 @@ class _ShowQAState extends State<ShowQA> {
                                       Padding(
                                         padding: EdgeInsets.only(top: 5),
                                         child: Container(
-                                          child: Text(
-                                              _filterqa[index].questionDate,
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 1,
-                                              softWrap: false,
-                                              style: TextStyle(
-                                                fontSize: 15.0,
-                                                fontFamily: 'Prompt',
-                                                color: Colors.grey[700],
-                                                backgroundColor:
-                                                    Colors.teal[50],
-                                              )),
+                                          child: Row(
+                                            children: <Widget>[
+                                              Text(
+                                                _filterqa[index].questionDate,
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 1,
+                                                softWrap: false,
+                                                style: TextStyle(
+                                                  fontSize: 15.0,
+                                                  fontFamily: 'Prompt',
+                                                  color: Colors.grey[700],
+                                                  backgroundColor:
+                                                      Colors.teal[50],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    EdgeInsets.only(left: 20),
+                                                child: Image.asset(
+                                                  './images/talk.png',
+                                                  width: 25,
+                                                  height: 25,
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    EdgeInsets.only(left: 5),
+                                                child: Text(
+                                                  _filterqa[index]
+                                                      .cOUNTAnswerId,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  maxLines: 1,
+                                                  softWrap: false,
+                                                  style: TextStyle(
+                                                    fontSize: 15.0,
+                                                    fontFamily: 'Prompt',
+                                                    color: Colors.redAccent,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ],

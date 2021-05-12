@@ -59,9 +59,19 @@ class _ShowDisState extends State<ShowDis> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'ข้อมูลโรค ',
-          style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+                child: Text(
+              'ข้อมูลโรค',
+              style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+            )),
+            Image.asset(
+              './images/Untitled-1.png',
+              height: 40,
+            ),
+          ],
         ),
         backgroundColor: Colors.pinkAccent[100],
       ),
@@ -290,7 +300,7 @@ class _ShowDisState extends State<ShowDis> {
               children: <Widget>[
                 ListTile(
                   title: Text(
-                    'อาการ',
+                    'รายละเอียด',
                     style: TextStyle(
                         color: Colors.blue[700],
                         fontSize: 18.0,

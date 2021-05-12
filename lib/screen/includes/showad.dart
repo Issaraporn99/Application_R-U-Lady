@@ -50,9 +50,22 @@ class _ShowADState extends State<ShowAD> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'บทความ',
-          style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+                child: Text(
+              'บทความ',
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              softWrap: false,
+              style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+            )),
+            Image.asset(
+              './images/Untitled-1.png',
+              height: 40,
+            ),
+          ],
         ),
         backgroundColor: Colors.pinkAccent[100],
       ),
@@ -106,7 +119,7 @@ class _ShowADState extends State<ShowAD> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 20, bottom: 40),
                   child: Text(
-                    'ผู้เขียน $doctorname',
+                    'ผู้เผยแพร่ $doctorname',
                     style: TextStyle(
                         color: Colors.black54,
                         fontSize: 18.0,

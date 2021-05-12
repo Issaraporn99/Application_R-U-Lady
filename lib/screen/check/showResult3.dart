@@ -149,9 +149,21 @@ class _ShowResult3State extends State<ShowResult3> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(
-          'ผลการตรวจโรค',
-          style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+                padding: const EdgeInsets.only(left: 10),
+                child: Text(
+                  'ผลการตรวจโรค',
+                  style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+                )),
+            Image.asset(
+              './images/Untitled-1.png',
+              fit: BoxFit.contain,
+              height: 40,
+            )
+          ],
         ),
         backgroundColor: Colors.pinkAccent[100],
       ),
@@ -246,7 +258,7 @@ class _ShowResult3State extends State<ShowResult3> {
           padding: const EdgeInsets.all(20),
           child: SizedBox(
             width: 200,
-            height: 50,
+            height: 45,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(15),
               child: RaisedButton(
@@ -254,7 +266,7 @@ class _ShowResult3State extends State<ShowResult3> {
                   saveToDig();
                   shear();
                 },
-                color: Color(0xFF6ddccf),
+                color: Color(0xFF00af91),
                 elevation: 8,
                 child: Text(
                   'สอบถามผู้เชี่ยวชาญ',
@@ -274,7 +286,7 @@ class _ShowResult3State extends State<ShowResult3> {
           padding: const EdgeInsets.all(20),
           child: SizedBox(
             width: 200,
-            height: 50,
+            height: 45,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(15),
               child: RaisedButton(
@@ -284,10 +296,10 @@ class _ShowResult3State extends State<ShowResult3> {
                 color: Color(0xFF1687a7),
                 elevation: 3,
                 child: Text(
-                  'อ่านข้อมูลเพิ่มเติม',
+                  'อ่านข้อมูลโรคเพิ่มเติม',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 18.0,
+                    fontSize: 17.0,
                     fontFamily: 'Prompt',
                   ),
                 ),

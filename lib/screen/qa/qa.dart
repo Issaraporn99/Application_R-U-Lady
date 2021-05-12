@@ -24,11 +24,11 @@ class _QandAState extends State<QandA> {
   var exname = new List();
 
   Future getex() async {
-    // SharedPreferences preferences = await SharedPreferences.getInstance();
-    // setState(() {
-    //   selectedValue = preferences.getString('expertise_id');
-    //   print("$selectedValue");
-    // });
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    setState(() {
+      selectedValue = preferences.getString('expertise_id');
+      print("$selectedValue");
+    });
 
     var url =
         "http://student.crru.ac.th/601463046/apidoctor/getExType.php?isAdd=true";
@@ -52,13 +52,19 @@ class _QandAState extends State<QandA> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'สอบถามผู้เชี่ยวชาญ',
-          style: TextStyle(
-            color: Colors.white,
-            fontFamily: 'Prompt',
-            fontSize: 18,
-          ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+                child: Text(
+              'สอบถามผู้เชี่ยวชาญ',
+              style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+            )),
+            Image.asset(
+              './images/Untitled-1.png',
+              height: 40,
+            ),
+          ],
         ),
         backgroundColor: Colors.pinkAccent[100],
       ),

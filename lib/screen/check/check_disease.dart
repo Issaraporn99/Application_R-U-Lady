@@ -498,10 +498,24 @@ class _CheckDiseaseState extends State<CheckDisease> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'กดเลือกอวัยวะที่ต้องการตรวจ',
-          style: TextStyle(
-              color: Colors.white, fontFamily: 'Prompt', fontSize: 18.0),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+                padding: const EdgeInsets.only(left: 10),
+                child: Text(
+                  'กดเลือกอวัยวะที่ต้องการตรวจ',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Prompt',
+                      fontSize: 16.0),
+                )),
+            Image.asset(
+              './images/Untitled-1.png',
+              fit: BoxFit.contain,
+              height: 40,
+            )
+          ],
         ),
         backgroundColor: Colors.pinkAccent[100],
       ),
@@ -546,10 +560,13 @@ class _CheckDiseaseState extends State<CheckDisease> {
                   Align(
                     alignment: Alignment.center,
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 50),
-                      child: Stack(children: <Widget>[
-                        show2(),
-                      ]),
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Container(
+                        height: 220,
+                        child: Stack(children: <Widget>[
+                          show2(),
+                        ]),
+                      ),
                     ),
                   ),
                   Align(
@@ -566,9 +583,12 @@ class _CheckDiseaseState extends State<CheckDisease> {
                     alignment: Alignment.bottomCenter,
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 20),
-                      child: Stack(children: <Widget>[
-                        show3(),
-                      ]),
+                      child: Container(
+                        height: 220,
+                        child: Stack(children: <Widget>[
+                          show3(),
+                        ]),
+                      ),
                     ),
                   ),
                 ],
@@ -583,174 +603,177 @@ class _CheckDiseaseState extends State<CheckDisease> {
   Visibility show1() {
     return Visibility(
       visible: !_isVisible,
-      child: Stack(
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.only(top: 50),
-            alignment: Alignment.topLeft,
-            height: 70.0,
-            child: SizedBox.fromSize(
-              size: Size(70, 70), // button width and height
-              child: ClipOval(
-                child: Material(
-                  color: Colors.cyan[300], // button color
-                  child: InkWell(
-                    splashColor: Colors.lime[200],
-                    // splash color
-                    onTap: () {
-                      showG5();
-                    },
-                    // button pressed
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "ตา",
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.white,
-                              fontFamily: 'Prompt'),
-                        ), // text
-                      ],
+      child: Material(
+        color: Colors.pink[50].withOpacity(0.5),
+        child: Stack(
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(top: 50),
+              alignment: Alignment.topLeft,
+              height: 70.0,
+              child: SizedBox.fromSize(
+                size: Size(70, 70), // button width and height
+                child: ClipOval(
+                  child: Material(
+                    color: Colors.cyan[300], // button color
+                    child: InkWell(
+                      splashColor: Colors.lime[200],
+                      // splash color
+                      onTap: () {
+                        showG5();
+                      },
+                      // button pressed
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "ตา",
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                                fontFamily: 'Prompt'),
+                          ), // text
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 20, right: 2),
-            alignment: Alignment.topRight,
-            height: 70.0,
-            child: SizedBox.fromSize(
-              size: Size(70, 70), // button width and height
-              child: ClipOval(
-                child: Material(
-                  color: Colors.cyan[300], // button color
-                  child: InkWell(
-                    splashColor: Colors.lime[200],
-                    // splash color
-                    onTap: () {
-                      showG3();
-                    },
+            Container(
+              margin: EdgeInsets.only(top: 20, right: 2),
+              alignment: Alignment.topRight,
+              height: 70.0,
+              child: SizedBox.fromSize(
+                size: Size(70, 70), // button width and height
+                child: ClipOval(
+                  child: Material(
+                    color: Colors.cyan[300], // button color
+                    child: InkWell(
+                      splashColor: Colors.lime[200],
+                      // splash color
+                      onTap: () {
+                        showG3();
+                      },
 
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "ศีรษะ",
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.white,
-                              fontFamily: 'Prompt'),
-                        ), // text
-                      ],
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "ศีรษะ",
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                                fontFamily: 'Prompt'),
+                          ), // text
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 180, left: 1),
-            alignment: Alignment.centerLeft,
-            height: 70.0,
-            child: SizedBox.fromSize(
-              size: Size(70, 70), // button width and height
-              child: ClipOval(
-                child: Material(
-                  color: Colors.cyan[300], // button color
-                  child: InkWell(
-                    splashColor: Colors.lime[200],
-                    // splash color
-                    onTap: () {
-                      showG4();
-                    },
+            Container(
+              margin: EdgeInsets.only(top: 180, left: 1),
+              alignment: Alignment.centerLeft,
+              height: 70.0,
+              child: SizedBox.fromSize(
+                size: Size(70, 70), // button width and height
+                child: ClipOval(
+                  child: Material(
+                    color: Colors.cyan[300], // button color
+                    child: InkWell(
+                      splashColor: Colors.lime[200],
+                      // splash color
+                      onTap: () {
+                        showG4();
+                      },
 
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "หู",
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.white,
-                              fontFamily: 'Prompt'),
-                        ), // text
-                      ],
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "หู",
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                                fontFamily: 'Prompt'),
+                          ), // text
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 100),
-            alignment: Alignment.centerRight,
-            height: 70.0,
-            child: SizedBox.fromSize(
-              size: Size(70, 70), // button width and height
-              child: ClipOval(
-                child: Material(
-                  color: Colors.cyan[300], // button color
-                  child: InkWell(
-                    splashColor: Colors.lime[200],
-                    // splash color
-                    onTap: () {
-                      showG6();
-                    },
-                    // button pressed
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "จมูก",
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.white,
-                              fontFamily: 'Prompt'),
-                        ), // text
-                      ],
+            Container(
+              margin: EdgeInsets.only(top: 100),
+              alignment: Alignment.centerRight,
+              height: 70.0,
+              child: SizedBox.fromSize(
+                size: Size(70, 70), // button width and height
+                child: ClipOval(
+                  child: Material(
+                    color: Colors.cyan[300], // button color
+                    child: InkWell(
+                      splashColor: Colors.lime[200],
+                      // splash color
+                      onTap: () {
+                        showG6();
+                      },
+                      // button pressed
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "จมูก",
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                                fontFamily: 'Prompt'),
+                          ), // text
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 180, left: 280),
-            alignment: Alignment.centerRight,
-            height: 70.0,
-            child: SizedBox.fromSize(
-              size: Size(70, 70), // button width and height
-              child: ClipOval(
-                child: Material(
-                  color: Colors.cyan[300], // button color
-                  child: InkWell(
-                    splashColor: Colors.lime[200],
-                    // splash color
-                    onTap: () {
-                      showG7();
-                    },
-                    // button pressed
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "ปาก",
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.white,
-                              fontFamily: 'Prompt'),
-                        ), // text
-                      ],
+            Container(
+              margin: EdgeInsets.only(top: 180, left: 280),
+              alignment: Alignment.centerRight,
+              height: 70.0,
+              child: SizedBox.fromSize(
+                size: Size(70, 70), // button width and height
+                child: ClipOval(
+                  child: Material(
+                    color: Colors.cyan[300], // button color
+                    child: InkWell(
+                      splashColor: Colors.lime[200],
+                      // splash color
+                      onTap: () {
+                        showG7();
+                      },
+                      // button pressed
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "ปาก",
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                                fontFamily: 'Prompt'),
+                          ), // text
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -758,214 +781,217 @@ class _CheckDiseaseState extends State<CheckDisease> {
   Visibility show2() {
     return Visibility(
       visible: !_isVisible2,
-      child: Stack(
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.only(top: 225, left: 15),
-            alignment: Alignment.topLeft,
-            height: 70.0,
-            child: SizedBox.fromSize(
-              size: Size(70, 70), // button width and height
-              child: ClipOval(
-                child: Material(
-                  color: Colors.cyan[300], // button color
-                  child: InkWell(
-                    splashColor: Colors.lime[200],
-                    // splash color
-                    onTap: () {
-                      showG();
-                    },
-                    // button pressed
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "เต้านม",
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.white,
-                              fontFamily: 'Prompt'),
-                        ), // text
-                      ],
+      child: Material(
+        color: Colors.pink[50].withOpacity(0.5),
+        child: Stack(
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(left: 15),
+              alignment: Alignment.topLeft,
+              height: 70.0,
+              child: SizedBox.fromSize(
+                size: Size(70, 70), // button width and height
+                child: ClipOval(
+                  child: Material(
+                    color: Colors.cyan[300], // button color
+                    child: InkWell(
+                      splashColor: Colors.lime[200],
+                      // splash color
+                      onTap: () {
+                        showG();
+                      },
+                      // button pressed
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "เต้านม",
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                                fontFamily: 'Prompt'),
+                          ), // text
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 150, left: 15),
-            alignment: Alignment.topLeft,
-            height: 70.0,
-            child: SizedBox.fromSize(
-              size: Size(70, 70), // button width and height
-              child: ClipOval(
-                child: Material(
-                  color: Colors.cyan[300], // button color
-                  child: InkWell(
-                    splashColor: Colors.lime[200],
-                    // splash color
-                    onTap: () {
-                      showG8();
-                    },
-                    // button pressed
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "คอ",
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.white,
-                              fontFamily: 'Prompt'),
-                        ), // text
-                      ],
+            Container(
+              margin: EdgeInsets.only(top: 75, left: 15),
+              alignment: Alignment.topLeft,
+              height: 70.0,
+              child: SizedBox.fromSize(
+                size: Size(70, 70), // button width and height
+                child: ClipOval(
+                  child: Material(
+                    color: Colors.cyan[300], // button color
+                    child: InkWell(
+                      splashColor: Colors.lime[200],
+                      // splash color
+                      onTap: () {
+                        showG8();
+                      },
+                      // button pressed
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "คอ",
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                                fontFamily: 'Prompt'),
+                          ), // text
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 225, right: 15),
-            alignment: Alignment.centerRight,
-            height: 70.0,
-            child: SizedBox.fromSize(
-              size: Size(70, 70), // button width and height
-              child: ClipOval(
-                child: Material(
-                  color: Colors.cyan[300], // button color
-                  child: InkWell(
-                    splashColor: Colors.lime[200],
-                    // splash color
-                    onTap: () {
-                      showG11();
-                    },
-                    // button pressed
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "กระเพาะ",
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.white,
-                              fontFamily: 'Prompt'),
-                        ),
-                        Text(
-                          "ลำไส้",
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.white,
-                              fontFamily: 'Prompt'),
-                        ),
-                      ],
+            Container(
+              margin: EdgeInsets.only(right: 15),
+              alignment: Alignment.centerRight,
+              height: 70.0,
+              child: SizedBox.fromSize(
+                size: Size(70, 70), // button width and height
+                child: ClipOval(
+                  child: Material(
+                    color: Colors.cyan[300], // button color
+                    child: InkWell(
+                      splashColor: Colors.lime[200],
+                      // splash color
+                      onTap: () {
+                        showG11();
+                      },
+                      // button pressed
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "กระเพาะ",
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                                fontFamily: 'Prompt'),
+                          ),
+                          Text(
+                            "ลำไส้",
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                                fontFamily: 'Prompt'),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 300, left: 15),
-            alignment: Alignment.centerLeft,
-            height: 70.0,
-            child: SizedBox.fromSize(
-              size: Size(70, 70), // button width and height
-              child: ClipOval(
-                child: Material(
-                  color: Colors.cyan[300], // button color
-                  child: InkWell(
-                    splashColor: Colors.lime[200],
-                    // splash color
-                    onTap: () {
-                      showG13();
-                    },
-                    // button pressed
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "อก",
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.white,
-                              fontFamily: 'Prompt'),
-                        ), // text
-                      ],
+            Container(
+              margin: EdgeInsets.only(top: 150, left: 15),
+              alignment: Alignment.centerLeft,
+              height: 70.0,
+              child: SizedBox.fromSize(
+                size: Size(70, 70), // button width and height
+                child: ClipOval(
+                  child: Material(
+                    color: Colors.cyan[300], // button color
+                    child: InkWell(
+                      splashColor: Colors.lime[200],
+                      // splash color
+                      onTap: () {
+                        showG13();
+                      },
+                      // button pressed
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "อก",
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                                fontFamily: 'Prompt'),
+                          ), // text
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 150, right: 15),
-            alignment: Alignment.centerRight,
-            height: 70.0,
-            child: SizedBox.fromSize(
-              size: Size(70, 70), // button width and height
-              child: ClipOval(
-                child: Material(
-                  color: Colors.cyan[300], // button color
-                  child: InkWell(
-                    splashColor: Colors.lime[200],
-                    // splash color
-                    onTap: () {
-                      showG9();
-                    },
-                    // button pressed
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "ไหล่",
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.white,
-                              fontFamily: 'Prompt'),
-                        ), // text
-                      ],
+            Container(
+              margin: EdgeInsets.only(top: 75, right: 15),
+              alignment: Alignment.centerRight,
+              height: 70.0,
+              child: SizedBox.fromSize(
+                size: Size(70, 70), // button width and height
+                child: ClipOval(
+                  child: Material(
+                    color: Colors.cyan[300], // button color
+                    child: InkWell(
+                      splashColor: Colors.lime[200],
+                      // splash color
+                      onTap: () {
+                        showG9();
+                      },
+                      // button pressed
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "ไหล่",
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                                fontFamily: 'Prompt'),
+                          ), // text
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 300, right: 15),
-            alignment: Alignment.centerRight,
-            height: 70.0,
-            child: SizedBox.fromSize(
-              size: Size(70, 70), // button width and height
-              child: ClipOval(
-                child: Material(
-                  color: Colors.cyan[300], // button color
-                  child: InkWell(
-                    splashColor: Colors.lime[200],
-                    // splash color
-                    onTap: () {
-                      showG10();
-                    },
-                    // button pressed
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "เอว",
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.white,
-                              fontFamily: 'Prompt'),
-                        ), // text
-                      ],
+            Container(
+              margin: EdgeInsets.only(top: 150, right: 15),
+              alignment: Alignment.centerRight,
+              height: 70.0,
+              child: SizedBox.fromSize(
+                size: Size(70, 70), // button width and height
+                child: ClipOval(
+                  child: Material(
+                    color: Colors.cyan[300], // button color
+                    child: InkWell(
+                      splashColor: Colors.lime[200],
+                      // splash color
+                      onTap: () {
+                        showG10();
+                      },
+                      // button pressed
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "เอว",
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                                fontFamily: 'Prompt'),
+                          ), // text
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -973,148 +999,118 @@ class _CheckDiseaseState extends State<CheckDisease> {
   Visibility show3() {
     return Visibility(
       visible: !_isVisible3,
-      child: Stack(
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.only(top: 360, right: 20),
-            alignment: Alignment.bottomRight,
-            height: 70.0,
-            child: SizedBox.fromSize(
-              size: Size(70, 70), // button width and height
-              child: ClipOval(
-                child: Material(
-                  color: Colors.cyan[300], // button color
-                  child: InkWell(
-                    splashColor: Colors.lime[200],
-                    // splash color
-                    onTap: () {
-                      showG2();
-                    },
-                    // button pressed
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "อวัยวะ",
-                          style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.white,
-                              fontFamily: 'Prompt'),
-                        ),
-                        Text(
-                          "สืบพันธุ์",
-                          style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.white,
-                              fontFamily: 'Prompt'),
-                        ), // text
-                      ],
+      child: Material(
+        color: Colors.pink[50].withOpacity(0.5),
+        child: Stack(
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(top: 30, right: 20),
+              alignment: Alignment.bottomRight,
+              height: 70.0,
+              child: SizedBox.fromSize(
+                size: Size(70, 70), // button width and height
+                child: ClipOval(
+                  child: Material(
+                    color: Colors.cyan[300], // button color
+                    child: InkWell(
+                      splashColor: Colors.lime[200],
+                      // splash color
+                      onTap: () {
+                        showG2();
+                      },
+                      // button pressed
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "อวัยวะ",
+                            style: TextStyle(
+                                fontSize: 13,
+                                color: Colors.white,
+                                fontFamily: 'Prompt'),
+                          ),
+                          Text(
+                            "สืบพันธุ์",
+                            style: TextStyle(
+                                fontSize: 13,
+                                color: Colors.white,
+                                fontFamily: 'Prompt'),
+                          ), // text
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 360, left: 20),
-            alignment: Alignment.bottomLeft,
-            height: 70.0,
-            child: SizedBox.fromSize(
-              size: Size(70, 70), // button width and height
-              child: ClipOval(
-                child: Material(
-                  color: Colors.cyan[300], // button color
-                  child: InkWell(
-                    splashColor: Colors.lime[200],
-                    // splash color
-                    onTap: () {
-                      showG14();
-                    },
-                    // button pressed
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "มือและขา",
-                          style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.white,
-                              fontFamily: 'Prompt'),
-                        ), // text
-                      ],
+            Container(
+              margin: EdgeInsets.only(top: 30, left: 20),
+              alignment: Alignment.bottomLeft,
+              height: 70.0,
+              child: SizedBox.fromSize(
+                size: Size(70, 70), // button width and height
+                child: ClipOval(
+                  child: Material(
+                    color: Colors.cyan[300], // button color
+                    child: InkWell(
+                      splashColor: Colors.lime[200],
+                      // splash color
+                      onTap: () {
+                        showG14();
+                      },
+                      // button pressed
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "มือและขา",
+                            style: TextStyle(
+                                fontSize: 13,
+                                color: Colors.white,
+                                fontFamily: 'Prompt'),
+                          ), // text
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 450, right: 20),
-            alignment: Alignment.bottomRight,
-            height: 70.0,
-            child: SizedBox.fromSize(
-              size: Size(70, 70), // button width and height
-              child: ClipOval(
-                child: Material(
-                  color: Colors.cyan[300], // button color
-                  child: InkWell(
-                    splashColor: Colors.lime[200],
-                    // splash color
-                    onTap: () {
-                      showG16();
-                    },
-                    // button pressed
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "ผิว",
-                          style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.white,
-                              fontFamily: 'Prompt'),
-                        ), // text
-                      ],
+            Container(
+              margin: EdgeInsets.only(top: 120, right: 20),
+              alignment: Alignment.bottomRight,
+              height: 70.0,
+              child: SizedBox.fromSize(
+                size: Size(70, 70), // button width and height
+                child: ClipOval(
+                  child: Material(
+                    color: Colors.cyan[300], // button color
+                    child: InkWell(
+                      splashColor: Colors.lime[200],
+                      // splash color
+                      onTap: () {
+                        showG16();
+                      },
+                      // button pressed
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "ผิว",
+                            style: TextStyle(
+                                fontSize: 13,
+                                color: Colors.white,
+                                fontFamily: 'Prompt'),
+                          ), // text
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-          // Container(
-          //   margin: EdgeInsets.only(top: 450, left: 20),
-          //   alignment: Alignment.centerLeft,
-          //   height: 70.0,
-          //   child: SizedBox.fromSize(
-          //     size: Size(70, 70), // button width and height
-          //     child: ClipOval(
-          //       child: Material(
-          //         color: Colors.cyan[300], // button color
-          //         child: InkWell(
-          //           splashColor: Colors.lime[200],
-          //           // splash color
-          //           onTap: () {
-          //             showG15();
-          //           },
-          //           // button pressed
-          //           child: Column(
-          //             mainAxisAlignment: MainAxisAlignment.center,
-          //             children: <Widget>[
-          //               Text(
-          //                 "ขา",
-          //                 style: TextStyle(
-          //                     fontSize: 13,
-          //                     color: Colors.white,
-          //                     fontFamily: 'Prompt'),
-          //               ), // text
-          //             ],
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          // ),
-        ],
+          ],
+        ),
       ),
     );
   }

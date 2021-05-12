@@ -14,9 +14,21 @@ class _AboutState extends State<About> {
     return Scaffold(
       backgroundColor: Color(0xFFFFFBFA),
       appBar: AppBar(
-        title: Text(
-          ' เกี่ยวกับแอปพลิเคชัน',
-          style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+                padding: const EdgeInsets.only(left: 10),
+                child: Text(
+                  'เกี่ยวกับแอปพลิเคชัน',
+                  style: TextStyle(color: Colors.white, fontFamily: 'Prompt'),
+                )),
+            Image.asset(
+              './images/Untitled-1.png',
+              fit: BoxFit.contain,
+              height: 40,
+            )
+          ],
         ),
         backgroundColor: Colors.pinkAccent[100],
       ),
@@ -28,7 +40,7 @@ class _AboutState extends State<About> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SizedBox(
-                height: 30.0,
+                height: 10.0,
                 width: 200.0,
                 child: Divider(
                   color: Colors.white,
@@ -39,28 +51,28 @@ class _AboutState extends State<About> {
                 margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
                 child: Image.asset(
                   './images/9786160446599l.jpg',
-                  width:200,
-                  
+                  width: 200,
                 ),
               ),
               Card(
-                color: Colors.white,              
+                color: Colors.white,
                 child: Padding(
-              padding: const EdgeInsets.only(top: 20,bottom: 20),
-                child: ListTile(
-                    leading: Icon(
-                      Icons.book,
-                      color: Colors.red,
-                    ),
-                    title: Text(
-                      'ข้อมูลในแอปพลิเคชั่นนี้อ้างอิงจาก หนังสือสุขภาพผู้หญิงตรวจเองได้ง่ายนิดเดียว (ผู้เขียน Akiyoshi Uchiyama, 2560)',
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        color: Colors.black,
-                        fontFamily: 'Prompt',
+                  padding: const EdgeInsets.only(top: 20, bottom: 30),
+                  child: ListTile(
+                      leading: Icon(
+                        Icons.book,
+                        color: Colors.red,
                       ),
-                    )),
-              ),),
+                      title: Text(
+                        'ข้อมูลในแอปพลิเคชันนี้อ้างอิงจาก หนังสือสุขภาพผู้หญิงตรวจเองได้ง่ายนิดเดียว (ผู้เขียน Akiyoshi Uchiyama, 2560)',
+                        style: TextStyle(
+                          fontSize: 15.0,
+                          color: Colors.black,
+                          fontFamily: 'Prompt',
+                        ),
+                      )),
+                ),
+              ),
             ],
           ),
         ),

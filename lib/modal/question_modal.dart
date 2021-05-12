@@ -59,7 +59,7 @@ class Question {
     doctorname = json['doctorname'];
     office = json['office'];
     userlevel = json['userlevel'];
-    cOUNTAnswerId = json['COUNT(answer_id)'];
+    cOUNTAnswerId = json['ans'];
   }
 
   Map<String, dynamic> toJson() {
@@ -79,7 +79,7 @@ class Question {
     data['doctorname'] = this.doctorname;
     data['office'] = this.office;
     data['userlevel'] = this.userlevel;
-    data['COUNT(answer_id)'] = this.cOUNTAnswerId;
+    data['ans'] = this.cOUNTAnswerId;
     return data;
   }
 }
