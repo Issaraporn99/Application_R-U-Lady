@@ -499,7 +499,7 @@ class _ShowSymState extends State<ShowSym> {
     print('res=$response');
     if (response.toString() == 'null') {
       setState(() {
-        // cDis2 = 0;
+        getDis2();
         print("cDis null=$cDis");
       });
     } else {
@@ -885,6 +885,7 @@ class _ShowSymState extends State<ShowSym> {
           setState(() {
             if (a == "2") {
               symptomName = "...";
+              noBf();
             } else {
               symptomName = sn;
             } //coutsymmmm()
